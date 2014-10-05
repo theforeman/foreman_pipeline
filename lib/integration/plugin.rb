@@ -4,7 +4,8 @@ Foreman::Plugin.register :integration do
     menu :top_menu,
          :integration,       
          :caption => N_("Integration"),
-         :url_hash => {:controller => 'integration/basic', :action => 'home'},
+         :url => '/abcde/repos',
+         :url_hash => {:controller => 'integration/api/repositories', :action => 'index'},
          :engine => Integration::Engine       
   end
 end

@@ -9,5 +9,9 @@ module Integration
     initializer 'integration.register_plugin', :after => :finisher_hook do
       require 'integration/plugin'
     end 
+
+    initializer 'integration.load_migrations' do |app|
+      app.config.paths['db/migrate'] += Integration::Engine.paths['db/migrate'].existent
+    end
   end
 end
