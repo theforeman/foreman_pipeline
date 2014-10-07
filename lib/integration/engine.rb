@@ -8,6 +8,7 @@ module Integration
 
     initializer 'integration.register_plugin', :after => :finisher_hook do
       require 'integration/plugin'
+      # require 'integration/permissions'
     end 
 
     initializer 'integration.load_migrations' do |app|
