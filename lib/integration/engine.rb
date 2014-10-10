@@ -13,6 +13,7 @@ module Integration
 
     initializer 'integration.load_migrations' do |app|
       app.config.paths['db/migrate'] += Integration::Engine.paths['db/migrate'].existent
+      
     end
   end
 end

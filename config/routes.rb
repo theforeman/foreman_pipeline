@@ -3,12 +3,17 @@ Integration::Engine.routes.draw do
 
   scope :integration, :path => '/integration' do
     
-    resources :job do
-      collection do
-        get :content_view
-        get :hostgroup
+    namespace :api do
+      
+      resources :jobs do
+        collection do
+          get :content_view
+          get :hostgroup
+        end
       end
+
     end
+    
 
   end  
   # resources :repositories, :only => [:index]
