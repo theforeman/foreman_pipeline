@@ -1,4 +1,4 @@
-require '../plugin'
+require 'integration/plugin'
 
 Foreman::Plugin.find(:integration).security_block :jobs do
   permission :view_jobs,

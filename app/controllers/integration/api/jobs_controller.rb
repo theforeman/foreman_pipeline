@@ -8,15 +8,15 @@ module Integration
     before_filter :find_job, :only => [:update, :show, :destroy]
 
     def index
-      # ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
-      # filters = [:terms => {:id => ids}]
+       # ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
+       filters = []#[:terms => {:id => ids}]
       # filters << {:terms => {:content_view => [params[:content_view]] }} if params[:content_view]
 
       options = {
-        # :filters => filters,
-        # :load_records? => true
+         :filters => filters,
+         :load_records? => true
       }
-      # binding.pry
+       
       respond_for_index(:collection => item_search(Job, params, options))
     end
 
