@@ -10,8 +10,8 @@ module Integration
     belongs_to :hostgroup
     belongs_to :organization
     
-    validates :content_view, :presence => true
-    validates :hostgroup, :presence => true
+    # validates :content_view, :presence => true
+    # validates :hostgroup, :presence => true
     validates :name, :presence => true
     validates :organization, :presence => true
 
