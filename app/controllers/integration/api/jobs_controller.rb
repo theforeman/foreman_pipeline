@@ -4,7 +4,7 @@ module Integration
 
     include Api::Rendering
 
-    # before_filter :find_organization, :only => [:create, :index]
+    before_filter :find_organization, :only => [:create, :index]
     before_filter :find_job, :only => [:update, :show, :destroy]
 
     def index

@@ -12,7 +12,7 @@ Integration::Engine.routes.draw do
     namespace :api do
     
     api_resources :organizations, :only => [] do  
-      resources :jobs do
+      api_resources :jobs do
         collection do
           get :content_view
           get :hostgroup
