@@ -7,7 +7,7 @@ end
 Integration::Engine.routes.draw do
   
 
-  scope :integration, :path => '/integration' do
+  scope :katello, :path => '/katello' do
     
     namespace :api do
     
