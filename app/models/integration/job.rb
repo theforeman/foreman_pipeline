@@ -5,6 +5,7 @@ module Integration
 
     include Katello::Glue
     include Glue::ElasticSearch::Job
+    include Integration::Authorization::Job
 
     belongs_to :content_view, :class_name => 'Katello::ContentView'
     belongs_to :hostgroup

@@ -8,9 +8,9 @@ module Integration
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view]
 
     def index
-       # ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
-       filters = []#[:terms => {:id => ids}]
-      # filters << {:terms => {:content_view => [params[:content_view]] }} if params[:content_view]
+       ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
+       filters = [:terms => {:id => ids}]
+       filters << {:terms => {:content_view => [params[:content_view]] }} if params[:content_view]
 
       options = {
          :filters => filters,
