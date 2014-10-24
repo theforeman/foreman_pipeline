@@ -13,8 +13,8 @@ Integration::Engine.routes.draw do
     
     api_resources :organizations, :only => [] do  
       api_resources :jobs do
-        collection do
-          get :content_view
+        member do
+          put :set_content_view
           get :hostgroup
         end
       end

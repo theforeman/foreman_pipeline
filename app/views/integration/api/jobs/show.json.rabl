@@ -1,8 +1,8 @@
 object @resource
 
-attributes :id, :name
+attributes :id, :name, :organization_id
 
-extends "katello/api/v2/common/org_reference"
+#extends "katello/api/v2/common/org_reference"
 
 child :content_view => :content_view do
   extends "katello/api/v2/content_views/show"

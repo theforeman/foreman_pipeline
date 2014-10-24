@@ -5,7 +5,7 @@ module Integration
     include Api::Rendering
 
     before_filter :find_organization, :only => [:create, :index]
-    before_filter :find_job, :only => [:update, :show, :destroy]
+    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view]
 
     def index
        # ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
@@ -44,6 +44,11 @@ module Integration
       respond_for_show(:resource => @job)
     end
 
+    def set_content_view
+      @job.content_view = Katello::ContentView.find(params[:content_view_id])
+      @job.save!
+      respond_for_show
+    end
 
     protected
 
@@ -54,7 +59,7 @@ module Integration
     end
 
     def job_params
-      params.require(:job).permit(:name, :content_view, :hostgroup)
+      params.require(:job).permit(:name, :content_view_id, :hostgroup_id)
     end
   end
 end
