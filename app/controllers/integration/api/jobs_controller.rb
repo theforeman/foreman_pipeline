@@ -5,7 +5,7 @@ module Integration
     include Api::Rendering
 
     before_filter :find_organization, :only => [:create, :index]
-    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view]
+    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup]
 
     def index
        ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
@@ -46,6 +46,12 @@ module Integration
 
     def set_content_view
       @job.content_view = Katello::ContentView.find(params[:content_view_id])
+      @job.save!
+      respond_for_show
+    end
+
+    def set_hostgroup
+      @job.hostgroup = Hostgroup.find(params[:hostgroup_id])
       @job.save!
       respond_for_show
     end

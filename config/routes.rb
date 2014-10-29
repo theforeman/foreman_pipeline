@@ -7,7 +7,7 @@ end
 Integration::Engine.routes.draw do
   
 
-  scope :katello, :path => '/katello' do
+  scope :integration, :path => '/integration' do
     
     namespace :api do
     
@@ -15,7 +15,7 @@ Integration::Engine.routes.draw do
       api_resources :jobs do
         member do
           put :set_content_view
-          get :hostgroup
+          put :set_hostgroup
         end
       end
     end
