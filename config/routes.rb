@@ -18,6 +18,8 @@ Integration::Engine.routes.draw do
           put :set_hostgroup
         end
       end
+
+      api_resources :tests
     end
 
     end
