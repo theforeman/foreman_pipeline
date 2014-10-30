@@ -28,11 +28,15 @@ module Integration
       @test = Test.new(test_params)
       @test.organization = @organization
       @test.save!
+
+      respond_for_show(:resource => @test)
     end
 
     def update
       @test.update_attributes!(test_params)
       @test.save!
+
+      respond_for_show(:resource => @test)
     end
 
     def destroy

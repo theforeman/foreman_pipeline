@@ -8,5 +8,7 @@ module Integration
 
     validates :name, :presence => true
     validates :organization, :presence => true
+
+    belongs_to :organization 
   end
 end
