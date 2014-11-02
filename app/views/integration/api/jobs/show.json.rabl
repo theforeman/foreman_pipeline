@@ -11,3 +11,7 @@ end
 child :hostgroup => :hostgroup do
   extends "api/v2/hostgroups/show"
 end
+
+child :tests => :tests do |test|
+  extends "integration/api/tests/show"
+end

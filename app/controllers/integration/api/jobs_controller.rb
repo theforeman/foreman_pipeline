@@ -4,8 +4,9 @@ module Integration
 
     include Api::Rendering
 
-    before_filter :find_organization, :only => [:create, :index]
-    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup]
+    before_filter :find_organization, :only => [:create, :index, :available_tests]
+    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests, :add_tests, :remove_tests]
+    before_filter :load_search_service, :only => [:index, :available_tests]
 
     def index
        ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
@@ -52,6 +53,37 @@ module Integration
 
     def set_hostgroup
       @job.hostgroup = Hostgroup.find(params[:hostgroup_id])
+      @job.save!
+      respond_for_show
+    end
+
+    def remove_tests
+      ids = params[:test_ids]
+      @tests = Test.where(:id => ids)
+      @job.test_ids = (@job.test_ids - @tests.map {|t| t.id}).uniq
+      @job.save!
+      respond_for_show
+    end
+
+    def available_tests
+      ids = Test.where(:organization_id => @organization).readable.map(&:id)
+
+      filters = [:terms => {:id => ids - @job.test_ids}]
+      filters << {:term => {:name => params[:name]}} if params[:name]
+
+      options = {
+        :filters => filters,
+        :load_records? => true 
+      }
+
+      tests = item_search(Test, params, options)
+      respond_for_index(:collection => tests)
+    end
+
+    def add_tests
+      ids = params[:test_ids]
+      @tests = Test.where(:id => ids)
+      @job.test_ids = (@job.test_ids + @tests.map {|t| t.id}).uniq
       @job.save!
       respond_for_show
     end
