@@ -1,4 +1,4 @@
-angular.module('Integration.integration').controller('JobDetailsController',
+angular.module('Integration.jobs').controller('JobDetailsController',
     ['$scope', '$state', 'Job', function ($scope, $state, Job) {
 
         

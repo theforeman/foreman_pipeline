@@ -1,4 +1,4 @@
-angular.module('Integration.integration').controller('JobDetailsToEnvironmentController',
+angular.module('Integration.jobs').controller('JobDetailsToEnvironmentController',
     ['$scope', 
         function ($scope) {
 

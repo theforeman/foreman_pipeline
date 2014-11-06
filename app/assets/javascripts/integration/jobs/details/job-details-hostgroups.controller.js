@@ -1,4 +1,4 @@
-angular.module('Integration.integration').controller('JobDetailsHostgroupsController',
+angular.module('Integration.jobs').controller('JobDetailsHostgroupsController',
     ['$scope', '$q', '$location', 'translate', 'Job', 'Hostgroup', 'Nutupane', 
         function ($scope, $q, $location, translate, Job, Hostgroup, Nutupane) {
 

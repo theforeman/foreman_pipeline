@@ -1,4 +1,4 @@
-angular.module('Integration.integration').factory('Job',
+angular.module('Integration.jobs').factory('Job',
     ['BastionResource', 'CurrentOrganization',
     function (BastionResource, CurrentOrganization) {
 
@@ -20,23 +20,11 @@ angular.module('Integration.integration').factory('Job',
     }]
 );
 
-angular.module('Integration.integration').factory('Hostgroup',
+angular.module('Integration.jobs').factory('Hostgroup',
     ['BastionResource', 'CurrentOrganization',
     function (BastionResource, CurrentOrganization) {
 
         return BastionResource('/../api/v2/hostgroups/:id/:action',
             {id: '@id', organizationId: CurrentOrganization}, {});
-    }]
-);
-
-angular.module('Integration.integration').factory('Test',
-    ['BastionResource', 'CurrentOrganization',
-    function (BastionResource, CurrentOrganization) {
-
-        return BastionResource('/../integration/api/organizations/:organizationId/tests/:id/:action',
-            {id: '@id', organizationId: CurrentOrganization}, {
-
-                update: {method: 'PUT'}
-            })
     }]
 );

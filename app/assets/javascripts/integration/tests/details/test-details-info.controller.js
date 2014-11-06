@@ -1,4 +1,4 @@
-angular.module('Integration.integration').controller('TestDetailsInfoController', 
+angular.module('Integration.tests').controller('TestDetailsInfoController', 
     ['$scope', '$q', 'translate', 'Test',
     function ($scope, $q, translate, Test) {
 

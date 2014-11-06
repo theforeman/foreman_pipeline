@@ -1,4 +1,4 @@
-angular.module('Integration.integration').controller('NewTestController',
+angular.module('Integration.tests').controller('NewTestController',
     ['$scope', 'translate', 'Test', 
     function ($scope, translate, Test) {
 

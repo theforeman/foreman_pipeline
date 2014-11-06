@@ -1,4 +1,4 @@
-angular.module('Integration.integration').controller('JobDetailsTestsListController', 
+angular.module('Integration.jobs').controller('JobDetailsTestsListController', 
     ['$scope', '$q', '$location', 'translate', 'Nutupane', 'Job',
         function ($scope, $q, $location, translate, Nutupane, Job) {
 

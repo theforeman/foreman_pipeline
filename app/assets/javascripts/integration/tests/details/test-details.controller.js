@@ -1,4 +1,4 @@
-angular.module('Integration.integration').controller('TestDetailsController', 
+angular.module('Integration.tests').controller('TestDetailsController', 
     ['$scope', '$state', 'Test', 
     function ($scope, $state, Test) {
 
