@@ -6,14 +6,34 @@ module Integration
       app.routes_reloader.paths << "#{Integration::Engine.root}/config/mount_engine.rb"
     end
 
+    initializer 'integration.load_migrations' do |app|
+      app.config.paths['db/migrate'] += Integration::Engine.paths['db/migrate'].existent      
+    end
+
     initializer 'integration.register_plugin', :after => :finisher_hook do
       require 'integration/plugin'
       require 'integration/permissions'
     end 
 
-    initializer 'integration.load_migrations' do |app|
-      app.config.paths['db/migrate'] += Integration::Engine.paths['db/migrate'].existent
-      
+    initializer 'integration.assets', :group => :all do |app|
+      SETTINGS[:integration] = {
+        :assets => {
+          :precompile => [
+            'integration/integration.js'
+          ]
+        }
+      }
     end
+
+    config.to_prepare do
+      Bastion.register_plugin({
+        :name => 'integration',
+        :javascript => 'integration/integration',
+        :pages => %w(
+            jobs
+            tests
+          )
+        })
+    end   
   end
 end

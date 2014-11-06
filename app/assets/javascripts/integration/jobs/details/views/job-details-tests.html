@@ -1,0 +1,28 @@
+<span page-title ng-model="job">{{ 'Tests for Job: ' | translate }}{{ job.name }}</span>
+
+<h4 translate>Test selection</h4>
+
+<div class="fr">
+  <button class="btn btn-default" ui-sref="jobs.details.tests.new-test">
+    <i class="icon-file-alt"></i>
+    {{ 'New Test' | translate }}
+  </button>
+</div>
+
+<nav>
+  <ul class="nav nav-tabs">
+    <li ng-class="{active: isState('jobs.details.tests.list')}">
+      <a ui-sref="jobs.details.tests.list">
+        <span translate>List/Remove</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isState('jobs.details.tests.available')}">
+      <a ui-sref="jobs.details.tests.available">
+        <span translate>Add</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div ui-view></div>

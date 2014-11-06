@@ -1,0 +1,17 @@
+<form name="jobForm" class="form-horizontal" novalidate role="form">
+  <div alch-form-group label="{{ 'Name' | translate }}">
+    <input id="name"
+           name="name"
+           ng-model="job.name"
+           type="text"
+           tabindex="1"
+           autofocus
+           required/>
+  </div>
+
+  <div alch-form-buttons
+        on-cancel="transitionBack()"
+        on-save="createJob(job)"
+        working="working">
+  </div>
+</form>

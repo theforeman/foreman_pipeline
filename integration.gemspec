@@ -13,11 +13,12 @@ Gem::Specification.new do |s|
   s.summary     = ""
   s.description = "Plugin"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE.txt", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails"
   s.add_dependency "rabl"
+  s.add_dependency "bastion"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"

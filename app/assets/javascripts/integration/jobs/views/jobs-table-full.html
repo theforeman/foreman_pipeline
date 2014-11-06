@@ -1,0 +1,43 @@
+<p class="alert alert-info" ng-show="jobsTable.rows.lenght === 0" translate>
+  You currently do not have any Jobs. You can add Jobs using the button on the right.
+</p>
+
+<table class="table table-striped"
+        ng-class="{'table-mask' : jobsTable.working}"
+        ng-show="jobsTable.rows.length > 0">
+  <thead>
+    <tr alch-table-head row-select>
+      <th alch-table-column="name" sortable><span translate>Name</span></th>
+      <th alch-table-column="content_view"><span translate>Content View</span></th>
+      <th alch-table-column="hostgroup"><span translate>Hostgroup</span></th>
+    </tr>
+  </thead>
+
+  <div data-extend-template="layouts/select-all-results.html"></div>
+
+  <tbody>
+    <tr alch-table-row ng-repeat="job in jobsTable.rows" row-select="job">
+      <td alch-table-cell>
+        <a ui-sref="jobs.details.info({jobId: job.id})">
+          <div>{{ job.name }}</div>
+        </a>
+      </td>
+      <td alch-table-cell>
+        <a ng-show="{{ job.content_view !== null }}"
+           ui-sref="content-views.details.info({ contentViewId: job.content_view.id })">                    
+          <div>{{ job.content_view.name }}</div>
+        </a>
+        <div ng-show="{{ job.content_view === null }}" translate>none</div>
+      </td>
+      <td alch-table-cell>
+        <a ng-show="{{ job.hostgroup !== null }}"
+           ng-click="transitionToHostgroup(job.hostgroup)">
+          <div>{{ job.hostgroup.name }}</div>
+        </a>
+                
+        <div ng-show="{{ job.hostgroup === null }}" translate>none</div>
+        
+      </td>
+    </tr>
+  </tbody> 
+</table>

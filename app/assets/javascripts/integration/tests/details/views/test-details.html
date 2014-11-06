@@ -1,0 +1,31 @@
+<span page-title ng-model="test">{{ 'Test: ' | translate }}{{ test.name }}</span>
+
+<div class="loading-mask loading-mask-panel" ng-show="panel.loading">
+  <i class="icon-spinner icon-spin"></i>
+  {{ 'Loading...' | translate }}
+</div>
+
+<section class="nutupane-details" ng-cloak alch-container-scroll>
+  <header class="details-header">
+    <h2 class="fl" translate>Test {{ test.name }}</h2>
+    <div class="fr">
+      <div alch-modal="deleteTest(test)" 
+           model="test"
+           modal-header='Remove Test "{{ test.name }}"?'
+           modal-body='Are you sure you want to remove Test "{{ test.name }}"?'>
+      </div>
+
+      <button class="btn btn-default" ng-click="openModal()" ng-hide="denied('destroy_test', test)">
+        <i class="icon-trash"></i>
+        {{ 'Remove Test' | translate }}
+      </button>
+
+      <button class="btn btn-default" ui-sref="tests.index">
+        <i class="icon-remove"></i>
+        {{ 'Close' | translate }}
+      </button>
+    </div>
+  </header>
+
+  <section class="nutupane-sub-section" ui-view></section>
+</section>

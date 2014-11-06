@@ -1,0 +1,64 @@
+<section class="nutupane-subsection">
+  
+  <div alch-alert success-messages="successMessages" error-messages="errorMessages"></div>
+
+  <div class="nutupane-bar">
+    <div class="col-sm-3">
+      <input type="text"
+             class="form-control"
+             placeholder="{{ 'Filter' | translate }}"
+             ng-model="testFilter"/> 
+    </div>
+
+    <div class="fr select-action">
+      <button class="btn btn-default"
+              ng-disabled="testsTable.numSelected === 0"
+              ng-show="isState('jobs.details.tests.list') && permitted('edit_jobs', job)"
+              ng-click="removeTests(job)">
+        <i class="icon-minus"></i>
+        <span translate>Remove Tests</span>
+      </button>
+
+      <button class="btn btn-default"
+              ng-disabled="testsTable.numSelected === 0"
+              ng-show="isState('jobs.details.tests.available') && permitted('edit_jobs', job)"
+              ng-click="addTests(job)">
+        <i class="icon-plus"></i>
+        <span translate>Add Tests</span>
+      </button>      
+    </div>
+  </div>
+
+  <div alch-table="testsTable" class="nutupane">
+    <div alch-container-scroll alch-infinite-scroll="testsTable.nextPage()">
+      
+      <div ng-show="testsTable.rows.length === 0">
+        <div class="loading-mask" ng-show="testsTable.working">
+          <i class="icon-spinner icon-spin"></i>
+          {{ 'Loading...' | translate }}
+        </div>
+        <p class="alert alert-info" ng-hide="testsTable.working" translate>No Tests to show</p>
+      </div>
+
+      <table ng-show="testsTable.rows.length > 0"
+             ng-class="{'table-mask': testsTable.working}"
+             class="table table-full table-striped">
+        
+        <thead>
+          <tr alch-table-head row-select="test">
+            <th alch-table-column="name" translate>Name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr alch-table-row ng-repeat="test in testsTable.rows | filter:testFilter" row-select="test">
+            <td alch-table-cell>
+              <a ui-sref="tests.details.info({testId: test.id})">{{ test.name }}</a>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</section>

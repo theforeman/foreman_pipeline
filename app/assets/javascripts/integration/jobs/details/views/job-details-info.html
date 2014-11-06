@@ -1,0 +1,17 @@
+<span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
+
+<div alch-alert success-messages="successMessages" error-messages="errorMessages"></div>
+
+<div class="details fl">
+  <section>
+    <h4 translate>Basic information</h4>
+
+    <div class="detail">
+      <span class="info-label" translate>Name</span>
+      <span class="info-value"
+            alch-edit-text="job.name"
+            on-save="save(job)">
+      </span>
+    </div>
+  </section>
+</div>
