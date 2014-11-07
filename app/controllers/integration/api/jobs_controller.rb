@@ -22,6 +22,7 @@ module Integration
     end
 
     def show
+      # binding.pry
       respond_for_show(:resource => @job)
     end
 

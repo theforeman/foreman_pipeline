@@ -26,6 +26,7 @@ module Integration
     end
 
     config.to_prepare do
+      
       Bastion.register_plugin({
         :name => 'integration',
         :javascript => 'integration/integration',
@@ -34,6 +35,12 @@ module Integration
             tests
           )
         })
-    end   
+
+      # extensions
+      ::Katello::Repository.send :include, Integration::Concerns::RepositoryExtension
+      ::Katello::ContentViewRepository.send :include, Integration::Concerns::ContentViewRepositoryExtension
+
+    end
+       
   end
 end
