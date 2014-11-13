@@ -25,6 +25,14 @@ module Integration
       }
     end
 
+    initializer 'integration.register_actions', :before => 'foreman_tasks.initialize_dynflow' do |app|
+      ForemanTasks.dynflow.require!
+
+      action_paths = %W(#{Integration::Engine.root}/app/lib/actions)
+      
+      ForemanTasks.dynflow.config.eager_load_paths.concat(action_paths)
+    end
+
     config.to_prepare do
       
       Bastion.register_plugin({
