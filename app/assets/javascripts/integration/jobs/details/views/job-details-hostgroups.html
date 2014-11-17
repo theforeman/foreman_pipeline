@@ -25,7 +25,7 @@
       </span>
         <button class="btn btn-default"
                 ng-hide="edit_jobs"
-                ng-disabled="!hostgroupsTable.getChosen() || hostgroupsTable.working"
+                ng-disabled="!hostgroupsTable.chosenRow || hostgroupsTable.working"
                 ng-click="setHostgroup()">
           <i class="icon-pencil"></i>
           {{ 'Set Hostgroup' | translate }}

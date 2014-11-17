@@ -44,7 +44,7 @@
 
       <button class="btn btn-default"
               ng-hide="denied('edit_jobs')"
-              ng-disabled=" !cvTable.getChosen() || cvTable.working " 
+              ng-disabled=" !cvTable.chosenRow || cvTable.working " 
               ng-click="setContentView()">
         <i class="icon-pencil"></i>      
         {{ 'Set Content View' | translate }}
