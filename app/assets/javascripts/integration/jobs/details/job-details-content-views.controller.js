@@ -26,7 +26,7 @@ angular.module('Integration.jobs').controller('JobDetailsContentViewsController'
                     error,
                     deferred = $q.defer();
 
-                    $scope.chosen = $scope.cvTable.getChosen();
+                    $scope.chosen = $scope.cvTable.chosenRow;
                     data = {content_view_id: $scope.chosen.id};
 
                     success = function (response) {

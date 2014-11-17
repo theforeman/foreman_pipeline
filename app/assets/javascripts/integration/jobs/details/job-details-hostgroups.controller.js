@@ -24,7 +24,7 @@ angular.module('Integration.jobs').controller('JobDetailsHostgroupsController',
                     error,
                     deferred = $q.defer();
 
-                    $scope.chosen = $scope.hostgroupsTable.getChosen();
+                    $scope.chosen = $scope.hostgroupsTable.chosenRow;
                     data = {hostgroup_id: $scope.chosen.id};
 
                     success = function (response) {
