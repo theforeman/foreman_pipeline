@@ -16,6 +16,7 @@ Integration::Engine.routes.draw do
         member do
           put :set_content_view
           put :set_hostgroup
+          put :set_resource
           put :remove_tests
           get :available_tests
           put :add_tests

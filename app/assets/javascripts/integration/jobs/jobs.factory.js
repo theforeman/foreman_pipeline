@@ -8,6 +8,7 @@ angular.module('Integration.jobs').factory('Job',
             update: {method: 'PUT'},
             setContentView: {method: 'PUT', params: {action: 'set_content_view'}},
             setHostgroup: {method: 'PUT', params: {action: 'set_hostgroup'}},
+            setResource: {method: 'PUT', params: {action: 'set_resource'}},
             removeTests: {method: 'PUT', params: {action: 'remove_tests'}},
             addTests: {method: 'PUT', params: {action: 'add_tests'}},
             availableTests: {method: 'GET', params: {action: 'available_tests'}},
@@ -21,10 +22,19 @@ angular.module('Integration.jobs').factory('Job',
 );
 
 angular.module('Integration.jobs').factory('Hostgroup',
-    ['BastionResource', 'CurrentOrganization',
-    function (BastionResource, CurrentOrganization) {
+    ['BastionResource',
+    function (BastionResource) {
 
         return BastionResource('/../api/v2/hostgroups/:id/:action',
-            {id: '@id', organizationId: CurrentOrganization}, {});
+            {id: '@id'}, {});
+    }]
+);
+
+angular.module('Integration.jobs').factory('CompResource',
+    ['BastionResource',
+    function (BastionResource) {
+
+        return BastionResource('/../api/v2/compute_resources/:id/:action',
+            {id: '@id'}, {});
     }]
 );

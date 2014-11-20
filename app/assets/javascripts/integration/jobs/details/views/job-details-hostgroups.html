@@ -1,7 +1,7 @@
-<span page-title ng-model="job">{{ 'Job: ' | translate }}</span>
+<span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
 <section class="nutupane-subsection">
-  <div alch-alert success-messages="successMessages" errorMessages="errorMessages"></div>
+  <div alch-alert success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
     <span translate>Current Hostgroup: </span>

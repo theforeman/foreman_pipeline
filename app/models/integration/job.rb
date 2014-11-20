@@ -10,7 +10,7 @@ module Integration
     belongs_to :content_view, :class_name => 'Katello::ContentView'
     belongs_to :hostgroup
     belongs_to :organization
-
+    belongs_to :compute_resource
     # rubocop:disable HasAndBelongsToMany
     has_and_belongs_to_many :tests, :join_table => :integration_jobs_tests
 

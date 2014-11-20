@@ -15,7 +15,7 @@ angular.module('Integration.jobs').controller('JobDetailsHostgroupsController',
                 $scope.panel.loading = false;
             })
 
-            var nutupane = new Nutupane(Hostgroup, {foremanResource: true});
+            var nutupane = new Nutupane(Hostgroup);
             $scope.nutupane = nutupane;
             $scope.hostgroupsTable = nutupane.table;
 

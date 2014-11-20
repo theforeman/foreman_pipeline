@@ -5,7 +5,7 @@ module Integration
     include Api::Rendering
 
     before_filter :find_organization, :only => [:create, :index, :available_tests]
-    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests, :add_tests, :remove_tests]
+    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests, :add_tests, :remove_tests, :set_resource]
     before_filter :load_search_service, :only => [:index, :available_tests]
 
     def index
@@ -54,6 +54,12 @@ module Integration
 
     def set_hostgroup
       @job.hostgroup = Hostgroup.find(params[:hostgroup_id])
+      @job.save!
+      respond_for_show
+    end
+
+    def set_resource
+      @job.compute_resource = ComputeResource.find(params[:resource_id])
       @job.save!
       respond_for_show
     end

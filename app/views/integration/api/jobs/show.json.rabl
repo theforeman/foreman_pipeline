@@ -12,6 +12,10 @@ child :hostgroup => :hostgroup do
   extends "api/v2/hostgroups/show"
 end
 
+child :compute_resource => :compute_resource do
+  extends "api/v2/compute_resources/show"
+end
+
 child :tests => :tests do |test|
   extends "integration/api/tests/show"
 end

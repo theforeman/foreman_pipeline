@@ -1,4 +1,4 @@
-angular.module('Integration.integration').controller('JobsDetailsNewContentViewController',
+angular.module('Integration.jobs').controller('JobsDetailsNewContentViewController',
     ['$scope', 'translate', 'ContentView', 'CurrentOrganization', 
         function ($scope, translate, ContentView, CurrentOrganization) {
 
