@@ -30,11 +30,11 @@ angular.module('Integration.jobs').factory('Hostgroup',
     }]
 );
 
-angular.module('Integration.jobs').factory('CompResource',
+/*angular.module('Integration.jobs').factory('CompResource',
     ['BastionResource',
     function (BastionResource) {
 
         return BastionResource('/../api/v2/compute_resources/:id/:action',
             {id: '@id'}, {});
     }]
-);
+);*/

@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails"
   s.add_dependency "rabl"
   s.add_dependency "bastion"
+  # s.add_dependency "staypuft"
+  
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
