@@ -20,6 +20,7 @@ Integration::Engine.routes.draw do
           put :remove_tests
           get :available_tests
           put :add_tests
+          get :available_resources
         end
       end
 

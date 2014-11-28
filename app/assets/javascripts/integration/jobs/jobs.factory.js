@@ -16,7 +16,9 @@ angular.module('Integration.jobs').factory('Job',
                 var job = angular.fromJson(response);
                 return {results: job.tests};
             }},
-          
+            availableResources: {method: 'GET', params: {action: 'available_resources'}, transformResponse: function (response) {                
+                return {results: angular.fromJson(response)};
+            }},          
         });
     }]
 );
@@ -26,15 +28,6 @@ angular.module('Integration.jobs').factory('Hostgroup',
     function (BastionResource) {
 
         return BastionResource('/../api/v2/hostgroups/:id/:action',
-            {id: '@id'}, {});
-    }]
-);
-
-angular.module('Integration.jobs').factory('CompResource',
-    ['BastionResource',
-    function (BastionResource) {
-
-        return BastionResource('/../api/v2/compute_resources/:id/:action',
             {id: '@id'}, {});
     }]
 );

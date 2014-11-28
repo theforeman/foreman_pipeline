@@ -1,6 +1,10 @@
 <span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
-<section class="nutupane-subsection">
+<p class="alert alert-info" ng-show="!job.hostgroup" translate>
+    You need to set Hostgroup for Resources to become available, you can set Hostgroup using the 'Hostgroups' tab.
+</p>
+
+<section class="nutupane-subsection" ng-show="job.hostgroup">
   <div alch-alert success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
