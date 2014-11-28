@@ -55,6 +55,7 @@ module Integration
 
     def set_hostgroup
       @job.hostgroup = Hostgroup.find(params[:hostgroup_id])
+      @job.compute_resource = nil
       @job.save!
       respond_for_show
     end

@@ -118,6 +118,14 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
         }
     })
 
+    .state('jobs.details.resources', {
+        url: '/resources',
+        collapsed: true,
+        permission: 'edit_jobs',
+        controller: 'JobDetailsResourcesController',
+        templateUrl: 'integration/jobs/details/views/job-details-resources.html'
+    })
+
     .state('jobs.details.to-environment', {
         url: '/to_environment',
         collapsed: true,

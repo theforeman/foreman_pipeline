@@ -20,4 +20,5 @@ rake db:migrate
 * [Katello](https://github.com/Katello/katello)
 * [Foreman](https://github.com/theforeman/foreman)
 * [Bastion](https://github.com/Katello/bastion)
+* [Staypuft](https://github.com/theforeman/staypuft)
 

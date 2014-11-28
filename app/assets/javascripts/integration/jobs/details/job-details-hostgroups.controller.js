@@ -29,10 +29,11 @@ angular.module('Integration.jobs').controller('JobDetailsHostgroupsController',
 
                     success = function (response) {
                         deferred.resolve(response);
-                        $scope.successMessages.push(translate('New Hostgroup successfully set.'));
+                        $scope.successMessages.push(translate("New Hostgroup successfully set, don't forget to set new Compute Resource in the following tab."));
                         $scope.hostgroupsTable.working = false;
                         nutupane.refresh();
                         $scope.job.hostgroup = $scope.chosen;
+                        $scope.job.compute_resource = null;
                     };
 
                     error = function () {

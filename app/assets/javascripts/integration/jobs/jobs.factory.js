@@ -15,6 +15,7 @@ angular.module('Integration.jobs').factory('Job',
                 var job = angular.fromJson(response);
                 return {results: job.tests};
             }},
+            setResource: {method: 'PUT', params: {action: 'set_resource'}},
             availableResources: {method: 'GET', params: {action: 'available_resources'}, transformResponse: function (response) {                
                 return {results: angular.fromJson(response)};
             }},          
