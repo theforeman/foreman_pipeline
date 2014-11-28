@@ -1,0 +1,85 @@
+<span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
+
+<p class="alert alert-info" ng-show="!job.hostgroup" translate>
+    You need to set Hostgroup for Resources to become available, you can set Hostgroup using the 'Hostgroups' tab.
+</p>
+
+<section class="nutupane-subsection" ng-show="job.hostgroup">
+  <div alch-alert success-messages="successMessages" error-messages="errorMessages"></div>
+
+  <h4>
+    <span translate>Current Compute Resource: </span>
+    <a ng-click="transitionToResource(job.resource)" ng-show="job.compute_resource.name">
+      <span ng-bind="job.compute_resource.name"></span>
+    </a>
+      <span ng-show="!job.compute_resource.name" translate>none</span>
+  </h4>
+
+  <div class="nutupane-bar">
+    <div class="col-sm-3">
+      <input type="text"
+             class="form-control"
+             placeholder="{{ 'Filter' | translate }}"
+             ng-model="resourceFilter" />
+    </div>
+
+    <div class="fr select-action">
+      <span class="nutupane-info">
+      <!-- TODO?: unchoose chosen item -->
+      </span>
+        <button class="btn btn-default"
+                ng-hide="edit_jobs"
+                ng-disabled="!table.chosenRow || table.working"
+                ng-click="setResource()">
+          <i class="icon-pencil"></i>
+          {{ 'Set Resource' | translate }}
+        </button>
+      
+    </div>
+  </div>
+
+  <div alch-table="table" class="nutupane">
+    <div alch-container-scroll alch-infinite-scroll="table.nextPage()">
+      
+      <div ng-show="table.rows.length === 0">
+        <div class="loading-mask" ng-show="table.working">
+          <i class="icon-spinner icon-spin"></i>
+            {{ "Loading..." | translate }}
+        </div>
+
+        <p class="alert alert-info"
+           ng-hide="table.working"
+           translate> No Resources to show.          
+        </p>        
+      </div>
+
+      <table ng-show="table.rows.length > 0"
+             ng-class="{'table-mask': table.working}"
+             class="table table-striped table-full">
+
+        <thead>
+          <tr alch-table-head row-choice="resource">
+            <th alch-table-column="name" translate>Name</th>
+            <th alch-table-column="provider" translate>Provider</th>
+            <th alch-table-column="url" translate>Url</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr alch-table-row ng-repeat="resource in table.rows | filter:resourceFilter" row-choice="resource">
+            
+            <td alch-table-cell>
+              <a ng-click="transitionToResource(resource)">
+                {{ resource.name }}
+              </a>
+            </td>
+            <td alch-table-cell>{{ resource.provider }}</td>
+            <td alch-table-cell>{{ resource.url }}</td>
+          </tr>
+          
+        </tbody>
+        
+      </table>
+    </div>
+  </div>
+</section>

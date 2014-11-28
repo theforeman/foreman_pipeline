@@ -1,5 +1,5 @@
 require "integration/engine"
-require "staypuft"
+#require "staypuft"
 
 module Integration
 end

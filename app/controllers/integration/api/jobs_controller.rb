@@ -5,7 +5,10 @@ module Integration
     include Api::Rendering
 
     before_filter :find_organization, :only => [:create, :index, :available_tests]
-    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests, :add_tests, :remove_tests]
+
+    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests,
+                  :add_tests, :remove_tests, :set_resource, :available_resources]
+
     before_filter :load_search_service, :only => [:index, :available_tests]
 
     def index
@@ -36,7 +39,6 @@ module Integration
     def update
       @job.update_attributes!(job_params)
       @job.save!
-
       respond_for_show(:resource => @job)
     end
 
@@ -86,6 +88,18 @@ module Integration
       @job.test_ids = (@job.test_ids + @tests.map {|t| t.id}).uniq
       @job.save!
       respond_for_show
+    end
+
+    def set_resource
+      @job.compute_resource = ComputeResource.find(params[:resource_id])
+      @job.save!
+      respond_for_show
+    end
+
+    def available_resources
+      @compute_resources = @job.hostgroup.compute_profile.compute_attributes.map(&:compute_resource) rescue []
+      # binding.pry
+      render "api/v2/compute_resources/index"
     end
 
     protected
