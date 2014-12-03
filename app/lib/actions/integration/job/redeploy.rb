@@ -11,18 +11,28 @@ module Actions
         def plan(repo)
           plan_self(:trigger => trigger.output)
           repo.jobs.each do |job|
+            
+            if !job.hostgroup.nil? && !job.compute_resource.nil?              
+              sequence do
+                plan_action(CreateHost, 
+                            "#{normalize_name repo.name}-#{SecureRandom.uuid}",
+                             job.hostgroup,
+                             job.compute_resource,
+                             {:org_id => job.content_view.organization.id})
+                plan_action(Dummy, :job => job)
+              end
 
-            plan_action(Dummy, :job => job)
-
-            unless job.hostgroup.nil? && job.compute_resource.nil?
-              plan_action(RedeployHost, "#{repo.name}.#{SecureRandom.uuid}",
-                                       job.hostgroup,
-                                       job.compute_resource)  
             end            
           end
         end
 
         def run              
+        end
+
+        private
+
+        def normalize_name(repo_name)
+          repo_name.sub(/[^a-z0-9\-]/, '-')
         end
 
       end
