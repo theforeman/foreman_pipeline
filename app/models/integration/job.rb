@@ -14,7 +14,7 @@ module Integration
     # rubocop:disable HasAndBelongsToMany
     has_and_belongs_to_many :tests, :join_table => :integration_jobs_tests
 
-    has_many :content_view_repositories, :primary_key => :content_view_id, :foreign_key => :content_view_id
+    has_many :content_view_repositories, :class_name=> 'Katello::ContentViewRepository', :primary_key => :content_view_id, :foreign_key => :content_view_id
     has_many :repositories, :through => :content_view_repositories
     
     validates :name, :presence => true
