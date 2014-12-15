@@ -6,7 +6,7 @@ module Actions
 
         def run
           ::User.current = ::User.first
-          # User.current = ::User.anoanymous_admin
+          # User.current = ::User.anonymous_admin
           output[:new_key] = ::Katello::ActivationKey.create(
                         name:             "key-for-#{input[:name]}",
                         organization_id:   input[:organization_id],
