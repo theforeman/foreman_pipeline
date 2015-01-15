@@ -4,7 +4,7 @@ module Actions
       class Dummy < Actions::EntryAction
 
         def run
-          output[:dummy] = "Dummy action triggered on job #{input[:job][:name]}"
+          output[:dummy] = "Dummy action triggered"
         end
 
       end

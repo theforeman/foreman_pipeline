@@ -22,12 +22,14 @@ module Actions
                                                               :content_view_id => job.content_view.id,
                                                               :cp_id => create_candlepin_key.output[:response][:id])
 
-                plan_action(CreateHost, unique_hostname, job.hostgroup, job.compute_resource, { 
+                create_host = plan_action(CreateHost, unique_hostname, job.hostgroup, job.compute_resource, { 
                                :org_id => job.content_view.organization.id,
                                :content_view_id => job.content_view.id,
                                :activation_key => create_key.output[:new_key]})
 
-                plan_action(Dummy, :job => job)
+                plan_action(SuspendUntilProvisioned, create_host.output[:host][:id])
+
+                plan_action(Dummy)
               end
 
             end            
