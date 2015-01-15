@@ -18,23 +18,43 @@ module Actions
                     location:             Location.find_by_name("promotions") || Location.create({:name => "promotions"})
                   )
 
-          host.params['kt_org'] = kt_org
-          host.params['kt_activation_keys'] = kt_activation_keys(target_environment)
-          binding.pry
-          # host.save!
-          # host.power.start if input.fetch(:options).fetch(:start)
+          organization_param
+          keys_param
+          
+          host.save!
+          host.power.start if input.fetch(:options).fetch(:start)
 
-           # output.update host: { id: host.id,
-           #                      name: host.name,
-           #                      ip: host.ip,
-           #                      mac: host.mac }            
+          output.update host: { id: host.id,
+                                name: host.name,
+                                ip: host.ip,
+                                mac: host.mac,
+                                params: host.params }            
         end
 
         private
 
         def kt_org           
            ::Organization.find(input[:options][:org_id]).name      
-        end                  
+        end
+
+        def organization_param
+          org_cp = ::CommonParameter.find_by_name('kt_org')
+          if org_cp.nil?
+            ::CommonParameter.create(:name => 'kt_org', :value => kt_org)
+          else
+            org_cp.update_attributes(:value => kt_org)
+          end                            
+        end
+
+        def keys_param
+          keys_cp = ::CommonParameter.find_by_name('kt_activation_keys')
+          if keys_cp.nil?
+            ::CommonParameter.create(:name => 'kt_activation_keys', :value => input[:options][:activation_key][:name])
+          else
+            keys_cp.update_attributes(:value => input[:options][:activation_key][:name])
+          end                            
+        end
+
       end
     end
   end
