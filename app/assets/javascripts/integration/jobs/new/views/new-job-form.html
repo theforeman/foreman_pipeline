@@ -1,5 +1,5 @@
 <form name="jobForm" class="form-horizontal" novalidate role="form">
-  <div alch-form-group label="{{ 'Name' | translate }}">
+  <div bst-form-group label="{{ 'Name' | translate }}">
     <input id="name"
            name="name"
            ng-model="job.name"
@@ -9,7 +9,7 @@
            required/>
   </div>
 
-  <div alch-form-buttons
+  <div bst-form-buttons
         on-cancel="transitionBack()"
         on-save="createJob(job)"
         working="working">

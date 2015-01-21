@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Integration::VERSION
   s.authors     = ["N/A"]
   s.email       = ["oprazak@redhat.com"]
-  s.homepage    = "http://katello.org"
+  s.homepage    = "https://github.com/xprazak2/abcde/wiki/Implemented-Features"
   s.summary     = ""
   s.description = "Plugin"
 
@@ -18,10 +18,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails"
   s.add_dependency "rabl"
-  s.add_dependency "bastion"
-  # s.add_dependency "staypuft"
+  s.add_development_dependency "sass", "3.2.13"  
   
-  # s.add_dependency "jquery-rails"
-
+  # s.add_dependency "jenkins_api_client"
+  
   s.add_development_dependency "sqlite3"
 end

@@ -5,11 +5,11 @@
   {{ 'Loading...' | translate }}
 </div>
 
-<section class="nutupane-details" ng-cloak alch-container-scroll>
+<section class="nutupane-details" ng-cloak bst-container-scroll>
   <header class="details-header">
     <h2 class="fl" translate>Test {{ test.name }}</h2>
     <div class="fr">
-      <div alch-modal="deleteTest(test)" 
+      <div bst-modal="deleteTest(test)" 
            model="test"
            modal-header='Remove Test "{{ test.name }}"?'
            modal-body='Are you sure you want to remove Test "{{ test.name }}"?'>

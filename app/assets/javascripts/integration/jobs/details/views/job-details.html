@@ -5,13 +5,13 @@
   {{ "Loading..." | translate}}
 </div>
 
-<section class="nutupane-details" ng-cloak alch-container-scroll>
+<section class="nutupane-details" ng-cloak bst-container-scroll>
   <header class="details-header">
     
     <h2 class="fl" translate>Job {{ job.name }} </h2>
 
     <div class="fr">
-      <div alch-modal="deleteJob(job)" model="job"
+      <div bst-modal="deleteJob(job)" model="job"
             modal-header='Remove Job "{{ job.name }}"?'
             modal-body='Are you sure you want to remove Job "{{ job.name }}"?'>
       </div>

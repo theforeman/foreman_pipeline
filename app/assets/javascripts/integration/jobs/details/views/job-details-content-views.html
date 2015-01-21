@@ -1,7 +1,7 @@
 <span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
 <section class="nutupane-subsection">
-  <div alch-alert success-messages="successMessages" error-messages="errorMessages"></div>
+  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
     <span translate>Current Content View: </span>
@@ -24,7 +24,7 @@
 
     <div class="fr select-action">
       <span class="nutupane-info">
-      <!-- TODO?: unchoose current choice, requires changes in alch-table.directive -->
+      <!-- TODO?: unchoose current choice, requires changes in bst-table.directive -->
         <!-- <span translate>{{ cvTable.numSelected }} Selected</span> -->
         <!-- <span>|</span> -->
       <!--  <a class="deselect-action"
@@ -53,8 +53,8 @@
     </div>
   </div>
 
-  <div alch-table="cvTable" class="nutupane">
-    <div alch-container-scroll alch-infinite-scroll="cvTable.nextPage()">
+  <div bst-table="cvTable" class="nutupane">
+    <div bst-container-scroll bst-infinite-scroll="cvTable.nextPage()">
       
       <div ng-show="cvTable.rows.length === 0">
         <div class="loading-mask" ng-show="cvTable.working">
@@ -73,28 +73,28 @@
              class="table table-full table-striped">
 
         <thead>
-          <tr alch-table-head row-choice="contentView">
-            <th alch-table-column="name" translate>Name</th>
-            <th alch-table-column="composite" translate>Composite?</th>
-            <th alch-table-column="lastPublished" translate>Last Published</th>
-            <th alch-table-column="environments" translate>Environments</th>
-            <th alch-table-column="repositories" translate>Repositories</th>
+          <tr bst-table-head row-choice="contentView">
+            <th bst-table-column="name" translate>Name</th>
+            <th bst-table-column="composite" translate>Composite?</th>
+            <th bst-table-column="lastPublished" translate>Last Published</th>
+            <th bst-table-column="environments" translate>Environments</th>
+            <th bst-table-column="repositories" translate>Repositories</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr alch-table-row ng-repeat="contentView in cvTable.rows | filter:cvFilter" row-choice="contentView">
+          <tr bst-table-row ng-repeat="contentView in cvTable.rows | filter:cvFilter" row-choice="contentView">
             
-            <td alch-table-cell>
+            <td bst-table-cell>
               <a ui-sref="content-views.details.info({ contentViewId: contentView.id })">
                 {{ contentView.name }}
               </a>
             </td>
 
-            <td alch-table-cell>{{ contentView.composite }}</td>
-            <td alch-table-cell>{{ contentView.last_published }}</td>
+            <td bst-table-cell>{{ contentView.composite }}</td>
+            <td bst-table-cell>{{ contentView.last_published }}</td>
             
-            <td alch-table-cell>
+            <td bst-table-cell>
               <span ng-show="contentView.environments.length !== 0"
                     ng-repeat="environment in contentView.environments" ng-if="environment.permissions.readable">
                 {{ environment.name }}
@@ -105,7 +105,7 @@
               </span>
             </td>
 
-            <td alch-table-cell>{{ contentView.repositories.length }}</td>
+            <td bst-table-cell>{{ contentView.repositories.length }}</td>
 
           </tr>
         </tbody>

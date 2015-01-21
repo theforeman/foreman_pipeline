@@ -6,16 +6,16 @@
        ng-class="{'table-mask' : testsTable.working}"
        ng-show="testsTable.rows.length > 0">
   <thead>
-    <tr alch-table-head row-select>
-      <th alch-table-column="name" sortable><span translate>Name</span></th>
+    <tr bst-table-head row-select>
+      <th bst-table-column="name" sortable><span translate>Name</span></th>
     </tr>
   </thead>
 
   <div data-extend-template="layouts/select-all-results.html"></div>
 
   <tbody>
-    <tr alch-table-row ng-repeat="test in testsTable.rows" row-select="test">
-      <td alch-table-cell>
+    <tr bst-table-row ng-repeat="test in testsTable.rows" row-select="test">
+      <td bst-table-cell>
         <a ui-sref="tests.details.info({testId: test.id})">
           <div>{{ test.name }}</div>                  
         </a>

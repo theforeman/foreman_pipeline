@@ -1,7 +1,7 @@
 angular.module('Integration.jobs', [
     'ngResource',
-    'alchemy',
-    'alch-templates',
+    'Bastion.components',
+    
     'ui.router',
     'Bastion'
 ]);

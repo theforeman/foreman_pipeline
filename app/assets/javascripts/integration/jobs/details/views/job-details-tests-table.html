@@ -1,6 +1,6 @@
 <section class="nutupane-subsection">
   
-  <div alch-alert success-messages="successMessages" error-messages="errorMessages"></div>
+  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
 
   <div class="nutupane-bar">
     <div class="col-sm-3">
@@ -29,8 +29,8 @@
     </div>
   </div>
 
-  <div alch-table="testsTable" class="nutupane">
-    <div alch-container-scroll alch-infinite-scroll="testsTable.nextPage()">
+  <div bst-table="testsTable" class="nutupane">
+    <div bst-container-scroll bst-infinite-scroll="testsTable.nextPage()">
       
       <div ng-show="testsTable.rows.length === 0">
         <div class="loading-mask" ng-show="testsTable.working">
@@ -45,14 +45,14 @@
              class="table table-full table-striped">
         
         <thead>
-          <tr alch-table-head row-select="test">
-            <th alch-table-column="name" translate>Name</th>
+          <tr bst-table-head row-select="test">
+            <th bst-table-column="name" translate>Name</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr alch-table-row ng-repeat="test in testsTable.rows | filter:testFilter" row-select="test">
-            <td alch-table-cell>
+          <tr bst-table-row ng-repeat="test in testsTable.rows | filter:testFilter" row-select="test">
+            <td bst-table-cell>
               <a ui-sref="tests.details.info({testId: test.id})">{{ test.name }}</a>
             </td>
           </tr>

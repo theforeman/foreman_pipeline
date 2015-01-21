@@ -1,7 +1,6 @@
 angular.module('Integration.tests', [
     'ngResource',
-    'alchemy',
-    'alch-templates',
+    'Bastion.components',
     'ui.router',
     'Bastion'
 ]);
