@@ -25,6 +25,9 @@ Integration::Engine.routes.draw do
       end
 
       api_resources :tests
+
+      api_resources :jenkins_instances
+      
     end
 
     end

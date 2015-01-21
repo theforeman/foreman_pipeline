@@ -41,6 +41,7 @@ module Integration
         :pages => %w(
             jobs
             tests
+            jenkins_instances
           )
         })
 

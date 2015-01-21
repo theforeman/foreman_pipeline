@@ -1,4 +1,5 @@
 BASTION_MODULES.push(
     'Integration.jobs',
-    'Integration.tests'
+    'Integration.tests',
+    'Integration.jenkins-instances'
 );

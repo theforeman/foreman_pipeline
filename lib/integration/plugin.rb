@@ -13,5 +13,11 @@ Foreman::Plugin.register :integration do
          :url => '/tests',
          :url_hash => {:controller => 'integration/api/tests', :action => 'index'},
          :engine => Integration::Engine
+    menu :top_menu,
+         :jenkins_instances,
+         :caption => N_("Jenkins Instances"),
+         :url => '/jenkins_instances',
+         :url_hash => {:controller => 'integration/api/jenkins_instances', :action => 'index'},
+         :engine => Integration::Engine
   end
 end

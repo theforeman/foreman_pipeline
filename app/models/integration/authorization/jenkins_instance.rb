@@ -1,5 +1,5 @@
 module Integration
-  module Authorization::Test
+  module Authorization::JenkinsInstance
     extend ActiveSupport::Concern
 
     include Authorization::BaseModel

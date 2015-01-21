@@ -8,6 +8,6 @@ class CreateJobTable < ActiveRecord::Migration
   end
 
   def down
-    drop table "integration_jobs"
+    drop_table "integration_jobs"
   end
 end

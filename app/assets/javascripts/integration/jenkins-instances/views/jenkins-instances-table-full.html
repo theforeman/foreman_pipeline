@@ -1,0 +1,34 @@
+<p class="alert alert-info"  ng-show="jenkinsTable.rows.length === 0" translate>
+  You currently do not have any Jenkins Instances. You can add Jenkins Instances using the button on the right.
+</p>
+
+<table class="table table-striped"
+       ng-class="{'table-mask' : jenkinsTable.working}"
+       ng-show="jenkinsTable.rows.length > 0">
+  <thead>
+    <tr bst-table-head row-select>
+      <th bst-table-column="name" sortable><span translate>Name</span></th>
+      <th bst-table-column="url"><span translate>URL</span></th>
+    </tr>
+
+  </thead>
+
+  <div data-extend-template="layouts/select-all-results.html"></div>
+
+  <tbody>
+    <tr bst-table-row ng-repeat="jenkins in jenkinsTable.rows" row-select="test">
+      
+      <td bst-table-cell>
+        <a ui-sref="jenkins.details.info({jenkinsId: jenkins.id})">
+          <div>{{ jenkins.name }}</div>                  
+        </a>
+      </td>
+
+      <td bst-table-cell>
+          <div>{{ jenkins.url }}</div>                  
+      </td>
+      
+    </tr>
+  </tbody>
+  
+</table>
