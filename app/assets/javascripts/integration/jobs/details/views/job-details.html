@@ -33,38 +33,38 @@
     <ul class="nav nav-tabs">
       
       <li ng-class="{active: stateIncludes('jobs.details.info')}">
-        <a translate ui-sref="jobs.details.info({jobId: job.id})">
-          Details
+        <a ui-sref="jobs.details.info({jobId: job.id})">
+          <span translate>Details</span>
         </a>
       </li>
 
       <li ng-class="{ active : stateIncludes('jobs.details.content-views')}">
-        <a translate ui-sref="jobs.details.content-views({jobId: job.id})">
-          Content Views
+        <a ui-sref="jobs.details.content-views({jobId: job.id})">
+          <span translate>Content Views</span>
         </a>
       </li>
 
       <li ng-class="{ active : stateIncludes('jobs.details.hostgroups')}">
-        <a translate ui-sref="jobs.details.hostgroups({jobId: job.id})">
-          Hostgroups
+        <a ui-sref="jobs.details.hostgroups({jobId: job.id})">
+          <span translate>Hostgroups</span>
         </a>
       </li>
 
       <li ng-class="{active: stateIncludes('jobs.details.resources')}">
-        <a translate ui-sref="jobs.details.resources">
-          Resources
+        <a ui-sref="jobs.details.resources">
+          <span translate>Compute Resources</span>
         </a>
       </li>    
 
       <li ng-class="{active: stateIncludes('jobs.details.tests.list')}">
-        <a translate ui-sref="jobs.details.tests.list">
-          Tests
+        <a ui-sref="jobs.details.tests.list">
+          <span translate>Tests</span>
         </a>
       </li>            
 
       <li ng-class="{active: stateIncludes('jobs.details.to-environment')}">
-        <a translate ui-sref="jobs.details.to-environment">
-          To Environment
+        <a ui-sref="jobs.details.to-environment">
+          <span translate>To Environment</span>
         </a>
       </li>
 

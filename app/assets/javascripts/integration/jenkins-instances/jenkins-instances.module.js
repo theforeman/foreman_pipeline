@@ -21,7 +21,45 @@ angular.module('Integration.jenkins-instances').config(['$stateProvider', functi
         }
     })
     .state('jenkins-instances.new',{
+        url: '/jenkins_instances/new',
+        permission: 'create_jenkins_instances',
+        collapsed: true,
+        views: {
+            'table': {
+                templateUrl: 'integration/jenkins-instances/views/jenkins-instances-table-collapsed.html'
+            },
+            'action-panel': {
+                controller: 'NewJenkinsInstanceController',
+                templateUrl: 'integration/jenkins-instances/new/views/new-jenkins-instance.html'
+            },
+            'jenkins-instance-form@jenkins-instances.new': {
+                controller: 'NewJenkinsInstanceController',
+                templateUrl: 'integration/jenkins-instances/new/views/new-jenkins-instance-form.html'
+            }
+        }
 
+    })
+    .state('jenkins-instances.details', {
+        abstract: true,
+        url: '/jenkins_instances/:jenkinsInstanceId',
+        permission: 'view_jenkins_instances',
+        collapsed: true,
+        views: {
+            'table': {
+                templateUrl: 'integration/jenkins-instances/views/jenkins-instances-table-collapsed.html'
+            },
+            'action-panel': {
+                controller: 'JenkinsInstanceDetailsController',
+                templateUrl: 'integration/jenkins-instances/details/views/jenkins-instance-details.html'
+            }
+        }
+    })
+    .state('jenkins-instances.details.info', {
+        url: '/info',
+        permission: 'edit_jenkins_instances',
+        collapsed: true,
+        controller: 'JenkinsInstanceDetailsInfoController',
+        templateUrl: 'integration/jenkins-instances/details/views/jenkins-instance-details-info.html'
     })
 
 }]);

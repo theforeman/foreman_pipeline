@@ -19,7 +19,7 @@
     <tr bst-table-row ng-repeat="jenkins in jenkinsTable.rows" row-select="test">
       
       <td bst-table-cell>
-        <a ui-sref="jenkins.details.info({jenkinsId: jenkins.id})">
+        <a ui-sref="jenkins-instances.details.info({jenkinsInstanceId: jenkins.id})">
           <div>{{ jenkins.name }}</div>                  
         </a>
       </td>

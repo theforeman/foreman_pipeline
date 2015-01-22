@@ -1,0 +1,26 @@
+<form name="jenkinsInstanceForm" class="form-horizontal" novalidate role="form">
+  <div bst-form-group label="{{ 'Name' | translate }}">
+    <input id="name"
+           name="name"
+           ng-model="jenkinsInstance.name"
+           type="text"
+           tabindex="1"
+           autofocus
+           required/>
+  </div>
+
+  <div bst-form-group label="{{ 'Url' | translate }}">
+    <input id="name"
+           name="name"
+           ng-model="jenkinsInstance.url"
+           type="text"
+           tabindex="2"           
+           required/>
+  </div>
+
+  <div bst-form-buttons
+        on-cancel="transitionBack()"
+        on-save="createJenkinsInstance(jenkinsInstance)"
+        working="working">
+  </div>
+</form>

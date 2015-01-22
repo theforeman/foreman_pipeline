@@ -17,8 +17,6 @@ angular.module('Integration.jenkins-instances').controller('JenkinsInstancesCont
         $scope.nutupane = nutupane;
         $scope.table = $scope.jenkinsTable;
 
-        // console.log($scope.jenkinsTable)
-
         nutupane.enableSelectAllResults();
         
         $scope.jenkinsTable.closeItem = function () {
