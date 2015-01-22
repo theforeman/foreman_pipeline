@@ -35,6 +35,7 @@ angular.module('Integration.jobs').controller('JobDetailsContentViewsController'
                         $scope.cvTable.working = false;
                         cvNutupane.refresh();
                         $scope.job.content_view = $scope.chosen;
+                        $scope.cvTable.chosenRow = null;
                     };                 
 
                     error = function (response) {

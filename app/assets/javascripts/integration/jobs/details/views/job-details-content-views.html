@@ -1,6 +1,6 @@
 <span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
-<section class="nutupane-subsection">
+<section class="nutupane-sub-section">
   <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
@@ -9,108 +9,96 @@
       <span class="no-capitalize" ng-show="job.content_view.name" ng-bind="job.content_view.name"></span>
     </a>
     <span class="no-capitalize" ng-show="!job.content_view.name" translate>none</span>
- </h4>
+  </h4>
 
-  <div class="nutupane-bar">
-    
-    <div class="col-sm-3">
-      <input type="text"
-              class="form-control"  
-              placeholder="{{ 'Filter' | translate }}"
-              ng-model="cvFilter" />
-   </div> 
+  <br/> 
 
-
-
-    <div class="fr select-action">
-      <span class="nutupane-info">
-      <!-- TODO?: unchoose current choice, requires changes in bst-table.directive -->
-        <!-- <span translate>{{ cvTable.numSelected }} Selected</span> -->
-        <!-- <span>|</span> -->
-      <!--  <a class="deselect-action"
-           translate
-           ng-class="{ 'disabled-link' : cvTable.getChosen() === null }"
-           ng-click="cvTable.unchoose()">
-          Deselect
-        </a> -->
-      </span> 
-
-      <!-- <button class="btn btn-default" -->
-              <!-- ng-hide="denied('create_content_views')" -->
-              <!-- ui-sref="jobs.details.content-views.new"> -->
-        <!-- <i class="icon-file-alt"></i> -->
-        <!-- {{ 'New Content View' | translate }} -->
-      <!-- </button> -->
-
-      <button class="btn btn-default"
-              ng-hide="denied('edit_jobs')"
-              ng-disabled=" !cvTable.chosenRow || cvTable.working " 
-              ng-click="setContentView()">
-        <i class="icon-pencil"></i>      
-        {{ 'Set Content View' | translate }}
-      </button>
-
-    </div>
-  </div>
-
-  <div bst-table="cvTable" class="nutupane">
-    <div bst-container-scroll bst-infinite-scroll="cvTable.nextPage()">
+  <section ng-show="cvTable.rows.length > 0">
+    <div class="row">
       
-      <div ng-show="cvTable.rows.length === 0">
-        <div class="loading-mask" ng-show="cvTable.working">
-          <i class="icon-spinner icon-spin"></i>
-            {{ "Loading..." | translate }}          
-        </div>
-
-        <p class="alert alert-info"
-           ng-hide="cvTable.working"
-           translate> No Content Views to show.
-        </p>
+      <div class="col-sm-3">
+        <input type="text"
+                class="form-control"  
+                placeholder="{{ 'Filter' | translate }}"
+                ng-model="cvFilter" />
       </div>
 
-      <table ng-show="cvTable.rows.length > 0"
-             ng-class="{'table-mask': cvTable.working}"
-             class="table table-full table-striped">
+      <div class="fr select-action">
 
-        <thead>
-          <tr bst-table-head row-choice="contentView">
-            <th bst-table-column="name" translate>Name</th>
-            <th bst-table-column="composite" translate>Composite?</th>
-            <th bst-table-column="lastPublished" translate>Last Published</th>
-            <th bst-table-column="environments" translate>Environments</th>
-            <th bst-table-column="repositories" translate>Repositories</th>
-          </tr>
-        </thead>
+        <button class="btn btn-default"
+                ng-hide="denied('edit_jobs')"
+                ng-disabled="!cvTable.chosenRow || cvTable.working" 
+                ng-click="setContentView()">
+          <i class="icon-pencil" ng-hide="cvTable.working"></i>      
+          <i class="icon-spinner icon-spin" ng-show="cvTable.working"></i>      
+          {{ 'Set Content View' | translate }}
+        </button>
 
-        <tbody>
-          <tr bst-table-row ng-repeat="contentView in cvTable.rows | filter:cvFilter" row-choice="contentView">
-            
-            <td bst-table-cell>
-              <a ui-sref="content-views.details.info({ contentViewId: contentView.id })">
-                {{ contentView.name }}
-              </a>
-            </td>
-
-            <td bst-table-cell>{{ contentView.composite }}</td>
-            <td bst-table-cell>{{ contentView.last_published }}</td>
-            
-            <td bst-table-cell>
-              <span ng-show="contentView.environments.length !== 0"
-                    ng-repeat="environment in contentView.environments" ng-if="environment.permissions.readable">
-                {{ environment.name }}
-                <span ng-if="!$last">, </span>
-              </span>
-              <span ng-show="contentView.environments.length === 0" translate>
-                Not yet published
-              </span>
-            </td>
-
-            <td bst-table-cell>{{ contentView.repositories.length }}</td>
-
-          </tr>
-        </tbody>
-
-      </table>
+      </div>
     </div>
+
+    <div bst-table="cvTable" class="nutupane">
+      <div bst-container-scroll bst-infinite-scroll="cvTable.nextPage()">
+        
+        
+
+        <table
+               ng-class="{'table-mask': cvTable.working}"
+               class="table table-full table-striped">
+
+          <thead>
+            <tr bst-table-head row-choice="contentView">
+              <th bst-table-column="name" translate>Name</th>
+              <th bst-table-column="composite" translate>Composite?</th>
+              <th bst-table-column="lastPublished" translate>Last Published</th>
+              <th bst-table-column="environments" translate>Environments</th>
+              <th bst-table-column="repositories" translate>Repositories</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr bst-table-row ng-repeat="contentView in cvTable.rows | filter:cvFilter" row-choice="contentView">
+              
+              <td bst-table-cell>
+                <a ui-sref="content-views.details.info({ contentViewId: contentView.id })">
+                  {{ contentView.name }}
+                </a>
+              </td>
+
+              <td bst-table-cell>{{ contentView.composite }}</td>
+              <td bst-table-cell>{{ contentView.last_published }}</td>
+              
+              <td bst-table-cell>
+                <span ng-show="contentView.environments.length !== 0"
+                      ng-repeat="environment in contentView.environments" ng-if="environment.permissions.readable">
+                  {{ environment.name }}
+                  <span ng-if="!$last">, </span>
+                </span>
+                <span ng-show="contentView.environments.length === 0" translate>
+                  Not yet published
+                </span>
+              </td>
+
+              <td bst-table-cell>{{ contentView.repositories.length }}</td>
+
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div ng-show="cvTable.rows.length === 0">
+    <div class="loading-mask" ng-show="cvTable.working">
+      <i class="icon-spinner icon-spin"></i>
+        {{ "Loading..." | translate }}          
+    </div>
+
+    <p class="alert alert-info"
+       ng-hide="cvTable.working"
+       translate> No Content Views to show.
+    </p>
   </div>
+
 </section>

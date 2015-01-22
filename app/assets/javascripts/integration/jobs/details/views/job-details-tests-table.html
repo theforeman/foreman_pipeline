@@ -1,8 +1,8 @@
-<section class="nutupane-subsection">
+<section class="nutupane-sub-section">
   
   <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
 
-  <div class="nutupane-bar">
+  <div class="row">
     <div class="col-sm-3">
       <input type="text"
              class="form-control"
@@ -15,7 +15,8 @@
               ng-disabled="testsTable.numSelected === 0"
               ng-show="isState('jobs.details.tests.list') && permitted('edit_jobs', job)"
               ng-click="removeTests(job)">
-        <i class="icon-minus"></i>
+        <i class="icon-minus" ng-hide="testsTable.working"></i>
+        <i class="icon-spinner icon-spin" ng-show="testsTable.working"></i>      
         <span translate>Remove Tests</span>
       </button>
 
@@ -23,7 +24,8 @@
               ng-disabled="testsTable.numSelected === 0"
               ng-show="isState('jobs.details.tests.available') && permitted('edit_jobs', job)"
               ng-click="addTests(job)">
-        <i class="icon-plus"></i>
+        <i class="icon-plus" ng-hide="testsTable.working"></i>
+        <i class="icon-spinner icon-spin" ng-show="testsTable.working"></i>
         <span translate>Add Tests</span>
       </button>      
     </div>

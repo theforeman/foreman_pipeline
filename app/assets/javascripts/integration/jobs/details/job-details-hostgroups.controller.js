@@ -34,6 +34,7 @@ angular.module('Integration.jobs').controller('JobDetailsHostgroupsController',
                         nutupane.refresh();
                         $scope.job.hostgroup = $scope.chosen;
                         $scope.job.compute_resource = null;
+                        $scope.hostgroupsTable.chosenRow = null;
                     };
 
                     error = function () {
