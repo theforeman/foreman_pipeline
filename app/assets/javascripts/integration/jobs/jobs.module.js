@@ -134,4 +134,12 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
         templateUrl: 'integration/jobs/details/views/job-details-to-environment.html'
     })
 
+    .state('jobs.details.jenkins-instances', {
+        url: '/jenkins_instances',
+        collapsed: true,
+        permission: 'edit_jobs',
+        controller: 'JobDetailsJenkinsController',
+        templateUrl: 'integration/jobs/details/views/job-details-jenkins.html'
+    })
+
 }]);

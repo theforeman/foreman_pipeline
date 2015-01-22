@@ -4,7 +4,6 @@ class CreateJenkinsInstancesTable < ActiveRecord::Migration
       t.string "name",              :null => false
       t.string "url",               :null => false
       t.integer "organization_id",   :null => false
-      t.integer "job_id"            
     end
   end
 

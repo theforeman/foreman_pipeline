@@ -54,7 +54,13 @@
         <a ui-sref="jobs.details.resources">
           <span translate>Compute Resources</span>
         </a>
-      </li>    
+      </li>
+
+      <li ng-class="{active: stateIncludes('jobs.details.jenkins-instances')}">
+        <a ui-sref="jobs.details.jenkins-instances">
+          <span translate>Jenkins Instance</span>
+        </a>
+      </li>        
 
       <li ng-class="{active: stateIncludes('jobs.details.tests.list')}">
         <a ui-sref="jobs.details.tests.list">

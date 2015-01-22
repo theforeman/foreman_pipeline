@@ -8,7 +8,7 @@ module Integration
     include Integration::Authorization::JenkinsInstance
 
     belongs_to :organization
-    has_many :jobs
+    has_many :jobs, :inverse_of => :jenkins_instance
 
     validates :name, :presence => true
     validates :url, :presence => true

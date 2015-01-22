@@ -10,6 +10,7 @@ module Integration
     belongs_to :hostgroup
     belongs_to :organization
     belongs_to :compute_resource
+    belongs_to :jenkins_instance, :inverse_of => :jobs
 
     # rubocop:disable HasAndBelongsToMany
     has_and_belongs_to_many :tests, :join_table => :integration_jobs_tests

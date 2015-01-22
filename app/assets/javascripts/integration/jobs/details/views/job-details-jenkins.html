@@ -1,0 +1,64 @@
+<span page-title ng-model="job">{{ 'Jenkins Instances for Job:' | translate}} {{ job.name }}</span>
+
+<section class="details details-full">
+  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+
+  <h4>
+  <span translate>Current Jenkins Instance: </span>
+    <a ui-sref="jenkins-instances.details.info({ jenkinsInstanceId: job.jenkins_instance.id })">
+      <span ng-show="job.jenkins_instance.name" ng-bind="job.jenkins_instance.name"></span>
+    </a>
+    <span ng-show="!job.jenkins_instance.name" translate>none</span>
+  </h4>
+
+  <br/>
+  <input type="text"
+         class="form-control filter-input"
+         placeholder="{{ 'Filter' | translate }}"
+         ng-model="jenkinsSearch" />
+
+  <span class="pull-right">
+
+    <button class="btn btn-default"
+            ng-click="setJenkins()"
+            ng-disabled="!jenkinsTable.chosenRow || jenkinsTable.working">
+      <i class="icon-spinner icon-spin" ng-show="jenkinsTable.working"></i>
+      <i class="icon-pencil" ng-hide="jenkinsTable.working"></i>      
+      <span translate>Set Jenkins Instance</span>
+    </button>
+
+  </span>
+
+  <table bst-table="jenkinsTable" 
+         class="table table-striped" 
+         ng-class="{'table-mask' : jenkinsTable.working}"
+         ng-show="jenkinsTable.rows.length > 0">
+
+    <thead>
+      <tr bst-table-head row-choice="jenkins">
+        <th bst-column-name="name" translate>Name</th>
+        <th bst-column-name="url" translate>URL</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr bst-table-row ng-repeat="jenkins in jenkinsTable.rows | filter:jenkinsSearch" row-choice="jenkins">
+
+        <td bst-table-cell>
+          <a ui-sref="jenkins-instances.details.info({jenkinsInstanceId: jenkins.id})">
+            {{ jenkins.name }}
+          </a>
+        </td>
+
+        <td bst-table-cell>
+            {{ jenkins.url }}
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<p class="alert alert-info" ng-show="jenkinsTable.rows.length === 0" translate>
+  You do not have any Jenkins Instances to show.
+</p>

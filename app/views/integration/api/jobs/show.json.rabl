@@ -17,3 +17,7 @@ end
 child :tests => :tests do |test|
   extends "integration/api/tests/show"
 end
+
+child :jenkins_instance => :jenkins_instance do
+  extends "integration/api/jenkins_instances/show"
+end
