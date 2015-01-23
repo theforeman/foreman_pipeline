@@ -22,6 +22,7 @@ Integration::Engine.routes.draw do
           put :add_tests
           get :available_resources
           put :set_jenkins
+          put :set_environment
         end
       end
 

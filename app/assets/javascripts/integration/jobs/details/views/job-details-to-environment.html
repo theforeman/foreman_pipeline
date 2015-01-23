@@ -1,1 +1,43 @@
-Not implemented yet
+<span page-title ng-model="job">{{ 'Job: ' | translate }}{{ job.name }}</span>
+
+<section class="nutupane-sub-section">
+  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+  
+  <h4 translate>Lifecycle Environment selection</h4>
+
+  <section ng-hide="loading || environments.length === 0">
+    <span path-selector="environments"
+              ng-model="chosenEnvironment"
+              mode="singleSelect"
+              disabled="denied('edit_jobs', job)"
+              disable-trigger="disableEnvironmentSelection">
+    </span>
+
+    <br/>
+
+    <button class="btn btn-default"
+            ng-hide="denied('edit_jobs')"
+            ng-disabled="!chosenEnvironment || working"
+            ng-click="setEnvironment()">
+      <i class="icon-pencil" ng-hide="working"></i>      
+      <i class="icon-spinner icon-spin" ng-show="working"></i>           
+      <span translate>Set Environment</span>
+    </button>
+  </section>
+  
+    <div class="loading-mask" ng-show="loading">
+      <i class="icon-spinner icon-spin"></i>
+        {{ "Loading..." | translate }}          
+    </div>
+
+  <div ng-show="environmnets.length === 0" >
+    <p class="alert alert-info"
+       ng-hide="loading"
+       translate> No Lifecycle Environmnets to show.
+    </p>
+  </div>
+
+</section>
+
+
+

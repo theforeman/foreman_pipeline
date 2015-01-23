@@ -21,3 +21,7 @@ end
 child :jenkins_instance => :jenkins_instance do
   extends "integration/api/jenkins_instances/show"
 end
+
+child :environment => :environment do 
+  extends "integration/api/environments/show"
+end

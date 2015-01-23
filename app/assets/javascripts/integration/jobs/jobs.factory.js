@@ -17,6 +17,7 @@ angular.module('Integration.jobs').factory('Job',
                 return {results: job.tests};
             }},
             setResource: {method: 'PUT', params: {action: 'set_resource'}},
+            setEnvironment: {method: 'PUT', params: {action: 'set_environment'}},
             availableResources: {method: 'GET', params: {action: 'available_resources'}, transformResponse: function (response) {                
                 return {results: angular.fromJson(response)};
             }},          

@@ -37,7 +37,7 @@ angular.module('Integration.jobs').controller('JobDetailsHostgroupsController',
                         $scope.hostgroupsTable.chosenRow = null;
                     };
 
-                    error = function () {
+                    error = function (response) {
                         deferred.reject(response);
                         angular.forEach(response.data.errors, function (errorMessage, key) {
                             if (angular.isString(key)) {

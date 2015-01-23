@@ -19,8 +19,7 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsController',
             $scope.jenkinsTable = nutupane.table;        
             $scope.nutupane = nutupane;
             nutupane.query();
-            console.log(nutupane);
-
+            
             $scope.setJenkins = function () {
                 var success,
                     error,

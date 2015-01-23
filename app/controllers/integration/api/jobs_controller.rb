@@ -7,14 +7,13 @@ module Integration
     before_filter :find_organization, :only => [:create, :index, :available_tests]
 
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests,
-                  :add_tests, :remove_tests, :set_resource, :available_resources, :set_jenkins]
+                  :add_tests, :remove_tests, :set_resource, :available_resources, :set_jenkins, :set_environment]
 
     before_filter :load_search_service, :only => [:index, :available_tests]
 
     def index
        ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
-       filters = [:terms => {:id => ids}]
-       filters << {:terms => {:content_view => [params[:content_view]] }} if params[:content_view]
+       filters = [:terms => {:id => ids}]       
 
       options = {
          :filters => filters,
@@ -47,6 +46,7 @@ module Integration
       respond_for_show(:resource => @job)
     end
 
+    # TODO: refactor and remove repetitive methods -> map all set actions onto update
     def set_content_view
       @job.content_view = Katello::ContentView.find(params[:content_view_id])
       @job.save!
@@ -70,6 +70,12 @@ module Integration
       ids = params[:test_ids]
       @tests = Test.where(:id => ids)
       @job.test_ids = (@job.test_ids - @tests.map {|t| t.id}).uniq
+      @job.save!
+      respond_for_show
+    end
+
+    def set_environment
+      @job.environment = Katello::KTEnvironment.find(params[:environment_id])
       @job.save!
       respond_for_show
     end
@@ -105,7 +111,6 @@ module Integration
 
     def available_resources
       @compute_resources = @job.hostgroup.compute_profile.compute_attributes.map(&:compute_resource) rescue []
-      # binding.pry
       render "api/v2/compute_resources/index"
     end
 
@@ -118,7 +123,7 @@ module Integration
     end
 
     def job_params
-      params.require(:job).permit(:name, :content_view_id, :hostgroup_id)
+      params.require(:job).permit(:name)
     end
   end
 end
