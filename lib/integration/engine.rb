@@ -48,7 +48,10 @@ module Integration
       # extensions
       ::Katello::Repository.send :include, Integration::Concerns::RepositoryExtension
       ::Katello::ContentViewRepository.send :include, Integration::Concerns::ContentViewRepositoryExtension
-
+      ::Katello::ContentView.send :include, Integration::Concerns::ContentViewExtension
+      ::Katello::KTEnvironment.send :include, Integration::Concerns::KtEnvironmentExtension
+      ::Hostgroup.send :include, Integration::Concerns::HostgroupExtension
+      ::ComputeResource.send :include, Integration::Concerns::ComputeResourceExtension
     end
        
   end

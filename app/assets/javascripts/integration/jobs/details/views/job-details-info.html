@@ -15,3 +15,51 @@
     </div>
   </section>
 </div>
+
+<div class="details fr">
+  <section>
+    <h4 translate>Manual Job Runs</h4>
+
+    <div class="detail">
+      <span class="info-label" translate>Content View?</span>
+      <span class="info-value">
+        <i class="icon-remove-sign " ng-hide="job.content_view"></i>
+        <i class="icon-ok-sign" ng-show="job.content_view"></i>
+      </span>
+    </div>
+
+    <div class="detail">
+      <span class="info-label" translate>Hostgroup?</span>
+      <span class="info-value">
+        <i class="icon-remove-sign" ng-hide="job.hostgroup"></i>
+        <i class="icon-ok-sign" ng-show="job.hostgroup"></i>
+      </span>
+    </div>
+
+    <div class="detail">
+      <span class="info-label" translate>Compute Resource?</span>
+      <span class="info-value">
+        <i class="icon-remove-sign" ng-hide="job.compute_resource"></i>
+        <i class="icon-ok-sign" ng-show="job.compute_resource"></i>
+      </span>
+    </div>
+
+    <div class="detail">
+      <span class="info-label" translate>Jenkins Instance?</span>
+      <span class="info-value">
+        <i class="icon-remove-sign" ng-hide="job.jenkins_instance"></i>
+        <i class="icon-ok-sign" ng-show="job.jenkins_instance"></i>
+      </span>
+    </div>
+
+    <div class="detail">
+      <button class="btn btn-default"
+              ng-disabled="!isValid"
+              ng-click="runJob()">
+        <i class="icon-play" ng-hide="working"></i>
+        <i class="icon-spinner icon-spin" ng-show="working"></i>
+        <span translate>Run Job</span>
+      </button>
+    </div> 
+  </section>
+</div>

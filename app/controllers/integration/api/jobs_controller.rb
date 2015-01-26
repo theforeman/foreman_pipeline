@@ -7,7 +7,7 @@ module Integration
     before_filter :find_organization, :only => [:create, :index, :available_tests]
 
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests,
-                  :add_tests, :remove_tests, :set_resource, :available_resources, :set_jenkins, :set_environment]
+                  :add_tests, :remove_tests, :set_resource, :available_resources, :set_jenkins, :set_environment, :run_job]
 
     before_filter :load_search_service, :only => [:index, :available_tests]
 
@@ -112,6 +112,12 @@ module Integration
     def available_resources
       @compute_resources = @job.hostgroup.compute_profile.compute_attributes.map(&:compute_resource) rescue []
       render "api/v2/compute_resources/index"
+    end
+
+    def run_job
+      task = async_task(::Actions::Integration::Job::RunJobManually, @job)
+      # respond_for_async(:resource => task)
+      render :nothing => true
     end
 
     protected
