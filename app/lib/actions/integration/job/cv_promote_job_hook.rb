@@ -1,7 +1,7 @@
 module Actions
   module Integration
     module Job
-      class CvPromotionJobHook < Actions::EntryAction
+      class CvPromoteJobHook < Actions::EntryAction
 
         def self.subscribe
           Katello::ContentView::Promote
