@@ -1,3 +1,4 @@
+
 module Integration
   class Api::JobsController < Katello::Api::V2::ApiController
     respond_to :json
@@ -115,21 +116,25 @@ module Integration
     end
 
     def run_job
-      task = async_task(::Actions::Integration::Job::RunJobManually, @job)
+      if @job.manual_trigger
+        task = async_task(::Actions::Integration::Job::RunJobManually, @job)
+        render :nothing => true            
+      else
+        fail ::Katello::HttpErrors::Forbidden, "Running manually not allowed for Job: #{@job.name}. Try allowing it in the job's details tab."
+      end
       # respond_for_async(:resource => task)
-      render :nothing => true
     end
 
     protected
 
     def find_job
       @job = Job.find_by_id(params[:id])
-      fail HttpErrors::NotFound "Could not find job with id #{params[:id]}" if @job.nil?
+      fail ::Katello::HttpErrors::NotFound, "Could not find job with id #{params[:id]}" if @job.nil?
       @job 
     end
 
     def job_params
-      params.require(:job).permit(:name)
+      params.require(:job).permit(:name, :manual_trigger, :sync_trigger, :levelup_trigger)
     end
   end
 end

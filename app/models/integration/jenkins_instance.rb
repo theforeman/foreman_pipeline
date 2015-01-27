@@ -16,7 +16,7 @@ module Integration
 
 
     def self.find_instance(id)
-      instance = JenkinsInstance.find(id)
+      instance = self.find(id)
       # instance.client =
     end
 

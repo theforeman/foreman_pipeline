@@ -6,7 +6,7 @@ module Actions
         def plan(job)
           plan_self      
           if job.is_valid? && job.target_cv_version_avail?
-            plan_action(Dummy)
+            plan_action(Dummy, :job_name => job.name)
           end
         end
 

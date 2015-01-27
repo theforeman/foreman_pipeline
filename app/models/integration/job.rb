@@ -28,15 +28,13 @@ module Integration
     end
 
     def target_cv_version_avail?
-      target_cv_version.empty? ? false : true
+      !target_cv_version.nil?
     end
 
     def target_cv_version
       self.environment.content_view_versions.joins(:content_view)
         .where("#{Katello::ContentViewVersion.table_name}.content_view_id = #{self.content_view_id}").first
     end
-
-
 
   end
 end

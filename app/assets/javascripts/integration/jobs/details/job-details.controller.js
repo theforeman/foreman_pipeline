@@ -17,8 +17,6 @@ angular.module('Integration.jobs').controller('JobDetailsController',
                                 && $scope.job.hostgroup !== null
                                 && $scope.job.compute_resource !== null
                                 && $scope.job.jenkins_instance !== null;
-            console.log($scope.isValid)
-            console.log("job: " + $scope.job.name)
             $scope.panel.loading = false;
         });
 

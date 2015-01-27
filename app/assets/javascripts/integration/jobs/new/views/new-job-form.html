@@ -9,6 +9,28 @@
            required/>
   </div>
 
+  <div bst-form-group label="{{ 'Manual Job runs?' | translate }}">
+    <input id="manual_trigger"
+           name="manual_trigger"
+           ng-model="job.manual_trigger"
+           type="checkbox"/>
+  </div>
+
+  <div bst-form-group label="{{ 'CV promote/publish Job runs?' | translate }}">
+    <input id="levelup_trigger"
+           name="levelup_triger"
+           ng-model="job.levelup_trigger"
+           type="checkbox"/>
+  </div>
+
+<div bst-form-group label="{{ 'Repo sync Job runs?' | translate }}">
+    <input id="sync_trigger"
+           name="sync_trigger"
+           ng-model="job.sync_trigger"
+           type="checkbox"/>
+  </div>
+
+
   <div bst-form-buttons
         on-cancel="transitionBack()"
         on-save="createJob(job)"

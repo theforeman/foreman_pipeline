@@ -1,6 +1,6 @@
 object @resource
 
-attributes :id, :name, :organization_id
+attributes :id, :name, :organization_id, :manual_trigger, :sync_trigger, :levelup_trigger
 
 child :content_view => :content_view do
   extends "katello/api/v2/content_views/show"

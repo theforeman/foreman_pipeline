@@ -13,11 +13,43 @@
             on-save="save(job)">
       </span>
     </div>
+
+    <div class="detail">
+      <span class="info-label" translate>Manual Job runs?</span>
+      <span class="info-value"
+            bst-edit-checkbox="job.manual_trigger"
+            readonly="denied('edit_jobs', job)"
+            formatter="booleanToYesNo"
+            on-save="save(job)">
+      </span>
+    </div>
+
+    <div class="detail">
+      <span class="info-label" translate>CV publish/promote Job runs?</span>
+      <span class="info-value"
+            bst-edit-checkbox="job.levelup_trigger"
+            readonly="denied('edit_jobs', job)"
+            formatter="booleanToYesNo"
+            on-save="save(job)">
+      </span>
+    </div> 
+
+    <div class="detail">
+      <span class="info-label" translate>Repo sync Job runs?</span>
+      <span class="info-value"
+            bst-edit-checkbox="job.sync_trigger"
+            readonly="denied('edit_jobs', job)"
+            formatter="booleanToYesNo"
+            on-save="save(job)">
+      </span>
+    </div> 
+ 
+
   </section>
 </div>
 
 <div class="details fr">
-  <section>
+  <section ng-show="job.manual_trigger">
     <h4 translate>Manual Job Runs</h4>
 
     <div class="detail">

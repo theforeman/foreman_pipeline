@@ -8,12 +8,18 @@ module Actions
         end
 
         def plan(version, environment, is_force)          
-          plan_self(:trigger => trigger.output)
+          plan_self(:trigger => trigger.output)         
 
-          valid_jobs = version.content_view.jobs.select { |job| job.is_valid? }          
-          jobs_to_run = valid_jobs.select { |job| version.eql? job.target_cv_version }
+          valid_jobs = version.content_view.jobs.select { |job| job.is_valid? }
+          jobs_to_run = valid_jobs.select { |job| version.eql? job.target_cv_version }        
+          
           jobs_to_run.each do |job|
-            plan_action(Dummy)
+            
+            if job.levelup_trigger              
+              plan_action(Dummy, :job_name => job.name) 
+            end
+
+          
           end
         end
 
