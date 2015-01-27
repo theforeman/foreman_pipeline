@@ -2,6 +2,23 @@ module Actions
   module Integration
     module Job
       class CvPromotionJobHook < Actions::EntryAction
+
+        def self.subscribe
+          Katello::ContentView::Promote
+        end
+
+        def plan(version, environment, is_force)          
+          plan_self(:trigger => trigger.output)
+
+          valid_jobs = version.content_view.jobs.select { |job| job.is_valid? }          
+          jobs_to_run = valid_jobs.select { |job| version.eql? job.target_cv_version }
+          jobs_to_run.each do |job|
+            plan_action(Dummy)
+          end
+        end
+
+        def run          
+        end
         
       end
     end

@@ -23,32 +23,32 @@
     <div class="detail">
       <span class="info-label" translate>Content View?</span>
       <span class="info-value">
-        <i class="icon-remove-sign " ng-hide="job.content_view"></i>
-        <i class="icon-ok-sign" ng-show="job.content_view"></i>
+        <i class="icon-remove " ng-hide="job.content_view"></i>
+        <i class="icon-ok" ng-show="job.content_view"></i>
       </span>
     </div>
 
     <div class="detail">
       <span class="info-label" translate>Hostgroup?</span>
       <span class="info-value">
-        <i class="icon-remove-sign" ng-hide="job.hostgroup"></i>
-        <i class="icon-ok-sign" ng-show="job.hostgroup"></i>
+        <i class="icon-remove" ng-hide="job.hostgroup"></i>
+        <i class="icon-ok" ng-show="job.hostgroup"></i>
       </span>
     </div>
 
     <div class="detail">
       <span class="info-label" translate>Compute Resource?</span>
       <span class="info-value">
-        <i class="icon-remove-sign" ng-hide="job.compute_resource"></i>
-        <i class="icon-ok-sign" ng-show="job.compute_resource"></i>
+        <i class="icon-remove" ng-hide="job.compute_resource"></i>
+        <i class="icon-ok" ng-show="job.compute_resource"></i>
       </span>
     </div>
 
     <div class="detail">
       <span class="info-label" translate>Jenkins Instance?</span>
       <span class="info-value">
-        <i class="icon-remove-sign" ng-hide="job.jenkins_instance"></i>
-        <i class="icon-ok-sign" ng-show="job.jenkins_instance"></i>
+        <i class="icon-remove" ng-hide="job.jenkins_instance"></i>
+        <i class="icon-ok" ng-show="job.jenkins_instance"></i>
       </span>
     </div>
 
@@ -60,6 +60,8 @@
         <i class="icon-spinner icon-spin" ng-show="working"></i>
         <span translate>Run Job</span>
       </button>
+      <!-- TODO user feedback for silent job skips when target cv version not present -->
+      <i class="icon-exclamation" ng-show="hasTarget"></i>
     </div> 
   </section>
 </div>
