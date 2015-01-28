@@ -115,13 +115,14 @@ module Integration
       render "api/v2/compute_resources/index"
     end
 
-    def run_job
-      if @job.manual_trigger
-        task = async_task(::Actions::Integration::Job::RunJobManually, @job)
-        render :nothing => true            
-      else
-        fail ::Katello::HttpErrors::Forbidden, "Running manually not allowed for Job: #{@job.name}. Try allowing it in the job's details tab."
-      end
+    def run_job      
+      # if @job.manual_trigger
+      #   task = async_task(::Actions::Integration::Job::RunJobManually, @job)
+      #   render :nothing => true            
+      # else
+      #   fail ::Katello::HttpErrors::Forbidden, "Running manually not allowed for Job: #{@job.name}. Try setting it's :manual_trigger property."
+      # end
+      render :nothing => true
       # respond_for_async(:resource => task)
     end
 

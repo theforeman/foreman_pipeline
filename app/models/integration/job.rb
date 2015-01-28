@@ -36,5 +36,10 @@ module Integration
         .where("#{Katello::ContentViewVersion.table_name}.content_view_id = #{self.content_view_id}").first
     end
 
+    def run
+      jenkins_instance.client ||= jenkins_instance.create_client
+      # TODO something useful like:
+      # jenkins_instance.client.job.build "sample-repo-job"
+    end
   end
 end

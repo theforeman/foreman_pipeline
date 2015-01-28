@@ -86,7 +86,7 @@
 
     <div class="detail">
       <button class="btn btn-default"
-              ng-disabled="!isValid"
+              ng-disabled="!isValid || working"
               ng-click="runJob()">
         <i class="icon-play" ng-hide="working"></i>
         <i class="icon-spinner icon-spin" ng-show="working"></i>

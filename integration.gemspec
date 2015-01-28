@@ -18,9 +18,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails"
   s.add_dependency "rabl"
-  s.add_development_dependency "sass", "3.2.13"  
+  s.add_development_dependency "sass", "3.2.13" # only to avoid sass/sprockets known bug: https://github.com/sass/sass/issues/1162  
   
-  # s.add_dependency "jenkins_api_client"
-  
-  s.add_development_dependency "sqlite3"
+  # s.add_dependency "nokogiri", "1.6.0" needed for jenkins_api_client > 1.0
+  s.add_dependency "jenkins_api_client", "~> 0.14.1"
+
 end

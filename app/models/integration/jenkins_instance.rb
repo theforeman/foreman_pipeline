@@ -1,3 +1,5 @@
+require 'jenkins_api_client'
+
 module Integration
   class JenkinsInstance < Katello::Model
     self.include_root_in_json = false
@@ -14,10 +16,8 @@ module Integration
     validates :url, :presence => true
     validates :organization, :presence => true
 
-
-    def self.find_instance(id)
-      instance = self.find(id)
-      # instance.client =
+    def create_client
+      @client = JenkinsApi::Client.new(:server_url => url, :log_level => Logger::DEBUG)
     end
 
     
