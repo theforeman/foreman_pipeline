@@ -37,8 +37,8 @@ module Integration
     end
 
     def run
-      jenkins_instance.client ||= jenkins_instance.create_client
-      # TODO something useful like:
+      jenkins_instance.create_client
+      #  something useful like:
       # jenkins_instance.client.job.build "sample-repo-job"
     end
   end

@@ -4,7 +4,7 @@ module Integration
    
     include Api::Rendering
 
-    before_filter :find_jenkins_instance, :only => [:show, :update, :destroy]
+    before_filter :find_jenkins_instance, :only => [:show, :update, :destroy, :check_jenkins]
     before_filter :find_organization, :only => [:index, :create]
     before_filter :load_search_service, :only => [:index]
 
@@ -44,11 +44,17 @@ module Integration
      respond_for_show(:resource => @jenkins_instance)
    end
 
+   def check_jenkins
+     data = @jenkins_instance.check_jenkins_server
+     @jenkins_instance.server_version = data
+     respond_for_show
+   end
+
    protected
 
    def find_jenkins_instance
      @jenkins_instance = JenkinsInstance.find_by_id(params[:id])
-     fail HttpErrors::NotFound "Could noit find Jenkins Instance with id: #{params[:id]}" if @jenkins_instance.nil?
+     fail HttpErrors::NotFound, "Could not find Jenkins Instance with id: #{params[:id]}" if @jenkins_instance.nil?
      @jenkins_instance
    end
 

@@ -5,7 +5,8 @@ angular.module('Integration.jenkins-instances').factory('JenkinsInstance',
         return BastionResource('/../integration/api/organizations/:organizationId/jenkins_instances/:id/:action',
             {id: '@id', organizationId: CurrentOrganization}, {
 
-                update: {method: 'PUT'}
+                update: {method: 'PUT'},
+                checkJenkins: {method: 'GET', params: {action: 'check_jenkins'}},
             })
     }]
 );

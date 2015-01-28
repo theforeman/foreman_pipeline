@@ -15,6 +15,12 @@
            modal-body='Are you sure you want to remove Jenkins Instance "{{ jenkinsInstance.name }}"?'>
       </div>
 
+      <button class="btn btn-default" ng-click="checkJenkins()" ng-disabled="working">
+        <i class="icon-wrench" ng-hide="working"></i>
+        <i class="icon-spinner icon-spin" ng-show="working"></i>
+        <span translate>Jenkins reachable?</span>
+      </button>
+
       <button class="btn btn-default" ng-click="openModal()" ng-hide="denied('destroy_jenkins_instance', jenkinsInstance)">
         <i class="icon-trash"></i>
         {{ 'Remove Jenkins Instance' | translate }}

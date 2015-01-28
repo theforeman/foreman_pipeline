@@ -29,7 +29,11 @@ Integration::Engine.routes.draw do
 
       api_resources :tests
 
-      api_resources :jenkins_instances
+      api_resources :jenkins_instances do
+        member do
+          get :check_jenkins
+        end
+      end
       
     end
 

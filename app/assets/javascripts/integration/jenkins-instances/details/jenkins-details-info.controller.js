@@ -34,5 +34,13 @@ angular.module('Integration.jenkins-instances').controller('JenkinsInstanceDetai
             jenkinsInstance.$update(success, error);
             return deferred.promise;
         };
+
+        $scope.$on('successMessages', function (event, data) {
+            $scope.successMessages = data;
+        });
+        $scope.$on('errorMessages', function (event, data) {
+            $scope.errorMessages = data;
+        });
+        
     }]
 );

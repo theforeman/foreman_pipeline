@@ -1,3 +1,3 @@
 object @resource
 
-attributes :id, :name, :url, :organization_id
+attributes :id, :name, :url, :organization_id, :server_version

@@ -4,7 +4,7 @@ module Integration
   class JenkinsInstance < Katello::Model
     self.include_root_in_json = false
 
-    attr_accessor :client 
+    attr_accessor :client, :server_version 
     include Katello::Glue
     include Glue::ElasticSearch::JenkinsInstance
     include Integration::Authorization::JenkinsInstance
@@ -17,7 +17,12 @@ module Integration
     validates :organization, :presence => true
 
     def create_client
-      @client = JenkinsApi::Client.new(:server_url => url, :log_level => Logger::DEBUG)
+      @client ||= JenkinsApi::Client.new(:server_url => url, :log_level => Logger::DEBUG)
+    end
+
+    def check_jenkins_server
+      create_client
+      @client.get_jenkins_version
     end
 
     
