@@ -1,6 +1,6 @@
 #abcde#
 
-This project aims to automate content view promotions to environments based on Jenkins builds, among other things. This plugin is currently under development.
+This project should provide support for Jenkins builds triggered from within Foreman. This plugin is currently under development.
 
 ##Installation##
 
@@ -13,12 +13,17 @@ gemspec :path => 'path/to/this/plugin'
 then
 ```
 rake db:migrate
+bundle install
 ```
 
 ##Dependencies##
 
 * [Katello](https://github.com/Katello/katello)
 * [Foreman](https://github.com/theforeman/foreman)
-* [Bastion](https://github.com/Katello/bastion)
-* [Staypuft](https://github.com/theforeman/staypuft)
+* [Bastion](https://github.com/Katello/bastion), 0.1.13
+* [Staypuft](https://github.com/theforeman/staypuft), this dependency will be probably removed in the future as soon as 2 dyflow action clases are moved into foreman-tasks
+* [Jenkins API client](https://github.com/arangamani/jenkins_api_client), 0.14.1
 
+##Usage##
+
+See [wiki](https://github.com/xprazak2/abcde/wiki/Implemented-Features).
