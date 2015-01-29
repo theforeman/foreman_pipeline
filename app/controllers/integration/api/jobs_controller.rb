@@ -122,7 +122,7 @@ module Integration
       else
         fail ::Katello::HttpErrors::Forbidden, "Running manually not allowed for Job: #{@job.name}. Try setting it's :manual_trigger property."
       end
-      render :nothing => true
+      # render :nothing => true
       # respond_for_async(:resource => task)
     end
 
