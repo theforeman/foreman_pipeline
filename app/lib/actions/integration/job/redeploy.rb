@@ -20,8 +20,6 @@ module Actions
                            :activation_key => create_key.output[:new_key]})
 
             plan_action(SuspendUntilProvisioned, create_host.output[:host][:id])
-
-            plan_action(Dummy)
           end
         end
 
@@ -31,12 +29,7 @@ module Actions
         private
 
         def normalize_name(repo_name)
-          repo_name.sub(/[^a-z0-9\-]/, '-')
-        end       
-
-        def target_environment_id(content_view)
-          cv_environment = content_view.content_view_environments.sort_by(&:created_at).last
-          cv_environment.nil? ? nil : cv_environment.environment.id
+          repo_name.gsub(/[^a-z0-9\-]/, '-')
         end
 
       end
