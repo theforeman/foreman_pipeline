@@ -48,7 +48,7 @@ module Integration
 
     def find_test
       @test = Test.find_by_id(params[:id])
-      fail HttpErrors::NotFound "Could not find test with id #{params[:id]}" if @test.nil?
+      fail HttpErrors::NotFound, "Could not find test with id #{params[:id]}" if @test.nil?
       @test 
     end
 

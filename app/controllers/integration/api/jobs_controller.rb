@@ -82,7 +82,7 @@ module Integration
     end
 
     def available_tests
-      ids = Test.where(:organization_id => @organization).readable.map(&:id)
+      ids = ::Integration::Test.where(:organization_id => @organization).readable.map(&:id)
 
       filters = [:terms => {:id => ids - @job.test_ids}]
       filters << {:term => {:name => params[:name]}} if params[:name]

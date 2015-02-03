@@ -1,15 +1,9 @@
 module Actions
   module Integration
     module Job
-      class PushContent < Actions::EntryAction
-
+      class CreateJenkinsMainJob < CreateJenkinsJob
         def run
-          job = ::Integration::Job.find input[:job_id]
-          host = ::Host::Managed.find 62
-          job.init_run
-          job.jenkins_instance.client.job.create_freestyle(:name => host.name, 
-                                                           :shell_command => shell_command(host.ip, job))
-          job.jenkins_instance.client.job.build host.name
+          create_jenkins_job(input[:job_id], input[:host_id], shell_command(get_host.ip, get_job))
         end
 
         def shell_command(ip, job)
@@ -37,8 +31,8 @@ module Actions
 
         def install_packages
           d = ["yum -y install"]
-          input[:package_names].each { |packagename| d << "#{packagename}" }
-          d.join(" ")
+          # input[:package_names].each { |packagename| d << "#{packagename}" }
+          d.length == 1 ? "" : d.join(" ") 
         end
 
         def repos_d(repo, job)
@@ -52,7 +46,6 @@ module Actions
           c << '"'
           c.join("\n")
         end
-
 
       end
     end
