@@ -118,8 +118,8 @@ module Integration
     def run_job      
       
       if @job.manual_trigger
-        # package_names = @job.target_cv_version.packages.map(&:name)
-        # task = async_task(::Actions::Integration::Job::RunJobManually, @job, package_names)
+        package_names = @job.target_cv_version.packages.map(&:name)
+        task = async_task(::Actions::Integration::Job::RunJobManually, @job, package_names)
         render :nothing => true            
       else
         fail ::Katello::HttpErrors::Forbidden, "Running manually not allowed for Job: #{@job.name}. Try setting it's :manual_trigger property."

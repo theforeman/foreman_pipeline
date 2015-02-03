@@ -85,6 +85,14 @@
     </div>
 
     <div class="detail">
+      <span class="info-label" translate>Environment?</span>
+      <span class="info-value">
+        <i class="icon-remove" ng-hide="job.environment"></i>
+        <i class="icon-ok" ng-show="job.environment"></i>
+      </span>
+    </div>
+
+    <div class="detail">
       <button class="btn btn-default"
               ng-disabled="!isValid || working"
               ng-click="runJob()">

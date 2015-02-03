@@ -14,4 +14,30 @@
       </span>
     </div>
   </section>
+
+  
+</div>
+
+<div class="details fr">
+  <section class="well">
+    <h4 translate>Upload Test Content</h4>
+
+    <form role="form">
+      
+      <div class="control-group">
+        <input type="file" name="file" id="file"/> 
+      </div>
+
+      <div class="control-group">
+        <div class="control-button">
+          <button class="primary"
+                  ng-click="add()">
+            <i class="icon-spinner icon-spin" ng-show="uploading"></i>
+            <span ng-show="uploading" translate>Uploading...</span>
+            <span ng-hide="uploading" translate>Upload</span>    
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
 </div>

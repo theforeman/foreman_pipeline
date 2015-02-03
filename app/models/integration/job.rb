@@ -38,8 +38,6 @@ module Integration
 
     def init_run
       jenkins_instance.create_client
-      #  something useful like:
-      # jenkins_instance.client.job.build "sample-repo-job"
     end
 
     
