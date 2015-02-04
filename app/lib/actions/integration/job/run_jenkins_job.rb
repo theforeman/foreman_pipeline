@@ -5,7 +5,7 @@ module Actions
         def run
           job = ::Integration::Job.find input[:job_id]
           job.init_run
-          job.jenkins_instance.client.job.build(input[:jobname])
+          job.jenkins_instance.client.job.build(input[:name])
         end
       end
     end
