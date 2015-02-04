@@ -41,3 +41,19 @@
     </form>
   </section>
 </div>
+
+<div class="advanced-info" ng-show="test.content">
+  <header class="details-sub-header">
+    <h4>
+      <i class="expand-icon" 
+         ng-class="{ 'icon-plus': !showContent, 'icon-minus': showContent}"
+         ng-click="showContent = !showContent">
+      </i>
+      <span translate>Content</span>
+    </h4>
+  </header>
+
+  <div ng-show="showContent" class="details fl">
+    <p>{{ test.content }}</p>
+  </div>
+</div>
