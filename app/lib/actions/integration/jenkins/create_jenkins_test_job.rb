@@ -3,9 +3,9 @@ module Actions
     module Jenkins
       class CreateJenkinsTestJob < CreateJenkinsJob
         def run
-          testname = [input[:test_name], input[:unique_name]].join("-")
-          create_jenkins_job(input[:job_id], testname)
-          output[:name] = testname
+          test_name = [input[:test_name], input[:unique_name]].join("-")
+          create_jenkins_job(input[:job_id], test_name)
+          output[:name] = test_name
         end
       end
     end

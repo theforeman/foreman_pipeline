@@ -20,7 +20,6 @@ module Actions
         def tmp_file(test)
           Tempfile.new([test.name, ".sh"], "/home/oprazak/tmp") do |file|
             file.write(test.content)
-            # file.close
           end 
         end
 
