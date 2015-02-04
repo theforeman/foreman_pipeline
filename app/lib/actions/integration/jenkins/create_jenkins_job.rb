@@ -1,6 +1,6 @@
 module Actions
   module Integration
-    module Job
+    module Jenkins
       class CreateJenkinsJob < Actions::EntryAction
 
         def create_jenkins_job(job_id, unique_name, shell_command = "")

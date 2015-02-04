@@ -1,6 +1,6 @@
 module Actions
   module Integration
-    module Job
+    module Jenkins
       class CreateJenkinsMainJob < CreateJenkinsJob
         def run
           create_jenkins_job(input[:job_id], input[:unique_name], shell_command(input[:host_ip], get_job))

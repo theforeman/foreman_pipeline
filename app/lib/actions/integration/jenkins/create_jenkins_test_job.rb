@@ -1,6 +1,6 @@
 module Actions
   module Integration
-    module Job
+    module Jenkins
       class CreateJenkinsTestJob < CreateJenkinsJob
         def run
           testname = [input[:test_name], input[:unique_name]].join("-")

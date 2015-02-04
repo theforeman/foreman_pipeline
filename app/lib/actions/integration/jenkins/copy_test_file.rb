@@ -4,7 +4,7 @@ require 'uri'
 
 module Actions
   module Integration
-    module Job
+    module Jenkins
       class CopyTestFile < Actions::EntryAction
         def run
           test = ::Integration::Test.find input[:test_id]

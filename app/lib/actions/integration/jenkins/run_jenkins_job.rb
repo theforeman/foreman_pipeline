@@ -1,6 +1,6 @@
 module Actions
   module Integration
-    module Job
+    module Jenkins
       class RunJenkinsJob < Actions::EntryAction
         def run
           job = ::Integration::Job.find input[:job_id]

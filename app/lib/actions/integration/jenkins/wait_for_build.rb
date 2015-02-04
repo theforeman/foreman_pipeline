@@ -1,6 +1,6 @@
 module Actions
   module Integration
-    module Job
+    module Jenkins
       class WaitForBuild < Actions::EntryAction
         include Dynflow::Action::Polling
 
