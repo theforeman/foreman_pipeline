@@ -1,11 +1,9 @@
 module Actions
   module Integration
     module Jenkins
-      class ConfigureJenkinsJob < Actions::EntryAction
+      class ConfigureJenkinsJob < AbstractJenkinsAction
         
         def run
-          job = ::Integration::Job.find input.fetch(:job_id)
-          job.init_run
           job.jenkins_instance.client.job.update_freestyle params_hash
         end
 

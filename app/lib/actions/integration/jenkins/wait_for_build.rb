@@ -1,7 +1,7 @@
 module Actions
   module Integration
     module Jenkins
-      class WaitForBuild < Actions::EntryAction
+      class WaitForBuild < AbstractJenkinsAction
         include Dynflow::Action::Polling
 
         def external_task
@@ -23,8 +23,6 @@ module Actions
         end
 
         def poll_external_task
-          job = ::Integration::Job.find input.fetch(:job_id)
-          job.init_run
           job.jenkins_instance.client.job.get_current_build_status(input.fetch(:name)).include? "success" 
         end
 

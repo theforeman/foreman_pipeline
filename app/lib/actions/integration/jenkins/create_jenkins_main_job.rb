@@ -3,7 +3,7 @@ module Actions
     module Jenkins
       class CreateJenkinsMainJob < CreateJenkinsJob
         def run
-          create_jenkins_job(input[:job_id], input[:unique_name], shell_command(input[:host_ip], get_job))
+          create_jenkins_job(input[:job_id], input[:unique_name], shell_command(input[:host_ip], job))
         end
 
         def shell_command(ip, job)

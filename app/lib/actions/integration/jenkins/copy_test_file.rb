@@ -5,15 +5,15 @@ require 'uri'
 module Actions
   module Integration
     module Jenkins
-      class CopyTestFile < Actions::EntryAction
+      class CopyTestFile < AbstractJenkinsAction
         def run
           test = ::Integration::Test.find input[:test_id]
-          job = ::Integration::Job.find input[:job_id]
           tmp = tmp_file test
-          Net::SCP.upload!(remote_host(job.jenkins_instance), "root", 
-                          "/home/oprazak/tmp/#{tmp.path.split("/").pop}",
-                          "/var/lib/jenkins/jobs/#{input[:name]}/workspace/#{filename(test.name, ".sh")}",
-                          :ssh => { :password => "changeme"})          
+          Net::SCP.upload!(remote_host(job.jenkins_instance),
+                           "root", 
+                           "/home/oprazak/tmp/#{tmp.path.split("/").pop}",
+                           "/var/lib/jenkins/jobs/#{input[:name]}/workspace/#{filename(test, ".sh")}",
+                           :ssh => { :password => "changeme"})          
 
         end
 
@@ -27,8 +27,8 @@ module Actions
           URI(jenkins_instance.url).host
         end
 
-        def filename(test_name, ext)
-          [test_name, ext].join
+        def filename(test, ext)
+          [test.name, ext].join
         end
       end
     end
