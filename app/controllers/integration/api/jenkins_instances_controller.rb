@@ -21,10 +21,18 @@ module Integration
    end
 
    def create
+      # binding.pry
      @jenkins_instance = JenkinsInstance.new(jenkins_instance_params)
-     @jenkins_instance.organization = @organization
+     @jenkins_instance.organization = @organization     
      @jenkins_instance.save!
+     task = sync_task(::Actions::Integration::JenkinsInstance::CreateJenkinsInstanceKeys, 
+                      :url => jenkins_instance_params[:url],
+                      :passwd => params[:passwd],
+                      :jenkins_home => jenkins_instance_params[:jenkins_home])
 
+     # @jenkins_instance = JenkinsInstance.new(jenkins_instance_params.merge!(:pubkey => task.output.fetch(:pubkey)))
+     @jenkins_instance.pubkey = task.output.fetch(:pubkey)
+     @jenkins_instance.save!
      respond_for_show(:resource => @jenkins_instance)
    end
 
@@ -59,7 +67,8 @@ module Integration
    end
 
    def jenkins_instance_params
-     params.require(:jenkins_instance).permit(:name, :url)
+     params.require(:jenkins_instance).permit(:name, :url, :jenkins_home)
    end
+
  end
 end

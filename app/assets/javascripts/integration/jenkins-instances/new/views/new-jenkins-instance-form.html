@@ -23,6 +23,24 @@
     </p>     
   </div>
 
+  <div bst-form-group label="{{ 'Jenkins Home' | translate }}">
+    <input id="home"
+           name="home"
+           ng-model="jenkinsInstance.jenkins_home"
+           type="text"
+           tabindex="3"
+           required/>
+  </div>
+
+  <div bst-form-group label="{{ 'Root password' | translate }}">
+    <input id="passwd"
+           name="passwd"
+           ng-model="jenkinsInstance.passwd"
+           type="password"
+           tabindex="4"
+           required/>
+  </div>
+
   <div bst-form-buttons
         on-cancel="transitionBack()"
         on-save="createJenkinsInstance(jenkinsInstance)"
