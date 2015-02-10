@@ -3,6 +3,7 @@ angular.module('Integration.jenkins-instances').controller('NewJenkinsInstanceCo
     function ($scope, translate, JenkinsInstance) {
 
         $scope.successMessages = [];
+        $scope.errorMessages = [];
         $scope.jenkinsInstance = new JenkinsInstance();
 
         var success = function (jenkinsInstance) {
@@ -18,8 +19,14 @@ angular.module('Integration.jenkins-instances').controller('NewJenkinsInstanceCo
         var error = function (response) {
             $scope.working = false;
             angular.forEach(response.data.errors, function (errors, field) {
-                $scope.jenkinsInstanceForm[field].$setValidity('server', false);
-                $scope.jenkinsInstanceForm[field].$error.messages = errors;
+                try {
+                    $scope.jenkinsInstanceForm[field].$setValidity('server', false);
+                    $scope.jenkinsInstanceForm[field].$error.messages = errors;    
+                } 
+                catch (err) {
+                    $scope.errorMessages.push(errors);
+                }
+                
             });
         };
 

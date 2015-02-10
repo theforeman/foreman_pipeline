@@ -1,3 +1,4 @@
+<div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
 <form name="jenkinsInstanceForm" class="form-horizontal" novalidate role="form">
   <div bst-form-group label="{{ 'Name' | translate }}">
     <input id="name"
@@ -24,8 +25,8 @@
   </div>
 
   <div bst-form-group label="{{ 'Jenkins Home' | translate }}">
-    <input id="home"
-           name="home"
+    <input id="jenkins_home"
+           name="jenkins_home"
            ng-model="jenkinsInstance.jenkins_home"
            type="text"
            tabindex="3"
