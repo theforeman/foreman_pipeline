@@ -17,13 +17,19 @@ module Actions
             create_host = plan_action(CreateHost, unique_hostname, job.hostgroup, job.compute_resource, { 
                            :org_id => job.content_view.organization.id,
                            :content_view_id => job.content_view.id,
-                           :activation_key => create_key.output[:new_key]})
+                           :activation_key => create_key.output[:new_key],
+                           :jenkins_instance_id => job.jenkins_instance_id})
 
+            
             plan_action(SuspendUntilProvisioned, create_host.output[:host][:id])
+
+            plan_self(:create_host => create_host.output[:host])
+            
           end
         end
 
-        def run              
+        def run
+          output = input[:create_host]
         end
 
         private

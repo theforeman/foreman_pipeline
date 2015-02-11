@@ -21,7 +21,6 @@ module Integration
    end
 
    def create
-      # binding.pry
      @jenkins_instance = JenkinsInstance.new(jenkins_instance_params)
      @jenkins_instance.organization = @organization     
      @jenkins_instance.save!
@@ -30,7 +29,6 @@ module Integration
                       :passwd => params[:passwd],
                       :jenkins_home => jenkins_instance_params[:jenkins_home])
 
-     # @jenkins_instance = JenkinsInstance.new(jenkins_instance_params.merge!(:pubkey => task.output.fetch(:pubkey)))
      @jenkins_instance.pubkey = task.output.fetch(:pubkey)
      @jenkins_instance.save!
      respond_for_show(:resource => @jenkins_instance)

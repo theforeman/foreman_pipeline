@@ -22,6 +22,7 @@ module Actions
           keys_param
           
           host.save!
+          jenkins_pubkey_param_for host
           host.power.start if input.fetch(:options).fetch(:start)
 
           output.update host: { id: host.id,
@@ -53,6 +54,14 @@ module Actions
           else
             keys_cp.update_attributes(:value => input[:options][:activation_key][:name])
           end                            
+        end
+
+        def jenkins_pubkey
+          ::Integration::JenkinsInstance.find(input.fetch(:options).fetch(:jenkins_instance_id)).pubkey
+        end
+
+        def jenkins_pubkey_param_for(host)
+          ::HostParameter.create(:name => 'integration_jenkins_pubkey', :value => jenkins_pubkey, :host => host)
         end
 
       end

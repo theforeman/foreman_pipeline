@@ -3,16 +3,18 @@ module Actions
     module Jenkins
       class CreateJenkinsMainJob < CreateJenkinsJob
         def run
-          create_jenkins_job(input[:job_id], input[:unique_name], shell_command(input[:host_ip], job))
+          create_jenkins_job(input[:job_id],
+                             input[:unique_name],
+                             shell_command(input[:host_ip],
+                                           job,
+                                           input[:jenkins_home],
+                                           input[:jenkins_instance_hostname]))
         end
 
-        def shell_command(ip, job)
-          root_pass = "changeme"
+        def shell_command(ip, job, jenkins_home, jenkins_instance_name)
+          # root_pass = "changeme"
           c = []
-          # keys do not work for unknown reason
-          # c << 'ssh-keygen -t rsa -N "" -f id_rsa'
-          # c << "cat ./id_rsa.pub | sshpass -p #{root_pass} ssh root@#{ip} 'mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys'"
-          c << "sshpass -p #{root_pass} ssh -o StrictHostKeyChecking=no root@#{ip}"
+          c << "ssh -i #{jenkins_home}/.ssh/#{jenkins_instance_name} -o StrictHostKeyChecking=no root@#{ip}"
           c << "'"    
           c << add_repo_sources(job)
           c << ";"

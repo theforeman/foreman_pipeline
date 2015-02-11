@@ -53,6 +53,10 @@ module Integration
       ::Hostgroup.send :include, Integration::Concerns::HostgroupExtension
       ::ComputeResource.send :include, Integration::Concerns::ComputeResourceExtension
     end
+
+    rake_tasks do
+      load "#{Integration::Engine.root}/lib/integration/tasks/integration_seeds.rake"
+    end
        
   end
 end

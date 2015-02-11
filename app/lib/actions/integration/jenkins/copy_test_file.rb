@@ -11,14 +11,14 @@ module Actions
           tmp = tmp_file test
           Net::SCP.upload!(remote_host(job.jenkins_instance),
                            "root", 
-                           "/home/oprazak/tmp/#{tmp.path.split("/").pop}",
-                           "/var/lib/jenkins/jobs/#{input[:name]}/workspace/#{filename(test, ".sh")}",
+                           "/tmp/#{tmp.path.split("/").pop}",
+                           "#{input.fetch(:jenkins_home)}/jobs/#{input.fetch(:name)}/workspace/#{filename(test, ".sh")}",
                            :ssh => { :password => "changeme"})          
 
         end
 
         def tmp_file(test)
-          Tempfile.new([test.name, ".sh"], "/home/oprazak/tmp") do |file|
+          Tempfile.new([test.name, ".sh"], "/tmp") do |file|
             file.write(test.content)
           end 
         end
