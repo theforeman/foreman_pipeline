@@ -26,7 +26,7 @@ module Integration
      @jenkins_instance.save!
      task = sync_task(::Actions::Integration::JenkinsInstance::CreateJenkinsInstanceKeys, 
                       :url => jenkins_instance_params[:url],
-                      :passwd => params[:passwd],
+                      :passwd => "changeme",
                       :jenkins_home => jenkins_instance_params[:jenkins_home])
 
      @jenkins_instance.pubkey = task.output.fetch(:pubkey)

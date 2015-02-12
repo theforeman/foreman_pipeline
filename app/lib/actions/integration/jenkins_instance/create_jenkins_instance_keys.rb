@@ -29,7 +29,7 @@ module Actions
           buffer.string
         end
 
-        # http://stackoverflow.com/questions/3386233/how-to-get-exit-status-with-rubys-netssh-library
+         # http://stackoverflow.com/questions/3386233/how-to-get-exit-status-with-rubys-netssh-library
         def ssh_exec!(ssh, command)
           stdout_data = ""
           stderr_data = ""

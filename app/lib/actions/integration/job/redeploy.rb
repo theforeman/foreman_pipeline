@@ -21,15 +21,15 @@ module Actions
                            :jenkins_instance_id => job.jenkins_instance_id})
 
             
-            plan_action(SuspendUntilProvisioned, create_host.output[:host][:id])
+            suspend_until = plan_action(SuspendUntilProvisioned, create_host.output[:host][:id])
 
-            plan_self(:create_host => create_host.output[:host])
+            plan_self(:create_host => create_host.output[:host], :installed_at => suspend_until.output[:installed_at])
             
           end
         end
 
         def run
-          output = input[:create_host]
+          output[:host] = input[:create_host]
         end
 
         private

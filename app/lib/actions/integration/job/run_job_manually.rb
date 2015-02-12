@@ -10,15 +10,16 @@ module Actions
             sequence do
 
               redeploy = plan_action(Redeploy, job)
-
-              plan_action(Jenkins::CreateJenkinsMainJob,
-                       :job_id => job.id, 
-                       :unique_name => redeploy.output[:name],
-                       :host_ip => redeploy.output[:ip],
-                       :package_names => package_names,
-                       :jenkins_instance_hostname => URI(job.jenkins_instance.url).host,
-                       :jenkins_home => job.jenkins_instance.jenkins_home)
-              test_jobs_names = []
+              # try this one first
+              plan_action(Jenkins::CreateJenkinsJobAndTestsAndRun, job, package_names, :host => redeploy.output[:host])
+              # plan_action(Jenkins::CreateJenkinsMainJob,
+              #          :job_id => job.id,
+              #          :unique_name => redeploy.output[:host][:name],
+              #          :host_ip => redeploy.output[:host][:ip],
+              #          :package_names => package_names,
+              #          :jenkins_instance_hostname => URI(job.jenkins_instance.url).host,
+              #          :jenkins_home => job.jenkins_instance.jenkins_home)
+              # test_jobs_names = []
 
               # job.tests.each do |test|
               #   create_test = plan_action(Jenkins::CreateJenkinsTestJob,

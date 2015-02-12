@@ -33,15 +33,6 @@
            required/>
   </div>
 
-  <div bst-form-group label="{{ 'Root password' | translate }}">
-    <input id="passwd"
-           name="passwd"
-           ng-model="jenkinsInstance.passwd"
-           type="password"
-           tabindex="4"
-           required/>
-  </div>
-
   <div bst-form-buttons
         on-cancel="transitionBack()"
         on-save="createJenkinsInstance(jenkinsInstance)"

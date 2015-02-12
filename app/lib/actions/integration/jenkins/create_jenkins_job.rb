@@ -3,6 +3,8 @@ module Actions
     module Jenkins
       class CreateJenkinsJob < AbstractJenkinsAction
 
+        include ::Dynflow::Action::Cancellable
+
         def create_jenkins_job(job_id, unique_name, shell_command = "")
           job.jenkins_instance.client.job.create_freestyle(:name => unique_name, :shell_command => shell_command)
         end

@@ -2,6 +2,7 @@ module Actions
   module Integration
     module Jenkins
       class CreateJenkinsMainJob < CreateJenkinsJob
+
         def run
           create_jenkins_job(input[:job_id],
                              input[:unique_name],
@@ -12,7 +13,6 @@ module Actions
         end
 
         def shell_command(ip, job, jenkins_home, jenkins_instance_name)
-          # root_pass = "changeme"
           c = []
           c << "ssh -i #{jenkins_home}/.ssh/#{jenkins_instance_name} -o StrictHostKeyChecking=no root@#{ip}"
           c << "'"    
