@@ -13,8 +13,8 @@ module Integration
     has_many :jobs, :inverse_of => :jenkins_instance
 
     validates :name, :presence => true
-    validates :url, :presence => true
     validates :cert_path, :format => {:with => /^(\/|~)[a-z0-9\-_.\/]*[^\/]$/i }
+    validates :url, :uniqueness => true, :format => { :with => /^(http|https):\/\/\S+:\d{1,4}$/}
     validates :organization, :presence => true
     validates :jenkins_home, :format => { :with => /^\/[a-z0-9\-_.\/]*[^\/]$/i }
 
