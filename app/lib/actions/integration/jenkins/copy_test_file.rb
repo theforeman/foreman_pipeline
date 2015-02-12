@@ -6,14 +6,22 @@ module Actions
   module Integration
     module Jenkins
       class CopyTestFile < AbstractJenkinsAction
+        include Mixins::UriExtension
+
         def run
           test = ::Integration::Test.find input[:test_id]
           tmp = tmp_file test
-          Net::SCP.upload!(remote_host(job.jenkins_instance),
+          Net::SCP.upload!(jenkins_hostname(job),
                            "root", 
                            "/tmp/#{tmp.path.split("/").pop}",
                            "#{input.fetch(:jenkins_home)}/jobs/#{input.fetch(:name)}/workspace/#{filename(test, ".sh")}",
                            :ssh => { :password => "changeme"})          
+          
+          #try something like this and get rid of tmp file??
+          # Net::SSH.start(ip, 'root', :password => passwd) do |ssh|
+          #   ssh.scp.upload! "#{key_location}/#{parse_host}.pub", buffer
+          # end
+
 
         end
 
@@ -21,10 +29,6 @@ module Actions
           Tempfile.new([test.name, ".sh"], "/tmp") do |file|
             file.write(test.content)
           end 
-        end
-
-        def remote_host(jenkins_instance)
-          URI(jenkins_instance.url).host
         end
 
         def filename(test, ext)

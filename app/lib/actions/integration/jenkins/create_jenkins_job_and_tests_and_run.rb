@@ -3,7 +3,8 @@ module Actions
   module Integration
     module Jenkins
       class CreateJenkinsJobAndTestsAndRun < Actions::EntryAction
-       
+        include Mixins::UriExtension
+
         def plan(job, package_names, options = {:host => nil})          
           sequence do
             
@@ -12,7 +13,7 @@ module Actions
                        :unique_name => options[:host][:name],
                        :host_ip => options[:host][:ip],
                        :package_names => package_names,
-                       :jenkins_instance_hostname => URI(job.jenkins_instance.url).host,
+                       :jenkins_instance_hostname => jenkins_hostname(job),
                        :jenkins_home => job.jenkins_instance.jenkins_home)
 
             test_jobs_names = []
@@ -56,7 +57,7 @@ module Actions
 
             plan_action(WaitHostReady,
                         :host_ip => options[:host][:ip],
-                        :jenkins_instance_hostname => URI(job.jenkins_instance.url).host,
+                        :jenkins_instance_hostname => jenkins_hostname(job),
                         :jenkins_home => job.jenkins_instance.jenkins_home)
 
             plan_action(RunJenkinsJob, 

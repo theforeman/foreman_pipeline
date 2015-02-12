@@ -5,8 +5,9 @@ require 'uri'
 module Actions
   module Integration
     module JenkinsInstance
-      class CreateJenkinsInstanceKeys < EntryAction
-        
+      class CreateJenkinsInstanceKeys < EntryAction        
+        include Mixins::SshExtension
+
         def run
           output[:pubkey] = fetch_pubkey(parse_host, input[:passwd])
         end
@@ -26,48 +27,10 @@ module Actions
             ssh.scp.download! "#{key_location}/#{parse_host}.pub", buffer
           end          
           buffer.string
-        end
-
-         # http://stackoverflow.com/questions/3386233/how-to-get-exit-status-with-rubys-netssh-library
-        def ssh_exec!(ssh, command)
-          stdout_data = ""
-          stderr_data = ""
-          exit_code = nil
-          exit_signal = nil
-          ssh.open_channel do |channel|
-            channel.exec(command) do |ch, success|
-              unless success
-                abort "FAILED: couldn't execute command (ssh.channel.exec)"
-              end
-              channel.on_data do |ch, data|
-                stdout_data += data
-              end
-
-              channel.on_extended_data do |ch, type, data|
-                stderr_data += data
-              end
-
-              channel.on_request("exit-status") do |ch, data|
-                exit_code = data.read_long
-              end
-
-              channel.on_request("exit-signal") do |ch, data|
-                exit_signal = data.read_long
-              end
-            end
-          end
-          ssh.loop
-          [stdout_data, stderr_data, exit_code, exit_signal]
-
-        end
+        end        
 
         def key_location
-          "#{jenkins_home}/.ssh"
-        end
-
-        def jenkins_home
-          home = input.fetch(:jenkins_home)
-          home.end_with?('/') ? home.chop : home
+          "#{input.fetch(:jenkins_home)}/.ssh"
         end
 
       end
