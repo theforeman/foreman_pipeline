@@ -1,29 +1,11 @@
 module Actions
   module Integration
     module Jenkins
-      class WaitHostReady < EntryAction
-        include Dynflow::Action::Polling
-        include Dynflow::Action::Cancellable
+      class WaitHostReady < WaitAndPoll
         include Mixins::SshExtension
 
-        def external_task
-          output[:result]
-        end
-
-        def done?
-          external_task
-        end
-
         private
-
-        def invoke_external_task
-          nil
-        end
-
-        def external_task=(external_task_data)
-          output[:result] = external_task_data
-        end
-
+        
         def poll_external_task
           status = nil
           ip = Socket::getaddrinfo(input[:jenkins_instance_hostname], 'www', nil, Socket::SOCK_STREAM)[0][3]          
@@ -44,10 +26,6 @@ module Actions
 
         def echo
           '"host ready yet?"'
-        end
-
-        def poll_interval
-          5
         end
 
       end
