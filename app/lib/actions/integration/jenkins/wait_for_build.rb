@@ -3,7 +3,8 @@ module Actions
     module Jenkins
       class WaitForBuild < AbstractJenkinsAction
         include Dynflow::Action::Polling
-
+        include Dynflow::Action::Cancellable
+        
         def external_task
           output[:result]
         end

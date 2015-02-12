@@ -24,18 +24,22 @@ module Actions
                                              :unique_name => options[:host][:name],
                                              :job_id => job.id,
                                              :test_name => test.name)
+
                   plan_action(RunJenkinsJob,
                                :job_id => job.id,
                                :name => create_test.output[:name])
+
                   plan_action(WaitForBuild,
                                :job_id => job.id,
                                :test_id => test.id,
                                :name => create_test.output[:name])
+
                   plan_action(CopyTestFile,
                                :job_id => job.id,
                                :name => create_test.output[:name],
                                :test_id => test.id,
                                :jenkins_home => job.jenkins_instance.jenkins_home)
+
                   plan_action(ConfigureJenkinsTestJob,
                                :job_id => job.id,
                                :name => create_test.output[:name],
@@ -50,7 +54,11 @@ module Actions
                         :names => test_jobs_names,
                         :upstream_job => options[:host][:name])
 
-            
+            plan_action(WaitHostReady,
+                        :host_ip => options[:host][:ip],
+                        :jenkins_instance_hostname => URI(job.jenkins_instance.url).host,
+                        :jenkins_home => job.jenkins_instance.jenkins_home)
+
             plan_action(RunJenkinsJob, 
                         :job_id => job.id,
                         :name => options[:host][:name])

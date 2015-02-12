@@ -16,7 +16,6 @@ module Actions
         end
 
         def fetch_pubkey(host, passwd)
-          # id = ::Katello::Util::Model.uuid
           buffer = StringIO.new          
           ip = Socket::getaddrinfo(host, 'www', nil, Socket::SOCK_STREAM)[0][3]
           Net::SSH.start(ip, 'root', :password => passwd) do |ssh|
@@ -59,6 +58,7 @@ module Actions
           end
           ssh.loop
           [stdout_data, stderr_data, exit_code, exit_signal]
+
         end
 
         def key_location
