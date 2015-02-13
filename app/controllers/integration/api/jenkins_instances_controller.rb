@@ -65,7 +65,7 @@ module Integration
    end
 
    def jenkins_instance_params
-     params.require(:jenkins_instance).permit(:name, :url, :jenkins_home)
+     params.require(:jenkins_instance).permit(:name, :url, :jenkins_home, :cert_path)
    end
 
  end

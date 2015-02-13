@@ -39,7 +39,8 @@ module Actions
                                :job_id => job.id,
                                :name => create_test.output[:name],
                                :test_id => test.id,
-                               :jenkins_home => job.jenkins_instance.jenkins_home)
+                               :jenkins_home => job.jenkins_instance.jenkins_home,
+                               :cert_path => job.jenkins_instance.cert_path)
 
                   plan_action(ConfigureJenkinsTestJob,
                                :job_id => job.id,
@@ -58,7 +59,8 @@ module Actions
             plan_action(WaitHostReady,
                         :host_ip => options[:host][:ip],
                         :jenkins_instance_hostname => jenkins_hostname(job),
-                        :jenkins_home => job.jenkins_instance.jenkins_home)
+                        :jenkins_home => job.jenkins_instance.jenkins_home,
+                        :cert_path => job.jenkins_instance.cert_path)
 
             plan_action(RunJenkinsJob, 
                         :job_id => job.id,

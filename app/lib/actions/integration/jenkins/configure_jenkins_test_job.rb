@@ -8,7 +8,7 @@ module Actions
         end
 
         def shell
-          "sh #{input.fetch(:test_name)}.sh"
+          "sh #{input.fetch(:test_name)}"
         end
 
       end

@@ -23,7 +23,7 @@ angular.module('Integration.jenkins-instances').controller('JenkinsInstanceDetai
 
             error = function (response) {
                 deferred.reject(response);
-                angular.forEach(response.data.erorrs, function (errorMessage, key) {
+                angular.forEach(response.data.errors, function (errorMessage, key) {
                     if (angular.isString(key)) {
                         errorMessage = [key, errorMessage].join(' ');
                     }

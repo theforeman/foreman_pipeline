@@ -9,7 +9,7 @@ module Actions
         def poll_external_task
           status = nil
           ip = Socket::getaddrinfo(input[:jenkins_instance_hostname], 'www', nil, Socket::SOCK_STREAM)[0][3]          
-          Net::SSH.start(ip, 'root', :password => "changeme") do |ssh|
+          Net::SSH.start(ip, 'root', :keys => [input.fetch(:cert_path)]) do |ssh|
             status = ssh_exec!(ssh, command)
           end
           status[2].to_i == 0

@@ -14,8 +14,10 @@ module Integration
 
     validates :name, :presence => true
     validates :url, :presence => true
+    validates :cert_path, :format => {:with => /^(\/|~)[a-z0-9\-_.\/]*[^\/]$/i }
     validates :organization, :presence => true
     validates :jenkins_home, :format => { :with => /^\/[a-z0-9\-_.\/]*[^\/]$/i }
+
 
     def create_client
       @client ||= JenkinsApi::Client.new(:server_url => url, :log_level => Logger::DEBUG)

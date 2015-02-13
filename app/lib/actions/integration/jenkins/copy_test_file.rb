@@ -10,29 +10,25 @@ module Actions
 
         def run
           test = ::Integration::Test.find input[:test_id]
-          tmp = tmp_file test
-          Net::SCP.upload!(jenkins_hostname(job),
-                           "root", 
-                           "/tmp/#{tmp.path.split("/").pop}",
-                           "#{input.fetch(:jenkins_home)}/jobs/#{input.fetch(:name)}/workspace/#{filename(test, ".sh")}",
-                           :ssh => { :password => "changeme"})          
-          
-          #try something like this and get rid of tmp file??
-          # Net::SSH.start(ip, 'root', :password => passwd) do |ssh|
-          #   ssh.scp.upload! "#{key_location}/#{parse_host}.pub", buffer
-          # end
+          tmp = tmp_file test          
 
-
+          Net::SSH.start(jenkins_hostname(job), 'root', :keys => [input.fetch(:cert_path)]) do |ssh|
+            ssh.scp.upload! "/tmp/#{tmp.path.split("/").pop}", workspace_path(test)
+            ssh.exec! "chown jenkins:jenkins #{workspace_path(test)}"
+          end
+          output[:content] = test.content
+          output[:tmp_filepath] = "/tmp/#{tmp.path.split("/").pop}"
         end
 
         def tmp_file(test)
-          Tempfile.new([test.name, ".sh"], "/tmp") do |file|
-            file.write(test.content)
-          end 
+          file = Tempfile.new(test.name, "/tmp")
+          file.write(test.content)
+          file.rewind
+          file
         end
 
-        def filename(test, ext)
-          [test.name, ext].join
+        def workspace_path(test)
+          [input.fetch(:jenkins_home), "jobs", input.fetch(:name), "workspace", test.name].join("/")
         end
       end
     end

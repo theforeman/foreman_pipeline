@@ -33,6 +33,15 @@
            required/>
   </div>
 
+  <div bst-form-group label="{{ 'Certificate Path' | translate }}">
+    <input id="cert_path"
+           name="cert_path"
+           ng-model="jenkinsInstance.cert_path"
+           type="text"
+           tabindex="4"
+           required/>
+  </div>
+
   <div bst-form-buttons
         on-cancel="transitionBack()"
         on-save="createJenkinsInstance(jenkinsInstance)"
