@@ -13,8 +13,9 @@ angular.module('Integration.jobs').controller('JobDetailsInfoController',
                 
             });
 
-
             $scope.working = false;
+
+            $scope.isValid = $scope.checkValid();
 
             $scope.save = function (job) {
                 var deferred = $q.defer();

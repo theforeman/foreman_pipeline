@@ -9,6 +9,15 @@
            required/>
   </div>
 
+  <div bst-form-group label="{{ 'Build Step' | translate }}">
+    <textarea name="build_step"
+              id="build_step"                                                              
+              ng-model="test.build_step"
+              tabindex="2"
+              placeholder="{{ 'Specify build step here...' | translate }}">
+    </textarea>
+  </div>
+
   <div bst-form-buttons
         on-cancel="transitionBack()"
         on-save="createTest(test)"

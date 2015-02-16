@@ -13,12 +13,18 @@
             on-save="save(test)">
       </span>
     </div>
+
+    <div class="detail">
+      <span class="info-label" translate>Build Step</span>
+      <span class="gpg-bst-edit info-value"
+            bst-edit-textarea="test.build_step"
+            on-save="save(test)">
+      </span>
+    </div>
+
+
   </section>
 
-  
-</div>
-
-<div class="details fr">
   <section class="well">
     <h4 translate>Upload Test Content</h4>
 
@@ -57,3 +63,7 @@
     <p>{{ test.content }}</p>
   </div>
 </div>
+
+<!-- <div class="details fr"> -->
+  
+<!-- </div> -->

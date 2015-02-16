@@ -1,3 +1,4 @@
+require 'erb'
 module Actions
   module Integration
     module Jenkins
@@ -8,9 +9,9 @@ module Actions
         end
 
         def shell
-          "sh #{input.fetch(:test_name)}"
+          filename = input.fetch(:test_name)
+          temp = ERB.new(input.fetch(:shell_command)).result(binding)
         end
-
       end
     end
   end

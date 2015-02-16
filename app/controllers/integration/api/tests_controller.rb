@@ -53,7 +53,7 @@ module Integration
     end
 
     def test_params
-      params.require(:test).permit(:name, :content)
+      params.require(:test).permit(:name, :content, :build_step)
     end
 
   end

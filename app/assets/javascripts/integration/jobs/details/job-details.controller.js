@@ -13,13 +13,17 @@ angular.module('Integration.jobs').controller('JobDetailsController',
         }
         
         $scope.job = Job.get({id: $scope.$stateParams.jobId}, function () {
-            $scope.isValid = $scope.job.content_view !== null 
-                                && $scope.job.hostgroup !== null
-                                && $scope.job.compute_resource !== null
-                                && $scope.job.jenkins_instance !== null
-                                && $scope.job.environment !== null;
+            $scope.isValid = $scope.checkValid();
             $scope.panel.loading = false;
         });
+
+        $scope.checkValid = function () {
+            return $scope.job.content_view !== null 
+                        && $scope.job.hostgroup !== null
+                        && $scope.job.compute_resource !== null
+                        && $scope.job.jenkins_instance !== null
+                        && $scope.job.environment !== null;
+        }
 
     }]
 );
