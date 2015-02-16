@@ -6,7 +6,7 @@ module Integration
     include Glue::ElasticSearch::Test
     include Integration::Authorization::Test
 
-    validates :name, :presence => true#, :format => { :with => /^((((\.?\w+)+(-?)(\w+))+(\.?)(\w+))|((\.?\w+)+))/}
+    validates :name, :uniqueness => true, :format => { :with => /^(\w+(\.?|-?)\w+)+$/i}
     validates :organization, :presence => true
 
     belongs_to :organization

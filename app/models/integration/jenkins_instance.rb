@@ -12,11 +12,13 @@ module Integration
     belongs_to :organization
     has_many :jobs, :inverse_of => :jenkins_instance
 
+    FILEPATH_REGEX = /^(\/|~)[a-z0-9\-_.\/]*[^\/]$/i
+    
     validates :name, :presence => true
-    validates :cert_path, :format => {:with => /^(\/|~)[a-z0-9\-_.\/]*[^\/]$/i }
+    validates :cert_path, :format => {:with => FILEPATH_REGEX }
     validates :url, :uniqueness => true, :format => { :with => /^(http|https):\/\/\S+:\d{1,4}$/}
     validates :organization, :presence => true
-    validates :jenkins_home, :format => { :with => /^\/[a-z0-9\-_.\/]*[^\/]$/i }
+    validates :jenkins_home, :format => { :with => FILEPATH_REGEX }
 
 
     def create_client
