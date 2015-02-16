@@ -50,7 +50,7 @@ module Integration
     end
 
     def update
-      @jenkins_instance.update_attributes!(jenkins_instance_params)
+      @jenkins_instance.update_attributes!(jenkins_instance_params.except(:url).except(:jenkins_home))
       @jenkins_instance.save!
 
       respond_for_show(:resource => @jenkins_instance)
