@@ -14,7 +14,8 @@ module Actions
 
         def shell_command(ip, job, jenkins_home, jenkins_instance_name)
           c = []
-          c << "ssh -i #{jenkins_home}/.ssh/#{jenkins_instance_name} -o StrictHostKeyChecking=no root@#{ip}"
+          c << "ssh-keyscan #{ip} >> #{jenkins_home}/.ssh/known_hosts;\n"
+          c << "ssh -i #{jenkins_home}/.ssh/#{jenkins_instance_name} root@#{ip}"
           c << "'"    
           c << add_repo_sources(job)
           c << ";"

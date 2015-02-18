@@ -1,4 +1,3 @@
-require 'uri'
 module Actions
   module Integration
     module Job
