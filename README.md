@@ -12,8 +12,9 @@ gemspec :path => 'path/to/this/plugin'
 ```
 then
 ```
-rake db:migrate
 bundle install
+rake db:migrate
+rake integration::seed
 ```
 
 ##Dependencies##
