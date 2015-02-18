@@ -5,6 +5,7 @@ module Integration
     include Katello::Glue
     include Glue::ElasticSearch::Job
     include Integration::Authorization::Job
+    include ActiveModel::Validations
 
     belongs_to :content_view, :class_name => 'Katello::ContentView', :inverse_of => :jobs
     belongs_to :hostgroup, :class_name => '::Hostgroup', :inverse_of => :jobs
@@ -22,6 +23,12 @@ module Integration
     
     validates :name, :presence => true
     validates :organization, :presence => true
+    validate :no_composite_view
+
+    def no_composite_view
+      errors.add(:base,
+       "Cannot add content view, only non-composites allowed.") if content_view.composite?
+    end
 
     def is_valid?
       !self.attributes.values.include? nil

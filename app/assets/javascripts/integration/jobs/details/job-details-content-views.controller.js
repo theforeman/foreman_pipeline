@@ -10,7 +10,7 @@ angular.module('Integration.jobs').controller('JobDetailsContentViewsController'
                 'sort_by': 'name',
                 'sort_order': 'ASC',
                 'nondefault': true,
-                /*'full_result': true*/
+                'noncomposite': true,
             };
 
             $scope.job = $scope.job || Job.get({id: $scope.$stateParams.jobId}, function () {
@@ -41,9 +41,6 @@ angular.module('Integration.jobs').controller('JobDetailsContentViewsController'
                     error = function (response) {
                         deferred.reject(response);
                         angular.forEach(response.data.errors, function (errorMessage, key) {
-                            if (angular.isString(key)) {
-                                errorMessage = [key, errorMessage].join(' ');
-                            }
                             $scope.errorMessages.push(translate('Error occured while saving Job: ') + errorMessage);
                         });
                         $scope.cvTable.working = false;
