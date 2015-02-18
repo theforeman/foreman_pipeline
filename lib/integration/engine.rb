@@ -38,6 +38,7 @@ module Integration
       Bastion.register_plugin({
         :name => 'integration',
         :javascript => 'integration/integration',
+        :stylesheet => 'integration/integration',
         :pages => %w(
             jobs
             tests

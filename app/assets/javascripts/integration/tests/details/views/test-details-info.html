@@ -15,12 +15,34 @@
     </div>
 
     <div class="detail">
-      <span class="info-label" translate>Build Step</span>
-      <span class="gpg-bst-edit info-value"
+      <span class="info-label" translate>
+        <i class="expand-icon" 
+         ng-class="{ 'icon-plus': !showStep, 'icon-minus': showStep}"
+         ng-click="showStep = !showStep">         
+        </i>
+        Build Step
+      </span>
+      <span class="test-content-edit info-value"
+            ng-show="showStep"
             bst-edit-textarea="test.build_step"
             on-save="save(test)">
       </span>
     </div>
+
+    <div class="detail">
+      <span class="info-label" translate>
+        <i class="expand-icon" 
+         ng-class="{ 'icon-plus': !showContent, 'icon-minus': showContent}"
+         ng-click="showContent = !showContent">         
+        </i>
+        Content
+      </span>
+      <span class="info-value test-content-edit"
+            ng-show="showContent"
+            bst-edit-textarea="test.content"
+            on-save="save(test)">
+      </span>
+  </div>
 
 
   </section>
@@ -46,24 +68,4 @@
       </div>
     </form>
   </section>
-</div>
-
-<div class="advanced-info" ng-show="test.content">
-  <header class="details-sub-header">
-    <h4>
-      <i class="expand-icon" 
-         ng-class="{ 'icon-plus': !showContent, 'icon-minus': showContent}"
-         ng-click="showContent = !showContent">
-      </i>
-      <span translate>Content</span>
-    </h4>
-  </header>
-
-  <div ng-show="showContent" class="details fl">
-    <p>{{ test.content }}</p>
-  </div>
-</div>
-
-<!-- <div class="details fr"> -->
-  
-<!-- </div> -->
+</div>  
