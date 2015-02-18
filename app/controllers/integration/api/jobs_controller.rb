@@ -1,4 +1,3 @@
-
 module Integration
   class Api::JobsController < Katello::Api::V2::ApiController
     respond_to :json

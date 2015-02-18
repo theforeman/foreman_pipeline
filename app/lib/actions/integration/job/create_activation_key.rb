@@ -2,7 +2,7 @@ module Actions
   module Integration
     module Job
       class CreateActivationKey < Actions::EntryAction
-        
+        # middleware.use ::Actions::Middleware::RemoteAction        
 
         def run
           ::User.current = ::User.first
