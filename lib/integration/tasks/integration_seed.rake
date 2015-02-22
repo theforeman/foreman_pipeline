@@ -1,4 +1,5 @@
 namespace :integration do
+
   desc "seeding the database"
   task :seed => :environment do
     defaults = {:default => true, :locked => false}
@@ -13,4 +14,5 @@ namespace :integration do
     end
     
   end
+  
 end

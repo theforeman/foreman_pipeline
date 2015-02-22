@@ -6,8 +6,10 @@ module Integration
       app.routes_reloader.paths << "#{Integration::Engine.root}/config/mount_engine.rb"
     end
 
-    initializer 'integration.load_migrations' do |app|
-      app.config.paths['db/migrate'] += Integration::Engine.paths['db/migrate'].existent      
+    initializer 'integration.load_app_instance_data' do |app|
+      app.config.paths['db/migrate'] += Integration::Engine.paths['db/migrate'].existent
+      app.config.autoload_paths += Dir["#{config.root}/app/lib"]
+      app.config.autoload_paths += Dir["#{config.root}/app/views/foreman"]
     end
 
     initializer 'integration.register_plugin', :after => :finisher_hook do
@@ -56,7 +58,8 @@ module Integration
     end
 
     rake_tasks do
-      load "#{Integration::Engine.root}/lib/integration/tasks/integration_seeds.rake"
+      load "#{Integration::Engine.root}/lib/integration/tasks/integration_seed.rake"
+      load "#{Integration::Engine.root}/lib/integration/tasks/integration_test.rake"
     end
        
   end

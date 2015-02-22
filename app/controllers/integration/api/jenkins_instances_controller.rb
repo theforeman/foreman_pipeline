@@ -1,4 +1,3 @@
-require 'uri'
 module Integration
   class Api::JenkinsInstancesController < Katello::Api::V2::ApiController
     respond_to :json
