@@ -12,15 +12,23 @@ namespace :test do
       end
       Rake::Task[test_task.name].invoke
     end
+
+    task :spec => ['db:test:prepare'] do
+      test_task = Rake::TestTask.new('integration_spec_task') do |t|
+        t.libs << ["spec", "#{Integration::Engine.root}/spec", "test", "#{Integration::Engine.root}/test"]
+        t.test_files = ["#{Integration::Engine.root}/spec/**/*_spec.rb"]
+        t.verbose = true
+      end
+      Rake::Task[test_task.name].invoke
+    end
   end
-  # desc "run all plugin's tests"
-  # task :integration do
-  #   test_task  = Rake::TestTask.new(:integration_tests) do |t|      
-  #     t.libs << ["#{Integration::Engine.root}/test", "test", "test/**"]
-  #     t.test_files = ["#{Integration::Engine.root}/test/**/*_test.rb"]
-  #     t.verbose = true
-  #   end
-  # end
+
+
+  desc "run all plugin's tests"
+  task :integration do
+    Rake::Task['test:integration:test'].invoke
+    Rake::Task['test:integration:spec'].invoke
+  end
 
 end
   
