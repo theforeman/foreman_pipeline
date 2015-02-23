@@ -14,7 +14,7 @@ then
 ```
 bundle install
 rake db:migrate
-rake integration::seed
+rake integration:seed
 ```
 
 ##Dependencies##
