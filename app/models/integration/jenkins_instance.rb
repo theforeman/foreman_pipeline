@@ -28,8 +28,7 @@ module Integration
     def check_jenkins_server
       create_client
       @client.get_jenkins_version
-    end
-    
+    end    
     
   end
 end
