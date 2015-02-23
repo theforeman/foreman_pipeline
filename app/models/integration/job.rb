@@ -27,7 +27,7 @@ module Integration
 
     def no_composite_view
       errors.add(:base,
-       "Cannot add content view, only non-composites allowed.") if content_view.composite?
+       "Cannot add content view, only non-composites allowed.") if !content_view.nil? && content_view.composite?
     end
 
     def is_valid?
