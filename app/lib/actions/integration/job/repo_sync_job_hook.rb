@@ -13,10 +13,10 @@ module Actions
           valid_jobs = repo.jobs.select { |job| job.is_valid? }
 
           jobs_to_run = valid_jobs.select { |job| job.target_cv_version_avail? }
-
+          
           jobs_to_run.each do |job|
             if job.sync_trigger
-              plan_action(Dummy, :job_name => job.name)                            
+              plan_action(DeployNewHost, job)                            
             end
           end
         end

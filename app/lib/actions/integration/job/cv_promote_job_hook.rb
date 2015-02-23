@@ -15,8 +15,8 @@ module Actions
           
           jobs_to_run.each do |job|
             
-            if job.levelup_trigger              
-              plan_action(Dummy, :job_name => job.name) 
+            if job.levelup_trigger   
+              plan_action(DeployNewHost, job) 
             end
 
           

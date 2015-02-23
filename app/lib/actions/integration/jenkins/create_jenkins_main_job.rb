@@ -34,7 +34,7 @@ module Actions
 
         def install_packages
           d = ["yum -y install"]
-          # input[:package_names].each { |packagename| d << "#{packagename}" }
+          input[:package_names].each { |packagename| d << "#{packagename}" }
           d.length == 1 ? "" : d.join(" ") 
         end
 
