@@ -1,0 +1,82 @@
+<span page-title>{{ 'Jenkins Projects' | translate }}</span>
+
+<section class="nutupane-sub-section">
+
+  
+  <div class="row">
+    <div class="col-sm-5">
+      <a href="" ui-sref="job.details.jenkins-projects.list({jobId: job.id})">
+      <i class="icon-double-angle-left"></i>
+      {{ "Back" | translate }}
+    </div>
+  </a>
+  </div>
+  <div class="row">
+    <div class="col-sm-5">
+      <h3 translate>Jenkins Projects</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <form ng-submit="discover()" role="form" class="col-sm-6" ng-show="permitted('edit_jobs', job)">
+      <div class="input-group" >    
+                
+        <input type="text" 
+             class="form-control input-lg"
+             placeholder="{{ 'Search by name...' | translate }}"
+             ng-model="discovery.pattern"
+             ng-disabled="discovery.pending"/>
+
+        <span class="input-group-btn input-group-lg">
+          <button translate
+                  class="btn btn-primary btn-lg"
+                  ng-disabled="discovery.pending">
+            <i class="icon-search" ng-show="!discovery.pending"></i>
+            <i class="icon-spinner icon-spin" ng-show="discovery.pending"></i>
+            Search
+          </button>       
+        </span>
+      </div>
+    </form>
+  </div>
+  <br/>
+
+  <div class="row">
+    <h4 class="col-sm-12" translate>Results</h4>
+
+    <div class="col-sm-4">
+      <input type="text"
+             class="form-control"
+             placeholder="{{ 'Filter' | translate }}"
+             ng-model="projectsTable.filterTerm"/>
+    </div>
+
+    <div class="fr">
+      <div class="fl nutupane-info">
+        <span translate>{{ projectsTable.numSelected }} Selected</span>
+      </div>   
+
+      <div ng-hide="system.readonly" class="nutupane-actions fr">      
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12">
+    <table bst-table="projectsTable" class="table table-striped">
+      <thead>
+        <tr bst-table-head row-select>
+          <th bst-table-column translate>Name</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr bst-table-row 
+            row-select="project"
+            ng-repeat="project in projectsTable.rows | filter:projectsTable.filterTerm">
+          <td bst-table-cell>{{ project.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>

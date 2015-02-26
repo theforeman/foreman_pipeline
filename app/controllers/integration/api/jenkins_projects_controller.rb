@@ -1,5 +1,5 @@
 module Integration
-  class JenkinsProjectsController < Katello::Api::V2::ApiController
+  class Api::JenkinsProjectsController < Katello::Api::V2::ApiController
     respond_to :json
 
     include Api::Rendering
@@ -36,9 +36,10 @@ module Integration
     end
 
     def list
-      task = sync_task(::Actions::Integration::Jenkins::List, :job_id => params[:job_id], :filter => params[:filter])
-      projects = task.output[:projects].each {|p| JenkinsProject.new(:name => p)}
-      respond_for_index(:collection => projects)
+      fail "filter string not given" if params[:filter].blank?
+      fail "job id not given" if params[:job_id].nil?
+      task = async_task(::Actions::Integration::Jenkins::List, :job_id => params[:job_id], :filter => params[:filter])
+      respond_for_async(:resource => task)
     end
 
     private

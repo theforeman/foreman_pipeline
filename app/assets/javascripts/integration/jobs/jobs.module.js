@@ -68,17 +68,7 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
         controller: 'JobDetailsContentViewsController',
         templateUrl: 'integration/jobs/details/views/job-details-content-views.html'
     })
-    .state('jobs.details.content-views.new', {
-        url: '/content_views/new',
-        permission: 'create_content_views',
-        collapsed: true,
-        views: {
-            '@jobs.details': {
-                controller: 'JobsDetailsNewContentViewController',
-                templateUrl: 'content-views/new/views/content-view-new.html'
-            }
-        }
-    })
+    
 
     .state('jobs.details.hostgroups', {
         url: '/hostgroups',
@@ -143,11 +133,24 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
     })
 
     .state('jobs.details.jenkins-projects', {
+        abstract: true,
+        collapsed: true,
+        templateUrl: 'integration/jobs/details/project-discovery/views/job-jenkins-projects.html'
+    })
+
+    .state('jobs.details.jenkins-projects.list', {
         url: '/jenkins_projects',
         collapsed: true,
         permission: 'edit_jobs',
         controller: 'JobDetailsJenkinsProjectsController',
         templateUrl: 'integration/jobs/details/views/job-details-jenkins-projects.html'
+    })
+    .state('jobs.details.jenkins-projects.discovery', {
+        url: '/jenkins_projects/discovery',
+        collapsed: true,
+        permission: 'edit_jobs',
+        controller: 'JobProjectsDiscoveryController',
+        templateUrl: 'integration/jobs/details/project-discovery/views/job-projects-discovery.html'
     })
     
 }]);

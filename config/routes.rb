@@ -36,9 +36,8 @@ Integration::Engine.routes.draw do
       end
 
       api_resources :jenkins_projects, :only => [:create, :show, :update] do
-        member do
-          get :list_all
-          get :list
+        collection do
+          post :list            
         end
       end
       
