@@ -34,6 +34,13 @@ Integration::Engine.routes.draw do
           get :check_jenkins
         end
       end
+
+      api_resources :jenkins_projects, :only => [] do
+        member do
+          get :list_all
+          get :list
+        end
+      end
       
     end
 

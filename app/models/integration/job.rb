@@ -14,6 +14,9 @@ module Integration
     belongs_to :jenkins_instance, :inverse_of => :jobs
     belongs_to :environment, :class_name => 'Katello::KTEnvironment', :inverse_of => :jobs
 
+    has_many :job_jenkins_projects, :dependent => :destroy
+    has_many :jenkins_projects, :through => :job_jenkins_projects, :class_name => 'Integration::JenkinsProject', :dependent => :restrict
+
     # rubocop:disable HasAndBelongsToMany
     has_and_belongs_to_many :tests, :join_table => :integration_jobs_tests
 

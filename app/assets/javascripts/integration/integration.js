@@ -4,7 +4,10 @@
 //=require "integration/tests/tests.module.js"
 //=require_tree "./tests"
 
-//=require "integration/jenkins-instances/jenkins-instances.module"
+//=require "integration/jenkins-instances/jenkins-instances.module.js"
 //=require_tree "./jenkins-instances"
+
+//=require "integration/jenkins-projects/jenkins-projects.module.js"
+//=require_tree "./jenkins-projects"
 
 //=require "integration/integration-bootstrap.js" 
