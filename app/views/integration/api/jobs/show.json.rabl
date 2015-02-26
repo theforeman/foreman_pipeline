@@ -25,3 +25,7 @@ end
 child :environment => :environment do 
   extends "integration/api/environments/show"
 end
+
+child :jenkins_projects => :jenkins_projects do |project|
+  extends "integration/api/jenkins_projects/show"
+end

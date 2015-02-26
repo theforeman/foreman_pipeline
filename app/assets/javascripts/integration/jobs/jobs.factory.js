@@ -21,7 +21,11 @@ angular.module('Integration.jobs').factory('Job',
             availableResources: {method: 'GET', params: {action: 'available_resources'}, transformResponse: function (response) {                
                 return {results: angular.fromJson(response)};
             }},
-            runJob: {method: 'GET', params: {action: 'run_job'}},          
+            runJob: {method: 'GET', params: {action: 'run_job'}},
+            projects: {method: 'GET', transformResponse: function (response) {
+                var job = angular.fromJson(response);
+                return {results: job.jenkins_projects};
+            }} 
         });
     }]
 );

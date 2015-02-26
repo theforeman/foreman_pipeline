@@ -2,8 +2,8 @@ module Integration
   class JenkinsProject < Katello::Model
     self.include_root_in_json = false
 
-    # include Katello::Glue
-    # include Glue::ElasticSearch::JenkinsProject
+    include Katello::Glue
+    include Glue::ElasticSearch::JenkinsProject
     include Integration::Authorization::JenkinsProject
 
     belongs_to :organization

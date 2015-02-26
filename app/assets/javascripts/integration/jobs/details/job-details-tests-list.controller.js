@@ -6,7 +6,7 @@ angular.module('Integration.jobs').controller('JobDetailsTestsListController',
             $scope.errorMessages = [];
 
             var params = {
-                'serach': $location.search().search || "",
+                'search': $location.search().search || "",
                 'sort_by': 'name',
                 'sort_order': 'ASC',
                 'id': $scope.$stateParams.jobId

@@ -1,7 +1,7 @@
 angular.module('Integration.jobs', [
     'ngResource',
     'Bastion.components',
-    
+    'Integration.jenkins-projects',
     'ui.router',
     'Bastion'
 ]);
@@ -142,4 +142,12 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
         templateUrl: 'integration/jobs/details/views/job-details-jenkins.html'
     })
 
+    .state('jobs.details.jenkins-projects', {
+        url: '/jenkins_projects',
+        collapsed: true,
+        permission: 'edit_jobs',
+        controller: 'JobDetailsJenkinsProjectsController',
+        templateUrl: 'integration/jobs/details/views/job-details-jenkins-projects.html'
+    })
+    
 }]);

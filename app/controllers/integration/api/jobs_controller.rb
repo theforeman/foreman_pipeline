@@ -12,6 +12,7 @@ module Integration
     before_filter :load_search_service, :only => [:index, :available_tests]
 
     def index
+
        ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
        filters = [:terms => {:id => ids}]       
 
@@ -19,7 +20,6 @@ module Integration
          :filters => filters,
          :load_records? => true
       }
-       
       respond_for_index(:collection => item_search(Job, params, options))
     end
 
