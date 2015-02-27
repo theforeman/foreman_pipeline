@@ -12,8 +12,9 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsProjectsControll
             } 
 
             nutupane = new Nutupane(Job, params, 'projects');
-            $scope.nutupane = nutupane;
+            // $scope.nutupane = nutupane;
             $scope.projectsTable = nutupane.table;
+            nutupane.query();
 
             $scope.removeProjects = function () {
                 var data,
@@ -46,4 +47,8 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsProjectsControll
                 Job.removeProjects({id: $scope.job.id}, data, success, error);
                 return deferred.promise;
             };
+
+            $scope.debug = function () {
+                console.log($scope.projectsTable.rows)
+            }
         }]);
