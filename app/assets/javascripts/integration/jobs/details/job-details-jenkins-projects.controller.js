@@ -12,7 +12,6 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsProjectsControll
             } 
 
             nutupane = new Nutupane(Job, params, 'projects');
-            // $scope.nutupane = nutupane;
             $scope.projectsTable = nutupane.table;
             nutupane.query();
 

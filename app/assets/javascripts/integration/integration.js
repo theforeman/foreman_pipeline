@@ -7,7 +7,7 @@
 //=require "integration/jenkins-instances/jenkins-instances.module.js"
 //=require_tree "./jenkins-instances"
 
-//=require "integration/jenkins-projects/jenkins-projects.module.js"
-//=require_tree "./jenkins-projects"
+//=require "integration/jenkins-requests/jenkins-requests.module.js"
+//=require_tree "./jenkins-requests"
 
 //=require "integration/integration-bootstrap.js" 

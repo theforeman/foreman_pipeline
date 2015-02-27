@@ -1,6 +1,6 @@
 angular.module('Integration.jobs').controller('JobProjectsDiscoveryController',
-    ['$scope', '$q', 'translate', 'CurrentOrganization', 'Job', 'Task', 'JenkinsProject',
-        function ($scope, $q, translate, CurrentOrganization, Job, Task, JenkinsProject) {
+    ['$scope', '$q', 'translate', 'CurrentOrganization', 'Job', 'Task', 'JenkinsRequest',
+        function ($scope, $q, translate, CurrentOrganization, Job, Task, JenkinsRequest) {
 
             var setDetails, transformRows;
 
@@ -49,7 +49,7 @@ angular.module('Integration.jobs').controller('JobProjectsDiscoveryController',
                 $scope.discovery.pending = true;
                 $scope.projectsTable.selectAll(false);
 
-                JenkinsProject.list({job_id: $scope.job.id, filter: $scope.discovery.pattern}, registerTask)
+                JenkinsRequest.list({job_id: $scope.job.id, filter: $scope.discovery.pattern}, registerTask)
             };
 
             $scope.addProjects = function () {

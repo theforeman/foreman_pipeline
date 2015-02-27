@@ -16,31 +16,18 @@ module Integration
       respond_for_show(:resource => @jenkins_project)
     end
 
-    def update
-      @jenkins_project.update_attributes!(jenkins_project_params)
-      @jenkins_project.save!
-      respond_for_show(:resource => @jenkins_project)
-    end
+    # def update
+    #   @jenkins_project.update_attributes!(jenkins_project_params)
+    #   @jenkins_project.save!
+    #   respond_for_show(:resource => @jenkins_project)
+    # end
 
-    def create
-      @jenkins_project = JenkinsProject.new(jenkins_project_params)
-      @jenkins_project.organization = @organization
-      @jenkins_project.save!
-      respond_for_show(:resource => @jenkins_project)
-    end
-
-    def list_all
-      # task = sync_task(::Actions::Integration::Jenkins::ListAll, :job_id => params[:job_id])
-      # projects = task.output[:projects].each {|p| JenkinsProject.new(:name => p)}
-      # respond_for_index(:collection => projects)
-    end
-
-    def list
-      fail "filter string not given" if params[:filter].blank?
-      fail "job id not given" if params[:job_id].nil?
-      task = async_task(::Actions::Integration::Jenkins::List, :job_id => params[:job_id], :filter => params[:filter])
-      respond_for_async(:resource => task)
-    end
+    # def create
+    #   @jenkins_project = JenkinsProject.new(jenkins_project_params)
+    #   @jenkins_project.organization = @organization
+    #   @jenkins_project.save!
+    #   respond_for_show(:resource => @jenkins_project)
+    # end
 
     private
 

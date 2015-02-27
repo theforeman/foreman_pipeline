@@ -136,9 +136,8 @@ module Integration
 
     def remove_projects
       ids = params[:project_ids]
-      @projects = JenkinsProject.where(:id => ids)
-      @job.jenkins_project_ids = (@job.jenkins_project_ids - @projects.map(&:id)).uniq
-      @job.save!
+      jj_projects = JobJenkinsProject.where(:jenkins_project_id => ids)
+      jj_projects.map(&:destroy)
       respond_for_show
     end
 

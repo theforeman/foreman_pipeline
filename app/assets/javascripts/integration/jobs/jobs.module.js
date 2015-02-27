@@ -1,7 +1,6 @@
 angular.module('Integration.jobs', [
     'ngResource',
     'Bastion.components',
-    'Integration.jenkins-projects',
     'ui.router',
     'Bastion'
 ]);

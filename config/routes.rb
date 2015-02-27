@@ -37,7 +37,9 @@ Integration::Engine.routes.draw do
         end
       end
 
-      api_resources :jenkins_projects, :only => [:create, :show, :update] do
+      api_resources :jenkins_projects, :only => [:show, :update]
+
+      api_resources :jenkins_requests, :only => [] do
         collection do
           post :list            
         end
