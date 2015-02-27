@@ -46,9 +46,9 @@
           <tbody>
             <tr bst-table-row ng-repeat="jenkinsProject in projectsTable.rows | filter:jenkinsFilter" row-select="jenkinsProject">
               <td bst-table-cell>
-                <!-- <a ui-sref="jenkins-projects.details.info({ jenkinsProjectId: jenkinsProject.id })"> -->
+                <a href="" ui-sref="jobs.details.jenkins-projects.parameters({ projectId: jenkinsProject.id })">
                   {{ jenkinsProject.name }}
-                <!-- </a> -->
+                </a>
               </td>
             </tr>
           </tbody>

@@ -5,7 +5,7 @@ angular.module('Integration.jenkins-requests').factory('JenkinsRequest',
             return BastionResource('/../integration/api/organizations/:organizationId/jenkins_requests/:action',
                 {id: '@id', organizationId: CurrentOrganization}, {
                     
-                    list: {method: 'POST', params: {action: 'list'}},
-                                       
+                    list: {method: 'GET', params: {action: 'list'}},
+                    getBuildParams: {method: 'GET', params: {action: 'get_build_params'}}           
                 })
         }]);

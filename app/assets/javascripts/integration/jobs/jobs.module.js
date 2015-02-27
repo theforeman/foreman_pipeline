@@ -151,5 +151,12 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
         controller: 'JobProjectsDiscoveryController',
         templateUrl: 'integration/jobs/details/project-discovery/views/job-projects-discovery.html'
     })
+    .state('jobs.details.jenkins-projects.parameters', {
+        url: '/jenkins_projects/:projectId',
+        collapsed: true,
+        permission: 'edit_jobs',
+        controller: 'JobProjectsParametersController', 
+        templateUrl: 'integration/jobs/details/project-discovery/views/job-projects-parameters.html'
+    })
     
 }]);

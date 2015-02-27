@@ -1,6 +1,6 @@
 angular.module('Integration.jobs').controller('JobProjectsDiscoveryController',
-    ['$scope', '$q', 'translate', 'CurrentOrganization', 'Job', 'Task', 'JenkinsRequest',
-        function ($scope, $q, translate, CurrentOrganization, Job, Task, JenkinsRequest) {
+    ['$scope', '$q', 'translate',  'Job', 'Task', 'JenkinsRequest',
+        function ($scope, $q, translate, Job, Task, JenkinsRequest) {
 
             var setDetails, transformRows;
 

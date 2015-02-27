@@ -41,7 +41,8 @@ Integration::Engine.routes.draw do
 
       api_resources :jenkins_requests, :only => [] do
         collection do
-          post :list            
+          get :list
+          get :get_build_params
         end
       end
       

@@ -10,4 +10,7 @@
 //=require "integration/jenkins-requests/jenkins-requests.module.js"
 //=require_tree "./jenkins-requests"
 
+//=require "integration/jenkins-projects/jenkins-projects.module.js"
+//=require_tree "./jenkins-projects"
+
 //=require "integration/integration-bootstrap.js" 
