@@ -14,4 +14,36 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsProjectsControll
             nutupane = new Nutupane(Job, params, 'projects');
             $scope.nutupane = nutupane;
             $scope.projectsTable = nutupane.table;
+
+            $scope.removeProjects = function () {
+                var data,
+                    success,
+                    error,
+                    deferred = $q.defer(),
+                    projectsToRemove = _.pluck($scope.projectsTable.getSelected(), 'id');
+
+                data = {
+                    'project_ids': projectsToRemove
+                };
+
+                success = function (response) {
+                    $scope.successMessages.push(translate('Removed %x projects from Job: %y.')
+                        .replace('%x', $scope.projectsTable.numSelected).replace('%y', $scope.job.name));
+                    $scope.projectsTable.working = false;
+                    $scope.projectsTable.selectAll(false);
+                    nutupane.refresh();
+                    $scope.job.$get();
+                    deferred.resolve(response);
+                };
+
+                error = function (response) {
+                    deferred.reject(response);
+                    $scope.errorMessages = response.data.errors;
+                    $scope.projectsTable.working = false;
+                };
+
+                $scope.projectsTable.working = true;
+                Job.removeProjects({id: $scope.job.id}, data, success, error);
+                return deferred.promise;
+            };
         }]);

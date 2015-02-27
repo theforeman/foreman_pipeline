@@ -8,43 +8,45 @@
   </h4>
   <div class="row">
     <div class="fr select-action">
-      <button class="btn btn-default"
-              ng-show="isState('jobs.details.jenkins-projects.list') && permitted('edit_jobs', job)"
-              ui-sref="jobs.details.jenkins-projects.discovery({jobId: job.id})"
-              translate>
-              <i class="icon-eye-open"></i>
-              Find more...
-      </button>
+      
     </div>
   </div>
 
   <br/> 
 
-  <section ng-show="projectsTable.rows.length > 0">
+  <section >
     <div class="row">
       
       <div class="col-sm-3">
         <input type="text"
                 class="form-control"  
                 placeholder="{{ 'Filter' | translate }}"
-                ng-model="jenkinsFilter" />
+                ng-model="jenkinsFilter"/>
       </div>
-
+      
+      
       <div class="fr select-action">
-
         <button class="btn btn-default"
-                ng-disabled="projectsTable.numSelected === 0"
+                ng-disabled="projectsTable.numSelected === 0 || projectsTable.working"
+                ng-show="isState('jobs.details.jenkins-projects.list') && permitted('edit_jobs', job) && projectsTable.rows.length > 0"
+                ng-click="removeProjects()">
+          <i class="icon-minus" ng-hide="projectsTable.working"></i>
+          <i class="icon-spinner icon-spin" ng-show="projectsTable.working"></i>      
+          <span translate>Remove Projects</span>
+        </button>
+        
+        <button class="btn btn-default"
                 ng-show="isState('jobs.details.jenkins-projects.list') && permitted('edit_jobs', job)"
-                ng-click="removeProject(job)">
-        <i class="icon-minus" ng-hide="projectsTable.working"></i>
-        <i class="icon-spinner icon-spin" ng-show="projectsTable.working"></i>      
-        <span translate>Remove Projects</span>
-      </button>
-
+                ui-sref="jobs.details.jenkins-projects.discovery({jobId: job.id})"
+                translate>
+                <i class="icon-eye-open"></i>
+                Find more...
+        </button>
       </div>
     </div>
 
-    <div bst-table="projectsTable" class="nutupane">
+
+    <div bst-table="projectsTable" class="nutupane" ng-show="projectsTable.rows.length > 0">
       <div bst-container-scroll bst-infinite-scroll="projectsTable.nextPage()">
 
         <table ng-show="projectsTable.rows.length > 0"

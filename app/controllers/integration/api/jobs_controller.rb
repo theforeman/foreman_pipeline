@@ -7,7 +7,8 @@ module Integration
     before_filter :find_organization, :only => [:create, :index, :available_tests, :add_projects]
 
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests,
-                  :add_tests, :remove_tests, :set_resource, :available_resources, :set_jenkins, :set_environment, :run_job, :add_projects]
+                  :add_tests, :remove_tests, :set_resource, :available_resources, :set_jenkins, :set_environment, :run_job,
+                  :add_projects, :remove_projects]
 
     before_filter :load_search_service, :only => [:index, :available_tests]
 
@@ -129,6 +130,14 @@ module Integration
         JenkinsProject.find_by_name(p) || JenkinsProject.create(:name => p, :organization => @organization) 
       end
       @job.jenkins_project_ids = (@job.jenkins_project_ids + projects.map(&:id).uniq)
+      @job.save!
+      respond_for_show
+    end
+
+    def remove_projects
+      ids = params[:project_ids]
+      @projects = JenkinsProject.where(:id => ids)
+      @job.jenkins_project_ids = (@job.jenkins_project_ids - @projects.map(&:id)).uniq
       @job.save!
       respond_for_show
     end

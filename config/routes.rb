@@ -25,6 +25,7 @@ Integration::Engine.routes.draw do
           put :set_environment
           get :run_job
           put :add_projects
+          put :remove_projects
         end
       end
 
