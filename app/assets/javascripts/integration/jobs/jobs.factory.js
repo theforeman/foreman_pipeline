@@ -25,7 +25,8 @@ angular.module('Integration.jobs').factory('Job',
             projects: {method: 'GET', transformResponse: function (response) {
                 var job = angular.fromJson(response);
                 return {results: job.jenkins_projects};
-            }} 
+            }},
+            addProjects: {method: 'PUT', params: {action: 'add_projects'}}, 
         });
     }]
 );

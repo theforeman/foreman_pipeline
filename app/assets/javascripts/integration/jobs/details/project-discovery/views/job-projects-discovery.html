@@ -1,7 +1,7 @@
 <span page-title>{{ 'Jenkins Projects' | translate }}</span>
 
 <section class="nutupane-sub-section">
-
+  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
   
   <div class="row">
     <div class="col-sm-5">
@@ -30,7 +30,7 @@
         <span class="input-group-btn input-group-lg">
           <button translate
                   class="btn btn-primary btn-lg"
-                  ng-disabled="discovery.pending">
+                  ng-disabled="discovery.pending || discovery.pattern === '' ">
             <i class="icon-search" ng-show="!discovery.pending"></i>
             <i class="icon-spinner icon-spin" ng-show="discovery.pending"></i>
             Search
@@ -54,10 +54,15 @@
     <div class="fr">
       <div class="fl nutupane-info">
         <span translate>{{ projectsTable.numSelected }} Selected</span>
+        <button class="btn btn-default"
+                ng-disabled="projectsTable.numSelected === 0 || discovery.pending || projectsTable.working"
+                ng-show="isState('jobs.details.jenkins-projects.discovery') && permitted('edit_jobs', job)"
+                ng-click="addProjects(job)">
+          <i class="icon-plus" ng-hide="projectsTable.working"></i>
+          <i class="icon-spinner icon-spin" ng-show="projectsTable.working"></i>
+          <span translate>Add Projects</span>
+        </button>       
       </div>   
-
-      <div ng-hide="system.readonly" class="nutupane-actions fr">      
-      </div>
     </div>
   </div>
 

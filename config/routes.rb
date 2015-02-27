@@ -24,6 +24,7 @@ Integration::Engine.routes.draw do
           put :set_jenkins
           put :set_environment
           get :run_job
+          put :add_projects
         end
       end
 

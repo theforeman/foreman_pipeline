@@ -4,10 +4,10 @@ module Integration
 
     include Api::Rendering
 
-    before_filter :find_organization, :only => [:create, :index, :available_tests]
+    before_filter :find_organization, :only => [:create, :index, :available_tests, :add_projects]
 
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests,
-                  :add_tests, :remove_tests, :set_resource, :available_resources, :set_jenkins, :set_environment, :run_job]
+                  :add_tests, :remove_tests, :set_resource, :available_resources, :set_jenkins, :set_environment, :run_job, :add_projects]
 
     before_filter :load_search_service, :only => [:index, :available_tests]
 
@@ -124,6 +124,15 @@ module Integration
       end
     end
 
+    def add_projects
+      projects = params[:projects].map do |p|
+        JenkinsProject.find_by_name(p) || JenkinsProject.create(:name => p, :organization => @organization) 
+      end
+      @job.jenkins_project_ids = (@job.jenkins_project_ids + projects.map(&:id).uniq)
+      @job.save!
+      respond_for_show
+    end
+
     protected
 
     def find_job
@@ -133,7 +142,7 @@ module Integration
     end
 
     def job_params
-      params.require(:job).permit(:name, :manual_trigger, :sync_trigger, :levelup_trigger)
+      params.require(:job).permit(:name, :manual_trigger, :sync_trigger, :levelup_trigger, :projects)
     end
   end
 end
