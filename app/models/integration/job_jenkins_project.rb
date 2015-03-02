@@ -4,8 +4,8 @@ module Integration
 
     belongs_to :job, :inverse_of => :job_jenkins_projects, :class_name => 'Integration::Job'
     belongs_to :jenkins_project, :inverse_of => :job_jenkins_projects, :class_name => 'Integration::JenkinsProject'
- 
     belongs_to :organization
+    has_many :jenkins_project_params, :dependent => :destroy
     validate :org_membership
 
     after_destroy :remove_orphaned_projects
@@ -13,7 +13,7 @@ module Integration
     private 
 
     def org_membership
-      unless job.organization == jenkins_project.organization
+      unless self.job.organization == self.jenkins_project.organization
         errors.add(:base, "Cannot add a project from different organization than #{job.organization.name}")
       end
     end

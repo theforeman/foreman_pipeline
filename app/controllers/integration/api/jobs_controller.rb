@@ -126,12 +126,41 @@ module Integration
     end
 
     def add_projects
-      projects = params[:projects].map do |p|
-        JenkinsProject.find_by_name(p) || JenkinsProject.create(:name => p, :organization => @organization) 
+      rollback = {:occured => false}
+      Job.transaction do
+        projects = params[:projects].map do |p|
+          JenkinsProject.find_by_name(p) || JenkinsProject.create(:name => p, :organization => @organization) 
+        end
+        projects_to_add = projects.delete_if { |p| @job.jenkins_projects.include? p }
+        @job.jenkins_projects = @job.jenkins_projects + projects_to_add
+        @job.save!
+
+        projects_to_add.each do |project|
+          project.reload
+          task = sync_task(::Actions::Integration::Jenkins::GetBuildParams, :job_id => @job.id, :name => project.name)
+          
+          unless task.output[:build_params]
+            raise ActiveRecord::Rollback
+            rollback[:occured] = true
+            rollback[:project_name] = project.name
+          end
+          task.output[:build_params].each do |param|
+            new_param = JenkinsProjectParam.new(:name => param[:name],
+                                                :type => param[:type],
+                                                :description => param[:description],
+                                                :value => param[:default])
+            new_param.organization = @organization
+            new_param.job_jenkins_project = project.job_jenkins_projects.detect { |jjp| jjp.job_id == @job.id }
+            new_param.save!
+          end
+        end
       end
-      @job.jenkins_project_ids = (@job.jenkins_project_ids + projects.map(&:id).uniq)
-      @job.save!
-      respond_for_show
+
+      if rollback[:occured]
+        fail ::Katello::HttpErrors::NotFound, "Could not retrieve build params for Jenkins project: #{rollback[:project_name]}"
+      else
+        respond_for_show        
+      end
     end
 
     def remove_projects
