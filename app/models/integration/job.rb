@@ -50,6 +50,13 @@ module Integration
       jenkins_instance.create_client
     end
 
+    def jenkins_project_params(project)       
+       raise "Project must not be nil" if project.nil?
+       assoc_inst = job_jenkins_projects.select {|jjp| jjp.jenkins_project_id == project.id}.first
+       raise "Project not associated with this job!" if assoc_inst.nil?
+       assoc_inst.jenkins_project_params
+    end
+
     
   end
 end

@@ -30,6 +30,7 @@ module Actions
 
         def run
           output[:host] = input[:create_host]
+          output[:activation_key] = create_key.output[:new_key]
         end
 
         private

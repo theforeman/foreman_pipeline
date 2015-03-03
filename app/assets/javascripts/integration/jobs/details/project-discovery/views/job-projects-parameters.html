@@ -13,7 +13,7 @@
   <section>
     <h3 translate>Projects Parameters</h3>
     <br/>
-    <div ng-repeat="projectParam in projectParamsList">
+    <div ng-repeat="(index, projectParam) in projectParamsList">
 
       <h4>{{ projectParam.type }}<span translate>&nbsp;Parameter </span></h4>
       <div ng-switch="projectParam.type">
@@ -39,13 +39,21 @@
             </span>
           </div>
         </div>
+
+        <div ng-switch-when="text">
+          <div class="detail">
+            <span class="info-label">{{ projectParam.name }}</span>
+            <span class="info-value"
+                  bst-edit-textarea="projectParam.value"
+                  on-save="save(projectParam)">
+            </span>
+          </div> 
+        </div>
+
         
         <div class="detail">
           <span class="info-label">Description</span>
-          <span class="info-value"
-                bst-edit-textarea="projectParam.description"
-                on-save="save(projectParam)">
-          </span>  
+          <span class="info-value">{{ projectParam.description }}</span>  
         </div>
         <br/>
         

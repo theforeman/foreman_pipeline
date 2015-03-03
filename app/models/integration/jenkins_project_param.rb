@@ -12,7 +12,11 @@ module Integration
     has_one :jenkins_project, :through => :job_jenkins_project
     attr_accessible :name, :type, :description, :value
 
-    TYPES = ["string", "boolean"]
+    TYPES = ["string", "boolean", "text"]
     validates :type, :inclusion => { :in => TYPES }
+
+    def format_bool
+        value.sub!(/^t$/, "true").sub!(/^f$/, "false") if type == "boolean"
+    end
   end
 end

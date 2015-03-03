@@ -12,13 +12,14 @@ angular.module('Integration.jobs').controller('JobProjectsParametersController',
             loadParameters = function () {
                 $scope.projectParamsList = $scope.jenkinsProject.jenkins_project_params
                 $scope.loading = false;
+                console.log($scope.projectParamsList);
             };
 
             $scope.jenkinsProject = JenkinsProject.get({
                 'id': $scope.$stateParams.projectId
             }, loadParameters);
 
-            $scope.save = function (param) {
+            $scope.save = function (param, index) {
                 var success, error,
                     deferred = $q.defer();
 

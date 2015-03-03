@@ -20,8 +20,9 @@ module Integration
     validates :organization, :presence => true
     validates :jenkins_home, :format => { :with => FILEPATH_REGEX }
 
-
+    # TODO: loose coupling
     def create_client
+      raise "Cannot create Jenkins client: no url in Jenkins Instance" if url.nil?
       @client ||= JenkinsApi::Client.new(:server_url => url, :log_level => Logger::DEBUG)
     end
 

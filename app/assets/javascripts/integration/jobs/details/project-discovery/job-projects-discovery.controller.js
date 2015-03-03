@@ -77,7 +77,12 @@ angular.module('Integration.jobs').controller('JobProjectsDiscoveryController',
 
                 error = function (response) {
                     deferred.reject(response.data.errors);
-                    $scope.errorMessages = response.data.errors;
+                    angular.forEach(response.data.errors, function (errorMessage, key) {
+                            if (angular.isString(key)) {
+                                errorMessage = [key, errorMessage].join(' ');
+                            }
+                            $scope.errorMessages.push(translate('Error occured while saving Adding Projects: ') + errorMessage);
+                        });
                     $scope.projectsTable.working = false;
                 };
 
