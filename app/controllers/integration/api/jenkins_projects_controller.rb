@@ -11,10 +11,10 @@ module Integration
       respond_for_show(:resource => @jenkins_project)
     end
 
-    def destroy
-      @jenkins_project.destroy
-      respond_for_show(:resource => @jenkins_project)
-    end
+    # def destroy
+    #   @jenkins_project.destroy
+    #   respond_for_show(:resource => @jenkins_project)
+    # end
 
     # def update
     #   @jenkins_project.update_attributes!(jenkins_project_params)

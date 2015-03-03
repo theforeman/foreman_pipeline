@@ -42,9 +42,10 @@ Integration::Engine.routes.draw do
       api_resources :jenkins_requests, :only => [] do
         collection do
           get :list
-          get :get_build_params
         end
       end
+
+      api_resources :jenkins_project_params, :only => [:update]
       
     end
 

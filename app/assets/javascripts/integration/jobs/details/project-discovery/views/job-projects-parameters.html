@@ -1,11 +1,57 @@
-<span page-title>{{ 'Jenkins Project Parameters' | translate }}</span>
-
 <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+
+<div class="row">
+    <div class="col-sm-5">
+      <a href="" ui-sref="jobs.details.jenkins-projects.list({jobId: job.id})">
+      <i class="icon-double-angle-left"></i>
+      {{ "Back" | translate }}
+      </a>
+    </div>
+</div>
 
 <div class="details fl">
   <section>
-    <h4 translate>Projects Parameters</h4>
+    <h3 translate>Projects Parameters</h3>
+    <br/>
+    <div ng-repeat="projectParam in projectParamsList">
 
+      <h4>{{ projectParam.type }}<span translate>&nbsp;Parameter </span></h4>
+      <div ng-switch="projectParam.type">
+        
+        <div ng-switch-when="string">
+          <div class="detail">
+            <span class="info-label">{{ projectParam.name }}</span>
+            <span class="info-value"
+                  bst-edit-text="projectParam.value"
+                  on-save="save(projectParam)">
+            </span>
+          </div> 
+        </div>
+
+        <div ng-switch-when="boolean">
+          <div class="detail">
+            <span class="info-label">{{ projectParam.name }}</span>
+            <span class="info-value"
+                  bst-edit-checkbox="projectParam.value"
+                  readonly="denied('edit_jobs', job)"
+                  formatter="booleanToYesNo"
+                  on-save="save(projectParam)">
+            </span>
+          </div>
+        </div>
+        
+        <div class="detail">
+          <span class="info-label">Description</span>
+          <span class="info-value"
+                bst-edit-textarea="projectParam.description"
+                on-save="save(projectParam)">
+          </span>  
+        </div>
+        <br/>
+        
+      </div>
+
+    </div>
     <!-- <div class="detail">
       <span class="info-label" translate>Name</span>
       <span class="info-value"
@@ -18,7 +64,18 @@
       <span class="info-label" translate>Url</span>
       <span class="info-value">{{ jenkinsInstance.url }}</span>
     </div> -->
-
-    
+   
   </section>
+
+  <div ng-show="projectParamsList.length === 0">
+    <div class="loading-mask" ng-show="loading">
+      <i class="icon-spinner icon-spin"></i>
+        {{ "Loading..." | translate }}          
+    </div>
+    
+    <p class="alert alert-info"
+       ng-hide="loading"
+       translate> No Project Params to show.
+    </p>
+  </div>
 </div>

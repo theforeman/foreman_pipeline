@@ -13,4 +13,7 @@
 //=require "integration/jenkins-projects/jenkins-projects.module.js"
 //=require_tree "./jenkins-projects"
 
+//=require "integration/jenkins-project-params/jenkins-project-params.module.js"
+//=require_tree "./jenkins-project-params"
+
 //=require "integration/integration-bootstrap.js" 

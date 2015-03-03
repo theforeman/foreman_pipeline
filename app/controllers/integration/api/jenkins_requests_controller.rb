@@ -12,12 +12,6 @@ module Integration
       respond_for_async(:resource => task)
     end
 
-    def get_build_params
-      fail "project_name not given" if params[:project_name].nil?
-      task = async_task(::Actions::Integration::Jenkins::GetBuildParams, :job_id => params[:job_id], :name => params[:project_name])
-      respond_for_async(:resource => task)
-    end
-
     private 
 
     def find_job

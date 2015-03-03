@@ -1,39 +1,46 @@
 angular.module('Integration.jobs').controller('JobProjectsParametersController', 
-    ['$scope', '$state', '$q', 'translate', 'Job', 'Task', 'JenkinsProject', 'JenkinsRequest',
-        function ($scope, $state, $q, translate, Job, Task, JenkinsProject, JenkinsRequest) {
+    ['$scope', '$state', '$q', 'translate', 'JenkinsProjectParam', 'JenkinsProject',
+        function ($scope, $state, $q, translate, JenkinsProjectParam, JenkinsProject) {
 
             $scope.successMessages = [];
             $scope.errorMessages = [];
             $scope.projectParamsList = [];
-            console.log($scope.job)
-            var getParameters, registerTask, updateTask, setDetails;
+            var loadParameters;
 
-            getParameters = function () {
-                $scope.pending = true;
-                JenkinsRequest.getBuildParams({project_name: $scope.jenkinsProject.name, job_id: $scope.job.id}, registerTask);
-            };
+            $scope.loading = true;
 
-            registerTask = function (task) {
-                $scope.taskSearchId = Task.registerSearch({'type': 'task', 'task_id': task.id}, updateTask)
-            };
-
-            updateTask = function (task) {
-                setDetails(task);
-                if (!task.pending) {
-                    Task.unregisterSearch($scope.taskSearchId);
-                }
-            };
-
-            setDetails = function (task) {
-                $scope.pending = task.pending;
-                if (!task.pending) {
-                    console.log(task);
-                }
+            loadParameters = function () {
+                $scope.projectParamsList = $scope.jenkinsProject.jenkins_project_params
+                $scope.loading = false;
             };
 
             $scope.jenkinsProject = JenkinsProject.get({
                 'id': $scope.$stateParams.projectId
-            }, getParameters);
+            }, loadParameters);
+
+            $scope.save = function (param) {
+                var success, error,
+                    deferred = $q.defer();
+
+                success = function (response) {
+                    deferred.resolve(response);
+                    $scope.successMessages.push(translate("Parameter %x successfully updated").replace("%x", param.name));
+
+                };
+
+                error = function (response) {
+                    deferred.reject(response);
+                    angular.forEach(response.data.errors, function (errorMessage, key) {
+                            if (angular.isString(key)) {
+                                errorMessage = [key, errorMessage].join(' ');
+                            }
+                            $scope.errorMessages.push(translate('Error occured while saving Project Param: ') + errorMessage);
+                        });
+                };
+
+                JenkinsProjectParam.update({id: param.id}, param, success, error);
+                return deferred.promise;
+            };
             
     }
 ]);
