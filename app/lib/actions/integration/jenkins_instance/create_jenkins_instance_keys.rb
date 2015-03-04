@@ -30,7 +30,7 @@ module Actions
           end  
 
           buffer.string
-        end        
+        end
 
         def key_location
           "#{input.fetch(:jenkins_home)}/.ssh"

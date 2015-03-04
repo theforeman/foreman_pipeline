@@ -5,6 +5,7 @@ module Actions
       class BuildProject < AbstractJenkinsAction
         def run
           job.jenkins_instance.client.job.build(jenkins_project.name, params)
+          output[:build_params] = params
         end
 
         def jenkins_project
@@ -18,7 +19,8 @@ module Actions
         end
 
         def template_binding(project_params)
-          host = input[:host]
+          host = input[:data][:host]
+          activation_key = input[:data][:activation_key]
           project_params.each do |param|
             param.value = ERB.new(param.value).result(binding)
             param.format_bool

@@ -9,10 +9,18 @@ angular.module('Integration.jobs').controller('JobProjectsParametersController',
 
             $scope.loading = true;
 
-            loadParameters = function () {
-                $scope.projectParamsList = $scope.jenkinsProject.jenkins_project_params
+            loadParameters = function () {                 
+                $scope.projectParamsList = _.map($scope.jenkinsProject.jenkins_project_params, function (item) {
+                    if(item.type === "boolean") {
+                        if(item.value === "t") {
+                            item.value = true;
+                        } else {
+                            item.value = false;
+                        }
+                    }
+                    return item
+                });
                 $scope.loading = false;
-                console.log($scope.projectParamsList);
             };
 
             $scope.jenkinsProject = JenkinsProject.get({
@@ -38,7 +46,7 @@ angular.module('Integration.jobs').controller('JobProjectsParametersController',
                             $scope.errorMessages.push(translate('Error occured while saving Project Param: ') + errorMessage);
                         });
                 };
-
+                console.log($scope.projectParamsList)
                 JenkinsProjectParam.update({id: param.id}, param, success, error);
                 return deferred.promise;
             };

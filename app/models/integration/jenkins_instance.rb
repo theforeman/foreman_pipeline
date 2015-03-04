@@ -10,7 +10,7 @@ module Integration
     include Integration::Authorization::JenkinsInstance
 
     belongs_to :organization
-    has_many :jobs, :inverse_of => :jenkins_instance
+    has_many :jobs, :class_name => "Integration::Job", :inverse_of => :jenkins_instance
 
     FILEPATH_REGEX = /^(\/|~)[a-z0-9\-_.\/]*[^\/]$/i
     

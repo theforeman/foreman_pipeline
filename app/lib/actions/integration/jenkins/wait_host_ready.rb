@@ -17,7 +17,7 @@ module Actions
 
         def command
           c = []
-          c << "sudo -u jenkins ssh -i #{input[:jenkins_home]}/.ssh/#{input[:jenkins_instance_hostname]} -o StrictHostKeyChecking=no root@#{input[:host_ip]}"
+          c << "sudo -u jenkins ssh -i #{input[:jenkins_home]}/.ssh/#{input[:jenkins_instance_hostname]} root@#{input[:host_ip]}"
           c << "'echo"
           c << echo
           c << "'"
