@@ -34,10 +34,16 @@ module Actions
                                                   :jenkins_url => job.jenkins_instance.url,
                                                   :jenkins_home => job.jenkins_instance.jenkins_home,
                                                   :host_ip => redeploy.output[:host][:ip])
+
+            packages = plan_action(FindPackagesToInstall, :job_id => job.id)
             project_outputs = []
             concurrence do
               job.jenkins_projects.each do |project|
-                project_task = plan_action(Jenkins::BuildProject, :job_id => job.id, :project_id => project.id, :data => redeploy.output)
+                project_task = plan_action(Jenkins::BuildProject, 
+                                            :job_id => job.id,
+                                            :project_id => project.id,
+                                            :data => redeploy.output,
+                                            :packages => packages)
                 project_outputs << {project.name => project_task.output}
               end
             end

@@ -129,7 +129,7 @@ module Integration
       rollback = {:occured => false}
       Job.transaction do
         projects = params[:projects].map do |p|
-          JenkinsProject.find_by_name(p) || JenkinsProject.create(:name => p, :organization => @organization) 
+          JenkinsProject.create(:name => p, :organization => @organization) 
         end
         projects_to_add = projects.delete_if { |p| @job.jenkins_projects.include? p }
         @job.jenkins_projects = @job.jenkins_projects + projects_to_add
@@ -150,7 +150,7 @@ module Integration
                                                 :description => param[:description],
                                                 :value => param[:default])
             new_param.organization = @organization
-            new_param.job_jenkins_project = project.job_jenkins_projects.detect { |jjp| jjp.job_id == @job.id }
+            new_param.jenkins_project = project
             new_param.save!
           end
         end

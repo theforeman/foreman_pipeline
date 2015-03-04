@@ -12,7 +12,7 @@ angular.module('Integration.jobs').controller('JobProjectsParametersController',
             loadParameters = function () {                 
                 $scope.projectParamsList = _.map($scope.jenkinsProject.jenkins_project_params, function (item) {
                     if(item.type === "boolean") {
-                        if(item.value === "t") {
+                        if(item.value === "t" || item.value === "true") {
                             item.value = true;
                         } else {
                             item.value = false;
