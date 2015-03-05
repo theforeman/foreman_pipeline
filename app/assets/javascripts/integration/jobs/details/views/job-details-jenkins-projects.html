@@ -24,7 +24,9 @@
         </button>
         
         <button class="btn btn-default"
-                ng-show="isState('jobs.details.jenkins-projects.list') && permitted('edit_jobs', job)"
+                ng-show="isState('jobs.details.jenkins-projects.list') 
+                         && permitted('edit_jobs', job) 
+                         && job.jenkins_instance !== null"
                 ui-sref="jobs.details.jenkins-projects.discovery({jobId: job.id})"
                 translate>
                 <i class="icon-eye-open"></i>

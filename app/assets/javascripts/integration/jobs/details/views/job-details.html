@@ -74,7 +74,9 @@
         </a>
       </li>
 
-      <li ng-class="{active: (stateIncludes('jobs.details.jenkins-projects.list') || stateIncludes('jobs.details.jenkins-projects.discovery'))}">
+      <li ng-class="{active: (stateIncludes('jobs.details.jenkins-projects.list') 
+                    || stateIncludes('jobs.details.jenkins-projects.discovery')
+                    || stateIncludes('jobs.details.jenkins-projects.parameters'))}">
         <a ui-sref="jobs.details.jenkins-projects.list({jobId: job.id})">
           <span translate>Jenkins Projects</span>
         </a>
