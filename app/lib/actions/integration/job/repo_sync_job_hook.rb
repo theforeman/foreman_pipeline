@@ -16,7 +16,7 @@ module Actions
           
           jobs_to_run.each do |job|
             if job.sync_trigger
-              # plan_action(DeployNewHost, job)                            
+              plan_action(DeployNewHost, job)                            
             end
           end
         end

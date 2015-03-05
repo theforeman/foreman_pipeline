@@ -22,7 +22,7 @@ module Integration
 
     # TODO: loose coupling
     def create_client
-      raise "Cannot create Jenkins client: no url in Jenkins Instance" if url.nil?
+      fail "Cannot create Jenkins client: no url in Jenkins Instance" if url.nil?
       @client ||= JenkinsApi::Client.new(:server_url => url, :log_level => Logger::DEBUG)
     end
 

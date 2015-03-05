@@ -6,14 +6,8 @@ module Actions
 
         def plan(job)          
           sequence do
-            redeploy = plan_action(Redeploy, job)
-
-            # to_install = plan_action(FindPackagesToInstall, :job_id => job.id)
+            redeploy = plan_action(Redeploy, job)    
                 
-            # jenkins = plan_action(Jenkins::CreateJenkinsJobAndTestsAndRun,
-            #                            job, 
-            #                            to_install.output[:package_names],
-            #                            :host => redeploy.output[:host])
             # h = { :host => {
             #         :id => "random_number",
             #         :name => "dummy host",
@@ -43,8 +37,7 @@ module Actions
                 project_task = plan_action(Jenkins::BuildProject, 
                                             :job_id => job.id,
                                             :project_id => project.id,
-                                            :data => redeploy.output,
-                                            :packages => packages.output[:package_names])
+                                            :data => redeploy.output.merge(packages.output[:package_names]))
                 project_outputs << {project.name => project_task.output}
               end
             end

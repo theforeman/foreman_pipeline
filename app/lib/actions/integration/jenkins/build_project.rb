@@ -23,7 +23,7 @@ module Actions
         def template_binding(project_params)
           host = input[:data][:host]
           activation_key = input[:data][:activation_key]
-          packages = input[:packages]
+          packages = input[:data][:packages]
           
           project_params.each do |param|
             param.value = ERB.new(param.value).result(binding)

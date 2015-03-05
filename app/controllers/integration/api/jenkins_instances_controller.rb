@@ -28,7 +28,7 @@ module Integration
       JenkinsInstance.transaction do
         @jenkins_instance.save!
         task = sync_task(::Actions::Integration::JenkinsInstance::CreateJenkinsInstanceKeys, 
-                      :url => jenkins_instance_params[:url],
+                      :jenkins_url => jenkins_instance_params[:url],
                       :cert_path => @jenkins_instance.cert_path,
                       :jenkins_home => jenkins_instance_params[:jenkins_home])
 
