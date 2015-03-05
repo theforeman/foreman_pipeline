@@ -4,13 +4,14 @@ module Integration
 
     include Api::Rendering
 
-    before_filter :find_organization, :only => [:create, :index, :available_tests, :add_projects]
+    before_filter :find_organization, :only => [:create, :index, :add_projects]
 
-    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view, :set_hostgroup, :available_tests,
-                  :add_tests, :remove_tests, :set_resource, :available_resources, :set_jenkins, :set_environment, :run_job,
-                  :add_projects, :remove_projects]
+    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view,
+                                       :set_hostgroup, :set_resource, :available_resources,
+                                       :set_jenkins, :set_environment, :run_job,
+                                       :add_projects, :remove_projects]
 
-    before_filter :load_search_service, :only => [:index, :available_tests]
+    before_filter :load_search_service, :only => [:index]
 
     def index
 
@@ -67,39 +68,8 @@ module Integration
       respond_for_show
     end
     
-    def remove_tests
-      ids = params[:test_ids]
-      @tests = Test.where(:id => ids)
-      @job.test_ids = (@job.test_ids - @tests.map {|t| t.id}).uniq
-      @job.save!
-      respond_for_show
-    end
-
     def set_environment
       @job.environment = Katello::KTEnvironment.find(params[:environment_id])
-      @job.save!
-      respond_for_show
-    end
-
-    def available_tests
-      ids = ::Integration::Test.where(:organization_id => @organization).readable.map(&:id)
-
-      filters = [:terms => {:id => ids - @job.test_ids}]
-      filters << {:term => {:name => params[:name]}} if params[:name]
-
-      options = {
-        :filters => filters,
-        :load_records? => true 
-      }
-
-      tests = item_search(Test, params, options)
-      respond_for_index(:collection => tests)
-    end
-
-    def add_tests
-      ids = params[:test_ids]
-      @tests = Test.where(:id => ids)
-      @job.test_ids = (@job.test_ids + @tests.map {|t| t.id}).uniq
       @job.save!
       respond_for_show
     end
@@ -116,7 +86,6 @@ module Integration
     end
 
     def run_job      
-      
       if @job.manual_trigger
         task = async_task(::Actions::Integration::Job::RunJobManually, @job)
         render :nothing => true            
@@ -155,7 +124,6 @@ module Integration
           end
         end
       end
-
       if rollback[:occured]
         fail ::Katello::HttpErrors::NotFound, "Could not retrieve build params for Jenkins project: #{rollback[:project_name]}"
       else

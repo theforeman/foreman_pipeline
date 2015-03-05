@@ -17,9 +17,6 @@ module Integration
     has_many :job_jenkins_projects, :dependent => :destroy
     has_many :jenkins_projects, :through => :job_jenkins_projects, :class_name => 'Integration::JenkinsProject', :dependent => :restrict
 
-    # rubocop:disable HasAndBelongsToMany
-    has_and_belongs_to_many :tests, :join_table => :integration_jobs_tests
-
     has_many :content_view_repositories, :class_name=> 'Katello::ContentViewRepository',
      :primary_key => :content_view_id, :foreign_key => :content_view_id
     has_many :repositories, :through => :content_view_repositories
@@ -47,16 +44,9 @@ module Integration
     end
 
     def init_run
+      fail "Cannnot contact Jenkins server: no Jenkins Instance set" if jenkins_instance.nil?
       jenkins_instance.create_client
     end
-
-    def jenkins_project_params(project)       
-       raise "Project must not be nil" if project.nil?
-       assoc_inst = job_jenkins_projects.select {|jjp| jjp.jenkins_project_id == project.id}.first
-       raise "Project not associated with this job!" if assoc_inst.nil?
-       assoc_inst.jenkins_project_params
-    end
-
     
   end
 end

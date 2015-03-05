@@ -17,9 +17,6 @@ Integration::Engine.routes.draw do
           put :set_content_view
           put :set_hostgroup
           put :set_resource
-          put :remove_tests
-          get :available_tests
-          put :add_tests
           get :available_resources
           put :set_jenkins
           put :set_environment
@@ -28,8 +25,6 @@ Integration::Engine.routes.draw do
           put :remove_projects
         end
       end
-
-      api_resources :tests
 
       api_resources :jenkins_instances do
         member do
