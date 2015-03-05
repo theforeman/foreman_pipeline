@@ -68,43 +68,12 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
         templateUrl: 'integration/jobs/details/views/job-details-content-views.html'
     })
     
-
     .state('jobs.details.hostgroups', {
         url: '/hostgroups',
         permission: 'edit_jobs',
         collapsed: true,
         controller: 'JobDetailsHostgroupsController',
         templateUrl: 'integration/jobs/details/views/job-details-hostgroups.html'
-    })
-    .state('jobs.details.tests', {
-        abstract: true,
-        collapsed: true,
-        templateUrl: 'integration/jobs/details/views/job-details-tests.html'
-    })
-    .state('jobs.details.tests.list', {
-        url: '/tests',
-        collapsed: true,
-        permission: 'view_jobs',
-        controller: 'JobDetailsTestsListController',
-        templateUrl: 'integration/jobs/details/views/job-details-tests-table.html'
-    })
-    .state('jobs.details.tests.available', {
-        url: '/tests/available',
-        collapsed: true,
-        permission: 'view_jobs',
-        controller: 'JobDetailsTestsAvailController',
-        templateUrl: 'integration/jobs/details/views/job-details-tests-table.html'
-    })
-    .state('jobs.details.tests.new-test', {
-        url: '/tests/new',
-        collapsed: true, 
-        permission: 'create_tests',
-        views: {
-            '@jobs.details': {
-                controller: 'NewTestController',
-                templateUrl: 'integration/tests/new/views/new-test-form.html'
-            }
-        }
     })
 
     .state('jobs.details.resources', {

@@ -43,7 +43,6 @@ module Integration
         :stylesheet => 'integration/integration',
         :pages => %w(
             jobs
-            tests
             jenkins_instances
           )
         })
