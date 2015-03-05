@@ -23,14 +23,16 @@ module Actions
             
             suspend_until = plan_action(SuspendUntilProvisioned, create_host.output[:host][:id])
 
-            plan_self(:create_host => create_host.output[:host], :installed_at => suspend_until.output[:installed_at])
+            plan_self(:create_host => create_host.output[:host],
+                      :installed_at => suspend_until.output[:installed_at],
+                      :new_key => create_key.output[:new_key])
             
           end
         end
 
         def run
           output[:host] = input[:create_host]
-          output[:activation_key] = create_key.output[:new_key]
+          output[:activation_key] = input[:new_key]
         end
 
         private

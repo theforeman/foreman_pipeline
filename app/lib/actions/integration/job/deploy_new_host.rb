@@ -25,15 +25,16 @@ module Actions
 
             #       }
             # }
+
             plan_action(Jenkins::WaitHostReady, :host_ip => redeploy.output[:host][:ip],
                                                 :jenkins_instance_hostname => jenkins_hostname(job),
                                                 :jenkins_home => job.jenkins_instance.jenkins_home,
                                                 :cert_path => job.jenkins_instance.cert_path)
-
+            
             plan_action(JenkinsInstance::Keyscan, :cert_path => job.jenkins_instance.cert_path,
                                                   :jenkins_url => job.jenkins_instance.url,
                                                   :jenkins_home => job.jenkins_instance.jenkins_home,
-                                                  :host_ip => redeploy.output[:host][:ip])
+                                                  :host_ip => redeploy.output[:host][:ip])            
 
             packages = plan_action(FindPackagesToInstall, :job_id => job.id)
             project_outputs = []
@@ -43,7 +44,7 @@ module Actions
                                             :job_id => job.id,
                                             :project_id => project.id,
                                             :data => redeploy.output,
-                                            :packages => packages)
+                                            :packages => packages.output[:package_names])
                 project_outputs << {project.name => project_task.output}
               end
             end

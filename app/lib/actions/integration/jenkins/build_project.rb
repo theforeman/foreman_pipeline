@@ -15,7 +15,7 @@ module Actions
         end
 
         def params
-          project_params = job.jenkins_project_params(jenkins_project)
+          project_params = jenkins_project.jenkins_project_params
           return {} if project_params.empty?
           template_binding project_params
         end
