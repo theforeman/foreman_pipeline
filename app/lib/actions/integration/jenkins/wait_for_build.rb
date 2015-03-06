@@ -1,11 +1,20 @@
 module Actions
   module Integration
     module Jenkins
-      class WaitForBuild < WaitAndPoll
+      class WaitForBuild < WaitAndPoll        
         
-        private        
+        def poll_interval
+          10
+        end
+
+        private
+
         def poll_external_task
-          job.jenkins_instance.client.job.get_current_build_status(input.fetch(:name)).include? "success" 
+          details = job.jenkins_instance.client.job
+                      .get_build_details(input.fetch(:name), input.fetch(:build_num))
+                      .with_indifferent_access
+          output[:details] = details
+          details[:building] == false
         end
 
       end

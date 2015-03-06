@@ -11,7 +11,7 @@ module Integration
     belongs_to :hostgroup, :class_name => '::Hostgroup', :inverse_of => :jobs
     belongs_to :organization
     belongs_to :compute_resource, :class_name => '::ComputeResource', :inverse_of => :jobs
-    belongs_to :jenkins_instance, :class_name => "Integration::JenkinsInstance", :inverse_of => :jobs
+    belongs_to :jenkins_instance, :class_name => "Integration::JenkinsInstance"
     belongs_to :environment, :class_name => 'Katello::KTEnvironment', :inverse_of => :jobs
 
     has_many :job_jenkins_projects, :dependent => :destroy
