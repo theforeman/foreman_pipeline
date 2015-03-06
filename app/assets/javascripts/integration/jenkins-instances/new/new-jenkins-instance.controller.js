@@ -13,7 +13,7 @@ angular.module('Integration.jenkins-instances').controller('NewJenkinsInstanceCo
             if ($scope.jenkinsTable) {
                 $scope.jenkinsTable.rows.unshift(jenkinsInstance);
             }
-            $scope.transitionBack();
+            $scope.$state.go('jenkins-instances.details.info', {jenkinsInstanceId: $scope.jenkinsInstance.id});
         };
 
         var error = function (response) {

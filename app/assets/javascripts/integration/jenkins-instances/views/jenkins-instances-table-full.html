@@ -16,7 +16,7 @@
   <div data-extend-template="layouts/select-all-results.html"></div>
 
   <tbody>
-    <tr bst-table-row ng-repeat="jenkins in jenkinsTable.rows" row-select="test">
+    <tr bst-table-row ng-repeat="jenkins in jenkinsTable.rows" row-select="jenkins">
       
       <td bst-table-cell>
         <a ui-sref="jenkins-instances.details.info({jenkinsInstanceId: jenkins.id})">
