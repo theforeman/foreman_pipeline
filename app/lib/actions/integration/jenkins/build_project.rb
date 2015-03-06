@@ -12,7 +12,6 @@ module Actions
                                                          :name => options[:project_name],
                                                          :build_num => build_task.output[:build_num])
 
-            # build_status = plan_action(GetCurrentBuildStatus, :job_id => options[:job_id], :name => options[:project_name])
             plan_self(:build_status => build_details.output[:details][:result])
           end
         end
