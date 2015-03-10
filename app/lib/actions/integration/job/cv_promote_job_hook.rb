@@ -15,7 +15,7 @@ module Actions
           
           jobs_to_run.each do |job|
             
-            if job.levelup_trigger   
+            if job.levelup_trigger && !job.version_already_promoted?
               plan_action(DeployNewHost, job) 
             end
 

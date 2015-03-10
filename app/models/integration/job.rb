@@ -39,12 +39,18 @@ module Integration
     end
 
     def target_cv_version
+      fail "Cannot fetch target version, no environment set" if environment.nil?
+      fail "Cannot fetch target version, no content view set" if environment.nil?
       self.environment.content_view_versions.where(:content_view_id => self.content_view.id).first
     end
 
     def init_run
       fail "Cannnot contact Jenkins server: no Jenkins Instance set" if jenkins_instance.nil?
       jenkins_instance.create_client
+    end
+
+    def version_already_promoted?
+      self.target_cv_version.environments.include?(self.environment.successor)
     end
     
   end

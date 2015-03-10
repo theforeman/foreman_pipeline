@@ -3,19 +3,15 @@ module Actions
     module Job
       class Promote < Actions::EntryAction
         
-        def plan(hash)
+        def plan(opts)
           sequence do
-            promote_action = plan_self(hash)
-            # plan_action(Dummy, :job_name => hash[:job_name])#, :build_fails => promote_action.output[:build_fails])
+            promote_action = plan_self(opts)
           end
         end
 
         def run
-          # binding.pry
-          output[:dummy] = "Promote action triggered for Job: #{input[:job_name]}"
-          # ForemanTasks.trigger(Dummy, :job_name => input[:job_name])
           ::User.current = ::User.anonymous_admin
-          promote_env unless target_environment.nil? || job.target_cv_version.environments.include?(target_environment)
+          promote_env unless target_environment.nil?
         end
 
         private
