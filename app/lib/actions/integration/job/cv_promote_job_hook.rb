@@ -7,7 +7,7 @@ module Actions
           Katello::ContentView::Promote
         end
 
-        def plan(version, environment, is_force)          
+        def plan(version, environment, is_force = false)          
           plan_self(:trigger => trigger.output)         
 
           valid_jobs = version.content_view.jobs.select { |job| job.is_valid? }

@@ -32,29 +32,33 @@ module Actions
             #                                       :host_ip => redeploy.output[:host][:ip])            
 
             # packages = plan_action(FindPackagesToInstall, :job_id => job.id)
-            project_outputs = []
-            concurrence do
-              job.jenkins_projects.each do |project|
-                project_task = plan_action(Jenkins::BuildProject, 
-                                            :job_id => job.id,
-                                            :project_id => project.id,
-                                            :project_name => project.name,
-                                            :data => h)
-                                            # :data => redeploy.output.merge({:packages => packages.output[:package_names]}))
-                project_outputs << {project.name => project_task.output}
-              end
-            end
+            # project_outputs = []
 
-            plan_self(:host => h[:host],#redeploy.output[:host],
-                      :jenkins_projects => project_outputs)
+            hash = {:data => h, :job_id => job.id}
+            bulk_build = plan_action(Jenkins::BulkBuild, job.jenkins_projects, hash)
+            plan_action(Promote, :job_id => job.id, :job_name => job.name, :build_fails => bulk_build.output[:failed_count])
+            # concurrence do
+            #   job.jenkins_projects.each do |project|
+            #     project_task = plan_action(Jenkins::BuildProject, 
+            #                                 :job_id => job.id,
+            #                                 :project_id => project.id,
+            #                                 :project_name => project.name,
+            #                                 :data => h)
+            #                                 # :data => redeploy.output.merge({:packages => packages.output[:package_names]}))
+            #     project_outputs << {project.name => project_task.output}
+            #   end
+            # end
+
+            # plan_self(:host => h[:host],#redeploy.output[:host],
+            #           :jenkins_projects => project_outputs)
 
           end
         end
 
-        def run
-          output[:host] = input[:host]
-          output[:jenkins_projects] = input[:jenkins_projects]
-        end
+        # def run
+        #   output[:host] = input[:host]
+        #   output[:jenkins_projects] = input[:jenkins_projects]
+        # end
 
       end
     end
