@@ -4,9 +4,7 @@ module Actions
       class Promote < Actions::EntryAction
         
         def plan(opts)
-          sequence do
-            promote_action = plan_self(opts)
-          end
+          plan_self(opts)
         end
 
         def run
