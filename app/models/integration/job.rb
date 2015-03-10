@@ -39,8 +39,7 @@ module Integration
     end
 
     def target_cv_version
-      self.environment.content_view_versions.joins(:content_view)
-        .where("#{Katello::ContentViewVersion.table_name}.content_view_id = #{self.content_view_id}").first
+      self.environment.content_view_versions.where(:content_view_id => self.content_view.id).first
     end
 
     def init_run

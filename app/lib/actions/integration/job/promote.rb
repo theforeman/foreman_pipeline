@@ -15,21 +15,17 @@ module Actions
           output[:dummy] = "Promote action triggered for Job: #{input[:job_name]}"
           # ForemanTasks.trigger(Dummy, :job_name => input[:job_name])
           ::User.current = ::User.anonymous_admin
-          promote_env unless target_environment.nil?
+          promote_env unless target_environment.nil? || job.target_cv_version.environments.include?(target_environment)
         end
 
         private
 
         def promote_env
-          ForemanTasks.trigger(::Actions::Katello::ContentView::Promote, target_version, target_environment, false)          
+          ForemanTasks.trigger(::Actions::Katello::ContentView::Promote, job.target_cv_version, target_environment, false)          
         end
 
         def target_environment
           job.environment.successor
-        end
-
-        def target_version
-          job.environment.content_view_versions.where(:content_view_id => job.content_view.id).first
         end
 
         def job
