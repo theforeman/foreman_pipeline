@@ -1,36 +1,25 @@
-require 'erb'
 module Actions
   module Integration
     module Jenkins
       class BuildProject < AbstractJenkinsAction
+        include ::Dynflow::Action::Cancellable
+        
+        def plan(options)
+          sequence do
+            build_task = plan_action(Build, options)
+            wait_task = plan_action(WaitForBuild, :job_id => options[:job_id], :name => options[:project_name], :build_num => build_task.output[:build_num])
+            
+            plan_self(:build_status => wait_task.output[:details][:result])
+          end
+        end
 
         def run
-          job.jenkins_instance.client.job.build(jenkins_project.name, params)
-          output[:project_name] = jenkins_project.name
-          output[:build_params] = params
+          output[:status] = input[:build_status]
+          Dynflow::Action::Rescue::Skip if input[:build_status].match /^FAILURE$/
         end
 
-        def jenkins_project
-          ::Integration::JenkinsProject.find(input[:project_id])
-        end
-
-        def params
-          project_params = jenkins_project.jenkins_project_params
-          return {} if project_params.empty?
-          template_binding project_params
-        end
-
-        def template_binding(project_params)
-          host = input[:data][:host]
-          activation_key = input[:data][:activation_key]
-          packages = input[:data][:packages]
-          
-          project_params.each do |param|
-            param.value = ERB.new(param.value).result(binding)
-            param.format_bool
-          end.map do |param|
-            {param.name => param.value}
-          end.reduce(:merge)
+        def rescue_strategy_for_self
+          Dynflow::Action::Rescue::Skip
         end
       end
     end

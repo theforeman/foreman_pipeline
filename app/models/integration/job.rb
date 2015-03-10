@@ -11,7 +11,7 @@ module Integration
     belongs_to :hostgroup, :class_name => '::Hostgroup', :inverse_of => :jobs
     belongs_to :organization
     belongs_to :compute_resource, :class_name => '::ComputeResource', :inverse_of => :jobs
-    belongs_to :jenkins_instance, :class_name => "Integration::JenkinsInstance", :inverse_of => :jobs
+    belongs_to :jenkins_instance, :class_name => "Integration::JenkinsInstance"
     belongs_to :environment, :class_name => 'Katello::KTEnvironment', :inverse_of => :jobs
 
     has_many :job_jenkins_projects, :dependent => :destroy
@@ -39,13 +39,18 @@ module Integration
     end
 
     def target_cv_version
-      self.environment.content_view_versions.joins(:content_view)
-        .where("#{Katello::ContentViewVersion.table_name}.content_view_id = #{self.content_view_id}").first
+      fail "Cannot fetch target version, no environment set" if environment.nil?
+      fail "Cannot fetch target version, no content view set" if environment.nil?
+      self.environment.content_view_versions.where(:content_view_id => self.content_view.id).first
     end
 
     def init_run
       fail "Cannnot contact Jenkins server: no Jenkins Instance set" if jenkins_instance.nil?
       jenkins_instance.create_client
+    end
+
+    def version_already_promoted?
+      self.target_cv_version.environments.include?(self.environment.successor)
     end
     
   end

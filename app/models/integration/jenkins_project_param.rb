@@ -8,7 +8,7 @@ module Integration
 
     self.inheritance_column = :_inheritance_type_disabled
     belongs_to :organization
-    belongs_to :jenkins_project, :inverse_of => :jenkins_project_params, :class_name => "Integration::JenkinsProject"
+    belongs_to :jenkins_project, :class_name => "Integration::JenkinsProject"
     attr_accessible :name, :type, :description, :value
 
     TYPES = ["string", "boolean", "text"]

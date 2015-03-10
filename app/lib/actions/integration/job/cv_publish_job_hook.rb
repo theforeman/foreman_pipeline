@@ -12,7 +12,7 @@ module Actions
           valid_jobs = content_view.jobs.select { |job| job.is_valid? }
           jobs_to_run = valid_jobs.select { |job| job.environment.library? }
           jobs_to_run.each do |job|
-            if job.levelup_trigger
+            if job.levelup_trigger && !job.version_already_promoted?
               plan_action(DeployNewHost, job)
             end
           end

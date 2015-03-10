@@ -11,7 +11,7 @@ module Integration
     has_many :job_jenkins_projects, :dependent => :destroy
     has_many :jobs, :through => :job_jenkins_projects, :class_name => 'Integration::Job'
   
-    has_many :jenkins_project_params, :inverse_of => :jenkins_project, :class_name => 'Integration::JenkinsProjectParam', :dependent => :destroy
+    has_many :jenkins_project_params, :class_name => 'Integration::JenkinsProjectParam', :dependent => :destroy
     
     accepts_nested_attributes_for :jenkins_project_params
   end

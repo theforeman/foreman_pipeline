@@ -9,6 +9,11 @@ module Actions
           j.init_run
           j
         end
+
+        def jenkins_project
+          ::Integration::JenkinsProject.find input[:project_id]
+        end
+        
       end
     end
   end

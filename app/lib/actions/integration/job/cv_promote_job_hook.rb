@@ -7,7 +7,7 @@ module Actions
           Katello::ContentView::Promote
         end
 
-        def plan(version, environment, is_force)          
+        def plan(version, environment, is_force = false)          
           plan_self(:trigger => trigger.output)         
 
           valid_jobs = version.content_view.jobs.select { |job| job.is_valid? }
@@ -15,7 +15,7 @@ module Actions
           
           jobs_to_run.each do |job|
             
-            if job.levelup_trigger   
+            if job.levelup_trigger && !job.version_already_promoted?
               plan_action(DeployNewHost, job) 
             end
 
