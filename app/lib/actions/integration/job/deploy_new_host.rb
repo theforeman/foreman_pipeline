@@ -32,7 +32,7 @@ module Actions
                                                   :host_ip => redeploy.output[:host][:ip])            
 
             packages = plan_action(FindPackagesToInstall, :job_id => job.id)
-
+            ::User.current = ::User.anonymous_admin if ::User.current.nil?
             bulk_build = plan_action(Jenkins::BulkBuild, 
                                       job.jenkins_projects,
                                       :job_id => job.id,
@@ -41,12 +41,6 @@ module Actions
             
           end
         end
-
-        # def run
-        #   output[:host] = input[:host]
-        #   output[:jenkins_projects] = input[:jenkins_projects]
-        # end
-
       end
     end
   end

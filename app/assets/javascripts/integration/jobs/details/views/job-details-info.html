@@ -49,8 +49,8 @@
 </div>
 
 <div class="details fr">
-  <section ng-show="job.manual_trigger">
-    <h4 translate>Manual Job Runs</h4>
+  <section >
+    <h4 translate>Job Configuration Check</h4>
 
     <div class="detail">
       <span class="info-label" translate>Content View?</span>
@@ -90,8 +90,11 @@
         <i class="icon-remove" ng-hide="job.environment"></i>
         <i class="icon-ok" ng-show="job.environment"></i>
       </span>
-    </div>
+    </div> 
+  </section>
 
+  <section ng-show="job.manual_trigger">
+    <h4 translate>Manual Job Runs</h4>
     <div class="detail">
       <button class="btn btn-default"
               ng-disabled="!isValid || working"
@@ -101,7 +104,7 @@
         <span translate>Run Job</span>
       </button>
       <!-- TODO user feedback for silent job skips when target cv version not present -->
-      <i class="icon-exclamation" ng-show="hasTarget"></i>
-    </div> 
+      <!-- <i class="icon-exclamation" ng-show="hasTarget"></i> -->
+    </div>
   </section>
 </div>
