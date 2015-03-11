@@ -1,25 +1,21 @@
 module Actions
   module Integration
     module Job
-      class CvPublishJobHook < Actions::EntryAction
+      class CvPublishJobHook < CvHook
 
         def self.subscribe
           Katello::ContentView::Publish
         end
 
         def plan(content_view, descripton)
-          plan_self(:trigger => trigger.output)
           valid_jobs = content_view.jobs.select { |job| job.is_valid? }
           jobs_to_run = valid_jobs.select { |job| job.environment.library? }
-          jobs_to_run.each do |job|
-            if job.levelup_trigger && !job.version_already_promoted?
-              plan_action(DeployNewHost, job)
-            end
-          end
-        end
+          allowed_jobs = jobs_to_run.select { |job| job.levelup_trigger && !job.version_already_promoted? }
 
-        def run
-        end
+          plan_self(:trigger => trigger.output,
+                    :job_ids => allowed_jobs.map(&:id),
+                    :job_names => allowed_jobs.map(&:name))
+        end        
       end
     end
   end
