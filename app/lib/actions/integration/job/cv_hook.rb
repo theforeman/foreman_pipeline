@@ -2,6 +2,7 @@ module Actions
   module Integration
     module Job
       class CvHook < Actions::EntryAction
+        middleware.use ::Actions::Middleware::KeepCurrentUser
         
         def run
           fail "Multiple jobs defined for the same content view and environment: #{input[:job_names]}.

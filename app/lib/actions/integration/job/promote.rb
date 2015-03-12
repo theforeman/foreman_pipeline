@@ -2,13 +2,13 @@ module Actions
   module Integration
     module Job
       class Promote < Actions::EntryAction
-        
+        middleware.use ::Actions::Middleware::KeepCurrentUser
+
         def plan(opts)
           plan_self(opts)
         end
 
         def run
-          ::User.current = ::User.anonymous_admin
           promote_env unless target_environment.nil?
         end
 
@@ -16,8 +16,9 @@ module Actions
 
         def promote_env
           ForemanTasks.trigger(::Actions::Katello::ContentView::Promote, job.target_cv_version, target_environment, false)
-          output[:cv_to_promote] = job.name
+          output[:cv_to_promote] = job.content_view.name
           output[:target_environment] = target_environment.name
+          output[:in_job] = job.name
         end
 
         def target_environment

@@ -3,6 +3,7 @@ module Actions
     module Job
       class DeployNewHost < Actions::EntryAction
         include Mixins::UriExtension
+        middleware.use ::Actions::Middleware::KeepCurrentUser
 
         def plan(job)          
           sequence do
@@ -32,12 +33,10 @@ module Actions
             #                                       :host_ip => redeploy.output[:host][:ip])            
 
             # packages = plan_action(FindPackagesToInstall, :job_id => job.id)
-            ::User.current = ::User.anonymous_admin if ::User.current.nil?
             bulk_build = plan_action(Jenkins::BulkBuild, 
                                       job.jenkins_projects,
                                       :job_id => job.id,
                                       :data => h)#{:packages => packages.output[:package_names]}.merge(redeploy.output))
-            # ::User.current = nil unless ::User.current.nil?
             plan_action(Promote, :job_id => job.id, :build_fails => bulk_build.output[:failed_count])
             
           end

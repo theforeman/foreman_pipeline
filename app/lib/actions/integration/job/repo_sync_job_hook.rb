@@ -27,10 +27,6 @@ module Actions
                       :job_ids => grouped_jobs.map(&:id))
           end
         end
-
-        # def run
-        # end    
-
       end
     end
   end
