@@ -1,7 +1,7 @@
 module Actions
   module Integration
     module Job
-      class CvPublishJobHook < CvHook
+      class CvPublishJobHook < JobHook
 
         def self.subscribe
           Katello::ContentView::Publish

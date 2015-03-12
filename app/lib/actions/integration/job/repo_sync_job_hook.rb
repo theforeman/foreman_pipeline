@@ -1,7 +1,7 @@
 module Actions
   module Integration
     module Job
-      class RepoSyncJobHook < CvHook
+      class RepoSyncJobHook < JobHook
         
         def self.subscribe
           Katello::Repository::Sync
