@@ -40,7 +40,7 @@ module Integration
 
     def target_cv_version
       fail "Cannot fetch target version, no environment set" if environment.nil?
-      fail "Cannot fetch target version, no content view set" if environment.nil?
+      fail "Cannot fetch target version, no content view set" if content_view.nil?
       self.environment.content_view_versions.where(:content_view_id => self.content_view.id).first
     end
 

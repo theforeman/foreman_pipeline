@@ -5,7 +5,7 @@ module Actions
         
         def run
           fail "Multiple jobs defined for the same content view and environment: #{input[:job_names]}.
-               This may result in unexpected behaviour.
+               This may result in an unexpected behaviour.
                Resolve the conflict to avoid skipping this action." if input[:job_ids].length > 1
           if input[:job_ids].length == 1
             job = ::Integration::Job.find(input[:job_ids].first)

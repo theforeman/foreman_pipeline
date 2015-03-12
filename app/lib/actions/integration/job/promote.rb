@@ -15,7 +15,9 @@ module Actions
         private
 
         def promote_env
-          ForemanTasks.trigger(::Actions::Katello::ContentView::Promote, job.target_cv_version, target_environment, false)          
+          ForemanTasks.trigger(::Actions::Katello::ContentView::Promote, job.target_cv_version, target_environment, false)
+          output[:cv_to_promote] = job.name
+          output[:target_environment] = target_environment.name
         end
 
         def target_environment
