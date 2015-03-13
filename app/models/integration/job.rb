@@ -13,7 +13,8 @@ module Integration
     belongs_to :compute_resource, :class_name => '::ComputeResource', :inverse_of => :jobs
     belongs_to :jenkins_instance, :class_name => "Integration::JenkinsInstance"
     belongs_to :environment, :class_name => 'Katello::KTEnvironment', :inverse_of => :jobs
-
+    belongs_to :jenkins_user, :class_name => "Integration::JenkinsUser"
+    
     has_many :job_jenkins_projects, :dependent => :destroy
     has_many :jenkins_projects, :through => :job_jenkins_projects, :class_name => 'Integration::JenkinsProject', :dependent => :restrict
 

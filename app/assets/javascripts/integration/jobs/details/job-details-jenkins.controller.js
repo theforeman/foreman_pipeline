@@ -8,7 +8,7 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsController',
             params = {
                 'search': $location.search().search || "",
                 'sort_by': 'name',
-                'sort_order': 'ASC',                
+                'sort_order': 'ASC',
             };
 
             $scope.job = $scope.job || Job.get({id: $scope.$stateParams.jobId}, function () {

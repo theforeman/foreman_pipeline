@@ -3,5 +3,6 @@ BASTION_MODULES.push(
     'Integration.jenkins-instances',
     'Integration.jenkins-requests',
     'Integration.jenkins-projects',
-    'Integration.jenkins-project-params'
+    'Integration.jenkins-project-params',
+    'Integration.jenkins-users'
 );

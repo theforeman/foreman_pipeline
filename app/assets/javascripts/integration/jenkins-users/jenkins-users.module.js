@@ -1,4 +1,4 @@
-angular.module('Integration.jenkins-project-params', [
+angular.module('Integration.jenkins-users', [
     'ngResource',
     'Bastion.components',
     'ui.router',

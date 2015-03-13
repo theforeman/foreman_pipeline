@@ -127,5 +127,18 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
         controller: 'JobProjectsParametersController', 
         templateUrl: 'integration/jobs/details/project-discovery/views/job-projects-parameters.html'
     })
-    
+
+    .state('jobs.details.jenkins-users', {
+        abstract: true,
+        collapsed: true,
+        template: '<div ui-view></div>'
+    })
+    .state('jobs.details.jenkins-users.list', {
+        url: '/jenkins_users',
+        collapsed: true,
+        permission: 'edit_jobs',
+        controller: 'JobDetailsJenkinsUsersController',
+        templateUrl: 'integration/jobs/details/views/job-details-jenkins-users.html'
+    })
+
 }]);
