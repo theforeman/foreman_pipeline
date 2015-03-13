@@ -7,7 +7,6 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsUsersController'
 
             $scope.job = $scope.job || Job.get({id: $scope.$stateParams.jobId}, function () {
                 $scope.panel.loading = false;
-                params['jenkins_instance_id'] = $scope.job.jenkins_instance.id;
             });
 
             params = {

@@ -6,9 +6,9 @@ module Integration
     include Glue::ElasticSearch::JenkinsUser
     include Integration::Authorization::JenkinsUser
 
-    has_many :jobs, :class_name => "Integration::Job"
+    has_many :jobs, :class_name => "Integration::Job", :dependent => :nullify
     belongs_to :organization
     belongs_to :jenkins_instance, :class_name => "Integration::JenkinsInstance"
-    belongs_to :owner, :class_name => "User"    
+    belongs_to :owner, :class_name => "::User"    
   end
 end

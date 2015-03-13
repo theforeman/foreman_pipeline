@@ -140,5 +140,12 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
         controller: 'JobDetailsJenkinsUsersController',
         templateUrl: 'integration/jobs/details/views/job-details-jenkins-users.html'
     })
+    .state('jobs.details.jenkins-users.new', {
+        url: '/jenkins_users/new',
+        collapsed: 'true',
+        permission: 'create_jenkins_users',
+        controller: 'NewJenkinsUserController',
+        templateUrl: 'integration/jenkins-users/new/views/new-jenkins-user.html'
+    })
 
 }]);

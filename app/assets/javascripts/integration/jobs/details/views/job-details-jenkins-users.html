@@ -3,20 +3,24 @@
 <section class="nutupane-sub-section">
   <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
 
-  <h4>
-    <span translate>Current Jenkins User: </span>
-    
-      <span class="no-capitalize" ng-show="job.jenkins_user.name" ng-bind="job.jenkins_user.name"></span>
+  
+    <h4>
+      <span translate>Current Jenkins User: </span>
+      
+        <span class="no-capitalize" ng-show="job.jenkins_user.name" ng-bind="job.jenkins_user.name"></span>
 
-    <span class="no-capitalize" ng-show="!job.jenkins_user.name" translate>none</span>
-  </h4>
+      <span class="no-capitalize" ng-show="!job.jenkins_user.name" translate>none</span>
+    </h4>
+
+    </div>
+  </div>
 
   <br/> 
 
-  <section ng-show="jUserTable.rows.length > 0">
+  <section>
     <div class="row">
       
-      <div class="col-sm-3">
+      <div class="col-sm-3" ng-show="jUserTable.rows.length > 0">
         <input type="text"
                 class="form-control"  
                 placeholder="{{ 'Filter' | translate }}"
@@ -25,7 +29,9 @@
 
       <div class="fr select-action">
 
+        <span ng-show="jUserTable.rows.length > 0">
         <button class="btn btn-default"
+                
                 ng-hide="denied('edit_jobs')"
                 ng-disabled="!jUserTable.chosenRow || jUserTable.working" 
                 ng-click="setJenkinsUser()">
@@ -33,11 +39,18 @@
           <i class="icon-spinner icon-spin" ng-show="jUserTable.working"></i>      
           {{ 'Set Jenkins User' | translate }}
         </button>
+        </span>
 
+        <button class="btn btn-default"
+                ng-hide="denied('edit_jobs')"
+                ui-sref="jobs.details.jenkins-users.new">
+          <i class="icon-file-alt"></i>      
+          {{ 'New Jenkins User' | translate }}
+        </button>
       </div>
     </div>
 
-    <div bst-table="jUserTable" class="nutupane">
+    <div bst-table="jUserTable" class="nutupane" ng-show="jUserTable.rows.length > 0">
       <div bst-container-scroll bst-infinite-scroll="jUserTable.nextPage()">
   
         <table
