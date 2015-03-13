@@ -31,8 +31,9 @@ module Integration
       fail ::Katello::HttpErrors::Conflict, "Could not create Jenkins User:
                                              No Jenkins Instance set for Job " if @job.jenkins_instance.nil?
       @jenkins_user.jenkins_instance = @job.jenkins_instance
+      @job.jenkins_user = @jenkins_user
       @jenkins_user.organization = @organization
-      binding.pry
+      # binding.pry
       @jenkins_user.save!
 
       respond_for_show(:resource => @jenkins_user)

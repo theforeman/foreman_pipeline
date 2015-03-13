@@ -15,7 +15,8 @@ angular.module('Integration.jenkins-users').controller('NewJenkinsUserController
             success = function (response) {
                 $scope.working = false;
                 $scope.successMessages.push(translate('New Jenkins User successfully created'))
-                $scope.$state.go('jobs.details.jenkins-users.list', {jobId: $scope.job.id});
+                $scope.$state.go('jobs.details.jenkins-instances.jenkins-users.list',
+                 {jobId: $scope.job.id, jenkinsInstanceId: $scope.job.jenkins_instance.id});
             };
 
             error = function (response) {

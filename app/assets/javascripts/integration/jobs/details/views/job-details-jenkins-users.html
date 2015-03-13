@@ -71,13 +71,13 @@
             <tr bst-table-row ng-repeat="jenkinsUser in jUserTable.rows | filter:userFilter" row-choice="jenkinsUser">
               
               <td bst-table-cell>
-                <a ui-sref="content-views.details.info({ jenkinsUserId: jenkinsUser.id })">
+                <a ui-sref="jobs.jenkins-instances.jenkins-users.info({ jenkinsUserId: jenkinsUser.id })">
                   {{ jenkinsUser.name }}
                 </a>
               </td>
 
               <td bst-table-cell>
-                <a href="#" ng-click="delete(jenkinsUser)">
+                <a href="" ng-click="destroy(jenkinsUser)">
                   Delete
                 </a>
               </td>

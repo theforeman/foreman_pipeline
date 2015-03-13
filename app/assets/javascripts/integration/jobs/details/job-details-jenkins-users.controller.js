@@ -9,14 +9,29 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsUsersController'
                 $scope.panel.loading = false;
             });
 
+            var nutupane, params, destroy;
+
             params = {
                 'sort_by': 'name',
                 'sort_order': 'ASC',
+                'jenkins_instance_id': $scope.$stateParams.jenkinsInstanceId
             };
 
-            var nutupane = new Nutupane(JenkinsUser, params)
+            nutupane = new Nutupane(JenkinsUser, params)
             $scope.nutupane = nutupane;
             $scope.jUserTable = nutupane.table;
+            $scope.removeRow = nutupane.removeRow;
+
+
+            $scope.destroy = function (jenkinsUser) {
+                console.log(jenkinsUser)
+                JenkinsUser.remove(jenkinsUser, function () {
+                    $scope.successMessages.push(translate('Jenkins User "%s" has been deleted.').replace('%s', jenkinsUser.name));
+                    // console.log($scope.jUserTable)
+                    $scope.removeRow(jenkinsUser.id);
+                    console.log($scope.nutupane)
+                });
+            };
 
         }
 ]);
