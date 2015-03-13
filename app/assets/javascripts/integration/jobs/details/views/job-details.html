@@ -56,9 +56,11 @@
         </a>
       </li>
 
-      <li ng-class="{active: stateIncludes('jobs.details.jenkins-instances')}">
-        <a ui-sref="jobs.details.jenkins-instances">
-          <span translate>Jenkins Instances</span>
+      <li ng-class="{active: (stateIncludes('jobs.details.jenkins-instances.list')
+                    || stateIncludes('jobs.details.jenkins-instances.jenkins-users.list')
+                    || stateIncludes('jobs.details.jenkins-instances.jenkins-users.new'))}">
+        <a ui-sref="jobs.details.jenkins-instances.list({jobId: job.id})">
+          <span translate>Jenkins Servers</span>
         </a>
       </li>            
 
@@ -75,13 +77,6 @@
           <span translate>Jenkins Projects</span>
         </a>
       </li>
-
-      <li ng-class="{active: stateIncludes('jobs.details.jenkins-users.list')}">
-        <a ui-sref="jobs.details.jenkins-users.list">
-          <span translate>Jenkins User</span>
-        </a>
-      </li>
-
     </ul>
   </nav>
 

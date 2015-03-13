@@ -93,11 +93,35 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
     })
 
     .state('jobs.details.jenkins-instances', {
+        abstract: true,
+        collapsed: true,
+        template: '<div ui-view></div>'
+    })
+    .state('jobs.details.jenkins-instances.list', {
         url: '/jenkins_instances',
         collapsed: true,
         permission: 'edit_jobs',
         controller: 'JobDetailsJenkinsController',
         templateUrl: 'integration/jobs/details/views/job-details-jenkins.html'
+    })
+    .state('jobs.details.jenkins-instances.jenkins-users', {
+        abstract: true,
+        collapsed: true,
+        template: '<div ui-view></div>'
+    })
+    .state('jobs.details.jenkins-instances.jenkins-users.list', {
+        url: '/jenkins_instances/:jenkinsInstanceId/jenkins_users',
+        collapsed: true,
+        permission: 'edit_jobs',
+        controller: 'JobDetailsJenkinsUsersController',
+        templateUrl: 'integration/jobs/details/views/job-details-jenkins-users.html'
+    })
+    .state('jobs.details.jenkins-instances.jenkins-users.new', {
+        url: '/jenkins_instances/:jenkinsInstanceId/jenkins_users/new',
+        collapsed: 'true',
+        permission: 'create_jenkins_users',
+        controller: 'NewJenkinsUserController',
+        templateUrl: 'integration/jenkins-users/new/views/new-jenkins-user.html'
     })
 
     .state('jobs.details.jenkins-projects', {
@@ -127,25 +151,4 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
         controller: 'JobProjectsParametersController', 
         templateUrl: 'integration/jobs/details/project-discovery/views/job-projects-parameters.html'
     })
-
-    .state('jobs.details.jenkins-users', {
-        abstract: true,
-        collapsed: true,
-        template: '<div ui-view></div>'
-    })
-    .state('jobs.details.jenkins-users.list', {
-        url: '/jenkins_users',
-        collapsed: true,
-        permission: 'edit_jobs',
-        controller: 'JobDetailsJenkinsUsersController',
-        templateUrl: 'integration/jobs/details/views/job-details-jenkins-users.html'
-    })
-    .state('jobs.details.jenkins-users.new', {
-        url: '/jenkins_users/new',
-        collapsed: 'true',
-        permission: 'create_jenkins_users',
-        controller: 'NewJenkinsUserController',
-        templateUrl: 'integration/jenkins-users/new/views/new-jenkins-user.html'
-    })
-
 }]);

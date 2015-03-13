@@ -16,7 +16,7 @@
   <section ng-show="jenkinsTable.rows.length > 0">
     <div class="row">
       
-      <div class="col-sm-3">
+      <div class="col-sm-3" ng-show="jenkinsTable.rows.length > 0">
         <input type="text"
                 class="form-control"  
                 placeholder="{{ 'Filter' | translate }}"
@@ -24,20 +24,31 @@
       </div>
 
       <div class="fr select-action">
+        
+        <span ng-show="jenkinsTable.rows.length > 0">
+          <button class="btn btn-default"
+                  ng-hide="denied('edit_jobs')"
+                  ng-disabled="!jenkinsTable.chosenRow || jenkinsTable.working" 
+                  ng-click="setJenkins()">
+            <i class="icon-pencil" ng-hide="jenkinsTable.working"></i>      
+            <i class="icon-spinner icon-spin" ng-show="jenkinsTable.working"></i>           
+            {{ 'Set Jenkins Instance' | translate }}
+          </button>
+        </span>
 
         <button class="btn btn-default"
                 ng-hide="denied('edit_jobs')"
-                ng-disabled="!jenkinsTable.chosenRow || jenkinsTable.working" 
-                ng-click="setJenkins()">
-          <i class="icon-pencil" ng-hide="jenkinsTable.working"></i>      
-          <i class="icon-spinner icon-spin" ng-show="jenkinsTable.working"></i>           
-          {{ 'Set Jenkins Instance' | translate }}
+                ng-disabled="!job.jenkins_instance" 
+                ui-sref="jobs.details.jenkins-instances.jenkins-users.list({jobId: job.id,
+                                                 jenkinsInstanceId: job.jenkins_instance.id})">
+          <i class="icon-user"></i>      
+          {{ 'Configure Jenkins User' | translate }}
         </button>
 
       </div>
     </div>
 
-    <div bst-table="jenkinsTable" class="nutupane">
+    <div bst-table="jenkinsTable" class="nutupane" ng-show="jenkinsTable.rows.length > 0">
       <div bst-container-scroll bst-infinite-scroll="jenkinsTable.nextPage()">
 
         <table

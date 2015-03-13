@@ -2,18 +2,20 @@
 
 <section class="nutupane-sub-section">
   <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
-
-  
-    <h4>
-      <span translate>Current Jenkins User: </span>
-      
-        <span class="no-capitalize" ng-show="job.jenkins_user.name" ng-bind="job.jenkins_user.name"></span>
-
-      <span class="no-capitalize" ng-show="!job.jenkins_user.name" translate>none</span>
-    </h4>
-
+  <div class="row">
+    <div class="col-sm-5">
+      <a href="" ui-sref="jobs.details.jenkins-instances.list({jobId: job.id})">
+      <i class="icon-double-angle-left"></i>
+      {{ "Back" | translate }}
+      </a>
     </div>
   </div>
+        
+  <h4>
+    <span translate>Current Jenkins User: </span>
+    <span class="no-capitalize" ng-show="job.jenkins_user.name" ng-bind="job.jenkins_user.name"></span>
+    <span class="no-capitalize" ng-show="!job.jenkins_user.name" translate>none</span>
+  </h4>
 
   <br/> 
 
@@ -43,7 +45,8 @@
 
         <button class="btn btn-default"
                 ng-hide="denied('edit_jobs')"
-                ui-sref="jobs.details.jenkins-users.new">
+                ui-sref="jobs.details.jenkins-instances.jenkins-users.new(
+                          {jenkinsInstanceId: job.jenkins_instance.id})">
           <i class="icon-file-alt"></i>      
           {{ 'New Jenkins User' | translate }}
         </button>

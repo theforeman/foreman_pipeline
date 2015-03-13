@@ -38,7 +38,9 @@ angular.module('Integration.jenkins-users').controller('NewJenkinsUserController
             };
 
             $scope.transitionBack = function () {
-                $scope.$state.go('jobs.details.jenkins-users.list', {jobId: $scope.job.id});
+                $scope.$state.go('jobs.details.jenkins-instances.jenkins-users.list',
+                 {jobId: $scope.job.id, jenkinsInstanceId: $scope.job.jenkins_instance.id});
             };
+
     }]
 );
