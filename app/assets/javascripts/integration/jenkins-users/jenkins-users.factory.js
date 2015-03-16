@@ -4,7 +4,7 @@ angular.module('Integration.jenkins-users').factory('JenkinsUser',
 
         return BastionResource('/../integration/api/organizations/:organizationId/jenkins_users/:id/:action',
             {id: '@id', organizationId: CurrentOrganization}, {
-
+                update: {method: 'PUT'},
         });
     }]
 );

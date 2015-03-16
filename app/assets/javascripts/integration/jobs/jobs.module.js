@@ -118,10 +118,17 @@ angular.module('Integration.jobs').config(['$stateProvider', function ($statePro
     })
     .state('jobs.details.jenkins-instances.jenkins-users.new', {
         url: '/jenkins_instances/:jenkinsInstanceId/jenkins_users/new',
-        collapsed: 'true',
+        collapsed: true,
         permission: 'create_jenkins_users',
         controller: 'NewJenkinsUserController',
         templateUrl: 'integration/jenkins-users/new/views/new-jenkins-user.html'
+    })
+    .state('jobs.details.jenkins-instances.jenkins-users.info', {
+        url: '/jenkins_instances/:jenkinsInstanceId/jenkins_users/:jenkinsUserId',
+        collapsed: true,
+        permission: 'edit_jobs',
+        controller: 'JenkinsUserInfoController',
+        templateUrl: 'integration/jenkins-users/details/views/jenkins-user-info.html'
     })
 
     .state('jobs.details.jenkins-projects', {

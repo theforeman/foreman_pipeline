@@ -23,6 +23,7 @@ Integration::Engine.routes.draw do
             get :run_job
             put :add_projects
             put :remove_projects
+            put :set_jenkins_user
           end
         end
 
@@ -44,7 +45,7 @@ Integration::Engine.routes.draw do
 
         api_resources :jenkins_project_params, :only => [:update]
 
-        api_resources :jenkins_users, :only => [:index, :create, :destroy]  
+        api_resources :jenkins_users, :only => [:index, :create, :destroy, :show, :update]  
         
       end
     end

@@ -27,10 +27,41 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsUsersController'
                 console.log(jenkinsUser)
                 JenkinsUser.remove(jenkinsUser, function () {
                     $scope.successMessages.push(translate('Jenkins User "%s" has been deleted.').replace('%s', jenkinsUser.name));
-                    // console.log($scope.jUserTable)
                     $scope.removeRow(jenkinsUser.id);
-                    console.log($scope.nutupane)
                 });
+            };
+
+            $scope.setJenkinsUser = function () {
+                var success,
+                    error,
+                    deferred = $q.defer();
+
+                    $scope.chosen = $scope.jUserTable.chosenRow;
+                    data = {jenkins_user_id: $scope.chosen.id};
+
+                    success = function (response) {
+                        deferred.resolve(response);
+                        $scope.successMessages.push(translate('New Jenkins User successfully set.'));                        
+                        nutupane.refresh();
+                        $scope.job.jenkins_user = $scope.chosen;
+                        $scope.jUserTable.chosenRow = null;
+                        $scope.jUserTable.working = false;
+                    };                 
+
+                    error = function (response) {
+                        deferred.reject(response);
+                        angular.forEach(response.data.errors, function (errorMessage, key) {
+                            if (angular.isString(key)) {
+                                errorMessage = [key, errorMessage].join(' ');
+                            }
+                            $scope.errorMessages.push(translate('Error occured while saving Job: ') + errorMessage);
+                        });
+                        $scope.jUserTable.working = false;
+                    };
+
+                    $scope.jUserTable.working = true;
+                    Job.setJenkinsUser({id: $scope.job.id}, data, success, error);
+                    return deferred.promise;
             };
 
         }

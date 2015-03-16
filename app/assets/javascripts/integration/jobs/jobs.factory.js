@@ -21,6 +21,7 @@ angular.module('Integration.jobs').factory('Job',
             }},
             addProjects: {method: 'PUT', params: {action: 'add_projects'}},
             removeProjects: {method: 'PUT', params: {action: 'remove_projects'}},
+            setJenkinsUser: {method: 'PUT', params: {action: 'set_jenkins_user'}},
         });
     }]
 );

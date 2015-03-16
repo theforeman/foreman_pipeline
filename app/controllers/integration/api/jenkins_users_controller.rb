@@ -5,12 +5,14 @@ module Integration
     include Api::Rendering
 
     before_filter :find_organization, :only => [:create, :index]
-    before_filter :find_jenkins_user, :only => [:show, :destroy]
+    before_filter :find_jenkins_user, :only => [:show, :destroy, :update]
     before_filter :find_job, :only => [:create]
 
     def index
        ids = JenkinsUser.readable
-            .where(:organization_id => @organization.id, :jenkins_instance_id => params[:jenkins_instance_id])
+            .where(:organization_id => @organization.id,
+                   :jenkins_instance_id => params[:jenkins_instance_id],
+                   :owner_id => ::User.current.id)
             .pluck(:id)
       filters = [:terms => {:id => ids}]       
 
@@ -21,9 +23,20 @@ module Integration
       respond_for_index(:collection => item_search(JenkinsUser, params, options))
     end
 
-    # def show
-    #   respond_for_show(:resource => @jenkins_user)
-    # end
+    def show
+      respond_for_show(:resource => @jenkins_user)
+    end
+
+    def update
+      if jenkins_user_params[:token].empty? || jenkins_user_params[:token].nil?
+        @jenkins_user.update_attributes!(jenkins_user_params.except(:token).except(:name))      
+      else
+        @jenkins_user.update_attributes!(jenkins_user_params.except(:name))      
+      end
+      @jenkins_user.save!
+
+      respond_for_show(:resource => @jenkins_user)
+    end
 
     def create
       @jenkins_user = JenkinsUser.new(jenkins_user_params)
@@ -31,9 +44,7 @@ module Integration
       fail ::Katello::HttpErrors::Conflict, "Could not create Jenkins User:
                                              No Jenkins Instance set for Job " if @job.jenkins_instance.nil?
       @jenkins_user.jenkins_instance = @job.jenkins_instance
-      @job.jenkins_user = @jenkins_user
       @jenkins_user.organization = @organization
-      # binding.pry
       @jenkins_user.save!
 
       respond_for_show(:resource => @jenkins_user)

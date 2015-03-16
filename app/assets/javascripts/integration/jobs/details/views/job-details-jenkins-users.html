@@ -13,7 +13,11 @@
         
   <h4>
     <span translate>Current Jenkins User: </span>
-    <span class="no-capitalize" ng-show="job.jenkins_user.name" ng-bind="job.jenkins_user.name"></span>
+      <a ui-sref="jobs.details.jenkins-instances.jenkins-users.info({
+        jenkinsInstanceId: job.jenkins_instance.id, jenkinsUserId: job.jenkins_user.id})">
+        <span class="no-capitalize" ng-show="job.jenkins_user.name" ng-bind="job.jenkins_user.name">
+        </span>
+      </a>      
     <span class="no-capitalize" ng-show="!job.jenkins_user.name" translate>none</span>
   </h4>
 
@@ -71,7 +75,7 @@
             <tr bst-table-row ng-repeat="jenkinsUser in jUserTable.rows | filter:userFilter" row-choice="jenkinsUser">
               
               <td bst-table-cell>
-                <a ui-sref="jobs.jenkins-instances.jenkins-users.info({ jenkinsUserId: jenkinsUser.id })">
+                <a ui-sref="jobs.details.jenkins-instances.jenkins-users.info({ jenkinsUserId: jenkinsUser.id, jenkinsInstanceId: job.jenkins_instance.id })">
                   {{ jenkinsUser.name }}
                 </a>
               </td>

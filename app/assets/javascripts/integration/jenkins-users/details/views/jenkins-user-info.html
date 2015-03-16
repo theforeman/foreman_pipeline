@@ -1,0 +1,37 @@
+<span page-title ng-model="jenkinsUser">{{ 'Jenkins Instance: ' | translate }}{{ jenkinsUser.name }}</span>
+
+<div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+
+<div class="details fl">
+  <section>
+    <div class="row">
+      <div class="col-sm-5">
+        <a href="" ui-sref="jobs.details.jenkins-instances.jenkins-users.list({jobId: job.id,
+                             jenkinsInstanceId: job.jenkins_instance.id})">
+        <i class="icon-double-angle-left"></i>
+        {{ "Back" | translate }}
+        </a>
+      </div>
+    </div>
+
+    <h4 translate>Basic User Information</h4>
+
+    <div class="detail">
+      <span class="info-label" translate>Name</span>
+      <span class="info-value">{{ jenkinsUser.name }}</span>
+    </div>
+
+    <div class="detail">
+      <span class="info-label" translate>Token</span>
+      <span class="info-value"
+            bst-edit-text="jenkinsUser.token"
+            on-save="save(jenkinsUser)">
+      </span>
+    </div>
+       
+        <p class="alert alert-info" translate>
+          The token is not displayed for security reasons. Type in the new one or leave blank to keep the current token.
+        </p>     
+
+  </section>
+</div>
