@@ -51,7 +51,6 @@
               <th bst-table-column="name" translate>Name</th>
               <th bst-table-column="composite" translate>Composite?</th>
               <th bst-table-column="lastPublished" translate>Last Published</th>
-              <th bst-table-column="environments" translate>Environments</th>
               <th bst-table-column="repositories" translate>Repositories</th>
             </tr>
           </thead>
@@ -67,18 +66,6 @@
 
               <td bst-table-cell>{{ contentView.composite }}</td>
               <td bst-table-cell>{{ contentView.last_published }}</td>
-              
-              <td bst-table-cell>
-                <span ng-show="contentView.environments.length !== 0"
-                      ng-repeat="environment in contentView.environments" ng-if="environment.permissions.readable">
-                  {{ environment.name }}
-                  <span ng-if="!$last">, </span>
-                </span>
-                <span ng-show="contentView.environments.length === 0" translate>
-                  Not yet published
-                </span>
-              </td>
-
               <td bst-table-cell>{{ contentView.repositories.length }}</td>
 
             </tr>

@@ -1,6 +1,6 @@
 Foreman::Plugin.register :integration do
   
-  sub_menu :top_menu, :integration_menu, :caption => N_('Integration') do
+  sub_menu :top_menu, :integration_menu, :caption => N_('Pipeline') do
     menu :top_menu,
          :jobs,       
          :caption => N_("Jobs"),

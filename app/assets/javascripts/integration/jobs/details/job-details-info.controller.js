@@ -10,13 +10,20 @@ angular.module('Integration.jobs').controller('JobDetailsInfoController',
             $scope.panel = $scope.panel || {loading: false};
             $scope.job = $scope.job || Job.get({id: $scope.$stateParams.jobId}, function () {
                 $scope.panel.loading = false;
-                
+                $scope.isValid = $scope.checkValid();
             });
 
+            if (typeof ($scope.job.id) === 'undefined') {            
+                $scope.job.$promise.then(function (data) {
+                    $scope.isValid = $scope.checkValid();
+                    $scope.working = false;
+                })
+            } else {
+                $scope.isValid = $scope.checkValid();
+            }
+            
             $scope.working = false;
-
-            $scope.isValid = $scope.checkValid();
-
+            
             $scope.save = function (job) {
                 var deferred = $q.defer();
                 job.$update(function (response) {

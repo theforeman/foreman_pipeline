@@ -10,6 +10,9 @@
       <th bst-table-column="name" sortable><span translate>Name</span></th>
       <th bst-table-column="content_view"><span translate>Content View</span></th>
       <th bst-table-column="hostgroup"><span translate>Hostgroup</span></th>
+      <th bst-table-column="environment"><span translate>Environment</span></th>
+      <th bst-table-column="jenkinsInstance"><span translate>Jenkins Instance</span></th>
+
     </tr>
   </thead>
 
@@ -36,6 +39,24 @@
         </a>
                 
         <div ng-show="{{ job.hostgroup === null }}" translate>none</div>
+        
+      </td>
+      <td bst-table-cell>
+        <a ng-show="{{ job.environment !== null }}"
+           ui-sref="environments.environment.details({ environmentId: job.environment.id })">
+          <div>{{ job.environment.name }}</div>
+        </a>
+                
+        <div ng-show="{{ job.environment === null }}" translate>none</div>
+        
+      </td>
+      <td bst-table-cell>
+        <a ng-show="{{ job.jenkins_instance !== null }}"
+           ui-sref="jenkins-instances.details.info({ jenkinsInstanceId: job.jenkins_instance.id })">
+          <div>{{ job.jenkins_instance.name }}</div>
+        </a>
+                
+        <div ng-show="{{ job.jenkins_instance === null }}" translate>none</div>
         
       </td>
     </tr>

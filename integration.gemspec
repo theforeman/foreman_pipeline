@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Integration::VERSION
   s.authors     = ["N/A"]
   s.email       = ["oprazak@redhat.com"]
-  s.homepage    = "https://github.com/xprazak2/abcde/wiki/Implemented-Features"
+  s.homepage    = "https://github.com/xprazak2/foreman-pipeline"
   s.summary     = ""
   s.description = "Plugin"
 
@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails"
-  s.add_dependency "rabl"
   s.add_development_dependency "sass", "3.2.13" # only to avoid sass/sprockets known bug: https://github.com/sass/sass/issues/1162  
   s.add_dependency "katello"
   s.add_dependency "bastion", "~> 0.1.13"
