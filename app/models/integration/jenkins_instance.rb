@@ -32,17 +32,12 @@ module Integration
       end
       @client
     end
-
-    def check_jenkins_server
-      create_client
-      @client.get_jenkins_version
-    end
-
+    
     private
 
     def authenticated_client(username, password, hash_args) 
-       JenkinsApi::Client.new(hash_args.merge({:username => username,
-                                               :password => password}))          
+      JenkinsApi::Client.new(hash_args.merge({:username => username,
+                                              :password => password}))          
     end
 
     def new_client(username, password)

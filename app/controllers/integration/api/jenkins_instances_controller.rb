@@ -65,8 +65,10 @@ module Integration
     end
 
     def check_jenkins
-      data = @jenkins_instance.check_jenkins_server
-      @jenkins_instance.server_version = data
+      task = sync_task(::Actions::Integration::Jenkins::GetVersion,
+                         :id => @jenkins_instance.id, 
+                         :name => @jenkins_instance.name)
+      @jenkins_instance.server_version = task.output[:version]
       respond_for_show
     end
 
