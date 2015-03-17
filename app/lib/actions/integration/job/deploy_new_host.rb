@@ -37,7 +37,7 @@ module Actions
                                       job.jenkins_projects,
                                       :job_id => job.id,
                                       :data => h)#{:packages => packages.output[:package_names]}.merge(redeploy.output))
-            plan_action(Promote, :job_id => job.id, :build_fails => bulk_build.output[:failed_count])
+            # plan_action(Promote, :job_id => job.id, :build_fails => bulk_build.output[:failed_count])
             
           end
         end

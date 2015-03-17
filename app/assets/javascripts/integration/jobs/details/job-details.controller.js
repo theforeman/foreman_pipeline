@@ -22,7 +22,8 @@ angular.module('Integration.jobs').controller('JobDetailsController',
                         && $scope.job.hostgroup !== null
                         && $scope.job.compute_resource !== null
                         && $scope.job.jenkins_instance !== null
-                        && $scope.job.environment !== null;
+                        && $scope.job.environment !== null
+                        && $scope.job.jenkins_user !== null;
         }
 
     }]

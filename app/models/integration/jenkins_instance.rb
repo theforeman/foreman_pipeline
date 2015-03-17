@@ -21,15 +21,35 @@ module Integration
     validates :jenkins_home, :format => { :with => FILEPATH_REGEX }
 
     # TODO: loose coupling
-    def create_client
+    def create_client(username = nil, password = nil)
       fail "Cannot create Jenkins client: no url in Jenkins Instance" if url.nil?
-      @client ||= JenkinsApi::Client.new(:server_url => url, :log_level => Logger::DEBUG)
+      fail "Token required if username given." if !username.nil? && password.nil?
+      
+      if !@client.nil? && @client.username.nil? && !username.nil?
+        @client = new_client username, password
+      else
+        @client ||= new_client username, password
+      end
+      @client
     end
 
     def check_jenkins_server
       create_client
       @client.get_jenkins_version
-    end    
+    end
+
+    private
+
+    def authenticated_client(username, password, hash_args) 
+       JenkinsApi::Client.new(hash_args.merge({:username => username,
+                                               :password => password}))          
+    end
+
+    def new_client(username, password)
+      hash_args = {:server_url => url, :log_level => Logger::DEBUG}
+      return JenkinsApi::Client.new(hash_args) if username.nil?
+      authenticated_client username, password, hash_args
+    end
     
   end
 end

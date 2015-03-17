@@ -63,7 +63,9 @@ module Integration
     end
 
     def set_jenkins
-      @job.jenkins_instance = JenkinsInstance.find(params[:jenkins_instance_id])
+      instance = JenkinsInstance.find(params[:jenkins_instance_id])
+      @job.jenkins_user = nil unless instance == @job.jenkins_instance
+      @job.jenkins_instance = instance
       @job.save!
       respond_for_show
     end
