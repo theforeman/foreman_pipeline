@@ -21,8 +21,7 @@ angular.module('Integration.jobs').controller('JobDetailsToEnvironmentController
             $scope.setEnvironment = function () {
                 var success, 
                     error,
-                    deferred = $q.defer();
-                    
+                    deferred = $q.defer();                    
                     data = {environment_id: $scope.chosenEnvironment.id};
 
                     success = function (response) {
