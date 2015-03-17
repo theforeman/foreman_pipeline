@@ -1,6 +1,6 @@
 angular.module('Integration.jobs').controller('JobDetailsToEnvironmentController',
-    ['$scope', '$q', 'Organization', 'Job', 'translate', 'CurrentOrganization', 
-        function ($scope, $q, Organization, Job, translate, CurrentOrganization) {
+    ['$scope', '$q', 'Organization', 'Job', 'translate', 'CurrentOrganization', 'Org',
+        function ($scope, $q, Organization, Job, translate, CurrentOrganization, Org) {
 
             $scope.successMessages = [];
             $scope.errorMessages = [];
@@ -14,7 +14,7 @@ angular.module('Integration.jobs').controller('JobDetailsToEnvironmentController
 
             $scope.loading = true;            
 
-            $scope.environments = Organization.readableEnvironments({id: CurrentOrganization}, function () {
+            $scope.environments = Org.firstPath({id: CurrentOrganization}, function () {
                 $scope.loading = false;
             });
 
