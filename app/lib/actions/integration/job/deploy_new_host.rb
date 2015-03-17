@@ -13,7 +13,7 @@ module Actions
                     :id => "random_number",
                     :name => "dummy host",
                     :ip => "192.168.100.103",
-                    :mac => "no_mac_here",
+                    :mac => " 01:23:45:67:89:ab",
                     :params => ["host_params_empty"]
                   },
                   :activation_key => {

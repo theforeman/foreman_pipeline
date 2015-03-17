@@ -27,6 +27,9 @@ angular.module('Integration.jobs').controller('JobDetailsJenkinsUsersController'
                 console.log(jenkinsUser)
                 JenkinsUser.remove(jenkinsUser, function () {
                     $scope.successMessages.push(translate('Jenkins User "%s" has been deleted.').replace('%s', jenkinsUser.name));
+                    if (jenkinsUser.id === $scope.job.jenkins_user.id) {
+                        $scope.job.jenkins_user = null;
+                    };
                     $scope.removeRow(jenkinsUser.id);
                 });
             };
