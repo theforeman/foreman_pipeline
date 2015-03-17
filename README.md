@@ -1,4 +1,4 @@
-#abcde#
+#Foreman Pipeline#
 
 This project should provide support for Jenkins builds triggered from within Foreman. This plugin is currently under development.
 
@@ -27,4 +27,4 @@ rake integration:seed
 
 ##Usage##
 
-See [wiki](https://github.com/xprazak2/abcde/wiki/Implemented-Features).
+See [wiki](https://github.com/xprazak2/foreman-pipeline/wiki/Jobs).
