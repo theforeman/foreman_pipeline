@@ -1,11 +1,11 @@
-angular.module('Integration.jobs', [
+angular.module('ForemanPipeline.jobs', [
     'ngResource',
     'Bastion.components',
     'ui.router',
     'Bastion'
 ]);
 
-angular.module('Integration.jobs').config(['$stateProvider', function ($stateProvider) {
+angular.module('ForemanPipeline.jobs').config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state('jobs', {
         abstract: true,
         controller: 'JobsController',

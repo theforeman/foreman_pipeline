@@ -1,4 +1,4 @@
-angular.module('Integration.jobs').controller('JobDetailsHostgroupsController',
+angular.module('ForemanPipeline.jobs').controller('JobDetailsHostgroupsController',
     ['$scope', '$q', '$location', 'translate', 'Job', 'Hostgroup', 'Nutupane', 
         function ($scope, $q, $location, translate, Job, Hostgroup, Nutupane) {
 

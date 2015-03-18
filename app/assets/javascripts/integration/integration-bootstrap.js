@@ -1,8 +1,8 @@
 BASTION_MODULES.push(
-    'Integration.jobs',
-    'Integration.jenkins-instances',
-    'Integration.jenkins-requests',
-    'Integration.jenkins-projects',
-    'Integration.jenkins-project-params',
-    'Integration.jenkins-users'
+    'ForemanPipeline.jobs',
+    'ForemanPipeline.jenkins-instances',
+    'ForemanPipeline.jenkins-requests',
+    'ForemanPipeline.jenkins-projects',
+    'ForemanPipeline.jenkins-project-params',
+    'ForemanPipeline.jenkins-users'
 );

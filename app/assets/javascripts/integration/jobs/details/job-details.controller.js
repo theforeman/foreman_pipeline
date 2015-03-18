@@ -1,4 +1,4 @@
-angular.module('Integration.jobs').controller('JobDetailsController',
+angular.module('ForemanPipeline.jobs').controller('JobDetailsController',
     ['$scope', '$state', 'Job', function ($scope, $state, Job) {
 
         

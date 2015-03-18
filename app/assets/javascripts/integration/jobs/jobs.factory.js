@@ -1,4 +1,4 @@
-angular.module('Integration.jobs').factory('Job',
+angular.module('ForemanPipeline.jobs').factory('Job',
     ['BastionResource', 'CurrentOrganization',
     function (BastionResource, CurrentOrganization) {
 
@@ -26,7 +26,7 @@ angular.module('Integration.jobs').factory('Job',
     }]
 );
 
-angular.module('Integration.jobs').factory('Hostgroup',
+angular.module('ForemanPipeline.jobs').factory('Hostgroup',
     ['BastionResource',
     function (BastionResource) {
 
@@ -35,7 +35,7 @@ angular.module('Integration.jobs').factory('Hostgroup',
     }]
 );
 
-angular.module('Integration.jobs').factory('Org',
+angular.module('ForemanPipeline.jobs').factory('Org',
     ['BastionResource', 'CurrentOrganization', function (BastionResource, CurrentOrganization) {
         return BastionResource('/katello/api/v2/organizations/:id/:action',
             {id: '@id'},

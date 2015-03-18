@@ -1,4 +1,4 @@
-angular.module('Integration.jenkins-users').controller('JenkinsUserInfoController',
+angular.module('ForemanPipeline.jenkins-users').controller('JenkinsUserInfoController',
     ['$scope', '$q', 'translate', 'JenkinsUser', 
     function ($scope, $q, translate, JenkinsUser) {
         $scope.successMessages = [];

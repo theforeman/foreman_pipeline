@@ -38,7 +38,7 @@ module Integration
     config.to_prepare do
       
       Bastion.register_plugin({
-        :name => 'integration',
+        :name => 'foreman_pipeline',
         :javascript => 'integration/integration',
         :stylesheet => 'integration/integration',
         :pages => %w(

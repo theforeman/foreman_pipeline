@@ -1,4 +1,4 @@
-angular.module('Integration.jenkins-instances').controller('JenkinsInstancesController',
+angular.module('ForemanPipeline.jenkins-instances').controller('JenkinsInstancesController',
     ['$scope', 'translate', '$location', 'Nutupane', 'JenkinsInstance', 'CurrentOrganization',
     function ($scope, translate, $location, Nutupane, JenkinsInstance, CurrentOrganization) {
 

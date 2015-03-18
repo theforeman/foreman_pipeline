@@ -1,10 +1,10 @@
-angular.module('Integration.jenkins-requests', [
+angular.module('ForemanPipeline.jenkins-requests', [
     'ngResource',
     'Bastion.components',
     'ui.router',
     'Bastion'
 ]);
 
-angular.module('Integration.jenkins-requests').config(['$stateProvider', function ($stateProvider) {
+angular.module('ForemanPipeline.jenkins-requests').config(['$stateProvider', function ($stateProvider) {
 
 }]);

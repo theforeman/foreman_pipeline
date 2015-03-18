@@ -1,11 +1,11 @@
-angular.module('Integration.jenkins-instances', [
+angular.module('ForemanPipeline.jenkins-instances', [
     'ngResource',
     'Bastion.components',
     'ui.router',
     'Bastion'
 ]);
 
-angular.module('Integration.jenkins-instances').config(['$stateProvider', function ($stateProvider) {
+angular.module('ForemanPipeline.jenkins-instances').config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state('jenkins-instances', {
         abstract: true,
         controller: 'JenkinsInstancesController',

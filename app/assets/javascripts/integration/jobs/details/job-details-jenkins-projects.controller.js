@@ -1,4 +1,4 @@
-angular.module('Integration.jobs').controller('JobDetailsJenkinsProjectsController',
+angular.module('ForemanPipeline.jobs').controller('JobDetailsJenkinsProjectsController',
     ['$scope', '$q', 'translate', 'Nutupane', 'Job', 
         function ($scope, $q, translate, Nutupane, Job) {
 

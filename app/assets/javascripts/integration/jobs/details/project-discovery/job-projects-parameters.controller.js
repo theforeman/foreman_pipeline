@@ -1,4 +1,4 @@
-angular.module('Integration.jobs').controller('JobProjectsParametersController', 
+angular.module('ForemanPipeline.jobs').controller('JobProjectsParametersController', 
     ['$scope', '$state', '$q', 'translate', 'JenkinsProjectParam', 'JenkinsProject',
         function ($scope, $state, $q, translate, JenkinsProjectParam, JenkinsProject) {
 

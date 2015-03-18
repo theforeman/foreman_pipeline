@@ -1,4 +1,4 @@
-angular.module('Integration.jobs').controller('JobDetailsInfoController', 
+angular.module('ForemanPipeline.jobs').controller('JobDetailsInfoController', 
     ['$scope', '$q', 'translate', 'Job', 'MenuExpander', 
         function ($scope, $q, translate, Job, MenuExpander) {
 

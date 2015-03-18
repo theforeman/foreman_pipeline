@@ -1,4 +1,4 @@
-angular.module('Integration.jenkins-project-params', [
+angular.module('ForemanPipeline.jenkins-project-params', [
     'ngResource',
     'Bastion.components',
     'ui.router',

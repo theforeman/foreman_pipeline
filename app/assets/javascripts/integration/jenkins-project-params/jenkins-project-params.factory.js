@@ -1,4 +1,4 @@
-angular.module('Integration.jenkins-project-params').factory('JenkinsProjectParam',
+angular.module('ForemanPipeline.jenkins-project-params').factory('JenkinsProjectParam',
     ['BastionResource', 'CurrentOrganization', 
     function (BastionResource, CurrentOrganization) {
 

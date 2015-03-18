@@ -1,4 +1,4 @@
-angular.module('Integration.jenkins-users').controller('NewJenkinsUserController', 
+angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserController', 
     ['$scope', '$q', 'translate', 'JenkinsUser', 'Job',
         function ($scope, $q, translate, JenkinsUser, Job) {
 

@@ -1,4 +1,4 @@
-angular.module('Integration.jenkins-users').factory('JenkinsUser',
+angular.module('ForemanPipeline.jenkins-users').factory('JenkinsUser',
     ['BastionResource', 'CurrentOrganization', 
     function (BastionResource, CurrentOrganization) {
 

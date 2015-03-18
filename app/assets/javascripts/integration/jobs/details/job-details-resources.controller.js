@@ -1,4 +1,4 @@
-angular.module('Integration.jobs').controller('JobDetailsResourcesController', 
+angular.module('ForemanPipeline.jobs').controller('JobDetailsResourcesController', 
     ['$scope', '$q', '$location', '$window', 'translate', 'Job', 'Nutupane', 
         function ($scope, $q, $location, $window, translate, Job, Nutupane) {
 

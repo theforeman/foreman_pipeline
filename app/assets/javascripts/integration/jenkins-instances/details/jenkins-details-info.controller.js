@@ -1,4 +1,4 @@
-angular.module('Integration.jenkins-instances').controller('JenkinsInstanceDetailsInfoController', 
+angular.module('ForemanPipeline.jenkins-instances').controller('JenkinsInstanceDetailsInfoController', 
     ['$scope', '$q', 'translate', 'JenkinsInstance',
     function ($scope, $q, translate, JenkinsInstance) {
 

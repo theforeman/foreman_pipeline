@@ -1,4 +1,4 @@
-angular.module('Integration.jobs').controller('NewJobController', 
+angular.module('ForemanPipeline.jobs').controller('NewJobController', 
     ['$scope', 'translate', 'Job', function ($scope, translate, Job) {
 
         $scope.successMessages = [];
