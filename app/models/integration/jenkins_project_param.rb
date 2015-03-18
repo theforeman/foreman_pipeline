@@ -15,7 +15,7 @@ module Integration
     validates :type, :inclusion => { :in => TYPES }
 
     def format_bool
-        value.sub!(/^t$/, "true").sub!(/^f$/, "false") if type == "boolean"
+      self.value = self.value.sub(/^t$/, "true").sub(/^f$/, "false") if type == "boolean"
     end
   end
 end
