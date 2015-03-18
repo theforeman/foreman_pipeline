@@ -1,3 +1,3 @@
 Foreman::Application.routes.draw do
-  mount Integration::Engine, :at => '/', :as => 'integration'
+  mount ForemanPipeline::Engine, :at => '/', :as => 'foreman_pipeline'
 end

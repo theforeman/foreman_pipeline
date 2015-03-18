@@ -4,7 +4,7 @@ class ActionDispatch::Routing::Mapper
   include Katello::Routing::MapperExtensions
 end
 
-Integration::Engine.routes.draw do
+ForemanPipeline::Engine.routes.draw do
   
 
   scope :foreman_pipeline, :path => '/foreman_pipeline' do

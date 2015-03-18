@@ -1,4 +1,4 @@
-require 'integration_plugin_test_helper'
+require 'foreman_pipeline_plugin_test_helper'
 
 class IntegrationTest < ActiveSupport::TestCase
   # setup do

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    integration (0.0.1)
+    foreman_pipeline (0.0.1)
       rails (~> 3.2.19)
 
 GEM
@@ -92,6 +92,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  integration!
+  foreman_pipeline!
   jquery-rails
   sqlite3

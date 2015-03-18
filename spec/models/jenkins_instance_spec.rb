@@ -1,6 +1,6 @@
-require 'integration_plugin_test_helper'
+require 'foreman_pipeline_plugin_test_helper'
 
-module Integration
+module ForemanPipeline
   describe JenkinsInstance do
     include Katello::OrchestrationHelper
 
