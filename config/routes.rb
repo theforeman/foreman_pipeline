@@ -7,7 +7,7 @@ end
 Integration::Engine.routes.draw do
   
 
-  scope :integration, :path => '/integration' do
+  scope :foreman_pipeline, :path => '/foreman_pipeline' do
     
     namespace :api do
     
