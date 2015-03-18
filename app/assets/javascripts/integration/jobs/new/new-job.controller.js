@@ -17,7 +17,7 @@ angular.module('Integration.jobs').controller('NewJobController',
             if ($scope.jobsTable) {
                 $scope.jobsTable.rows.unshift(job);
             }
-            $scope.transitionBack();
+            $scope.transitionTo('jobs.details.info', {jobId: job.id});
         }
 
         function error (response) {
