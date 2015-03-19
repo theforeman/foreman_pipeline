@@ -2,9 +2,9 @@ module Actions
   module ForemanPipeline
     module Job
       class CreateActivationKey < Actions::EntryAction
+        middleware.use ::Actions::Middleware::KeepCurrentUser
 
         def run
-          ::User.current = ::User.anonymous_admin
           output[:new_key] = ::Katello::ActivationKey.create(
                         name:             "key-for-#{input[:name]}",
                         organization_id:   input[:organization_id],

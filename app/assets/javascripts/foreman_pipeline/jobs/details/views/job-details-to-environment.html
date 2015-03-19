@@ -5,6 +5,12 @@
   
   <h4 translate>Lifecycle Environment selection</h4>
 
+  <div class="loading-mask loading-mask-panel" ng-show="loading">
+    <i class="icon-spinner icon-spin"></i>
+      {{ "Loading..." | translate }}          
+  </div>
+
+
   <section ng-hide="loading || environments.length === 0">
     <span path-selector="environments"
               ng-model="chosenEnvironment"
@@ -25,11 +31,7 @@
     </button>
   </section>
   
-    <div class="loading-mask" ng-show="loading">
-      <i class="icon-spinner icon-spin"></i>
-        {{ "Loading..." | translate }}          
-    </div>
-
+  
   <div ng-show="environmnets.length === 0" >
     <p class="alert alert-info"
        ng-hide="loading"

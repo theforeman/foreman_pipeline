@@ -34,34 +34,36 @@
                 Find more...
         </button>
       </span>  
+
+      
     
       
-        <table bst-table="projectsTable"
-               class="table table-striped"
-               ng-show="projectsTable.rows.length > 0 && !projectsTable.working"
-               ng-class="{'table-mask': projectsTable.working}">
-          <thead>
-            <tr bst-table-head row-select="jenkinsProject">
-              <th bst-table-column="name" translate>Name</th>
-            </tr>
-          </thead>
+      <table bst-table="projectsTable"
+             class="table table-striped"
+             ng-show="projectsTable.rows.length > 0 && !projectsTable.working"
+             ng-class="{'table-mask': projectsTable.working}">
+        <thead>
+          <tr bst-table-head row-select="jenkinsProject">
+            <th bst-table-column="name" translate>Name</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            <tr bst-table-row ng-repeat="jenkinsProject in projectsTable.rows | filter:jenkinsFilter" row-select="jenkinsProject">
-              <td bst-table-cell>
-                <a href="" ui-sref="jobs.details.jenkins-projects.parameters({ projectId: jenkinsProject.id })">
-                  {{ jenkinsProject.name }}
-                </a>
-              </td>
-            </tr>
-          </tbody>
+        <tbody>
+          <tr bst-table-row ng-repeat="jenkinsProject in projectsTable.rows | filter:jenkinsFilter" row-select="jenkinsProject">
+            <td bst-table-cell>
+              <a href="" ui-sref="jobs.details.jenkins-projects.parameters({ projectId: jenkinsProject.id })">
+                {{ jenkinsProject.name }}
+              </a>
+            </td>
+          </tr>
+        </tbody>
 
-        </table>   
+      </table>   
 
 </section>
 
 <div ng-show="projectsTable.rows.length === 0">
-        <div class="loading-mask" ng-show="projectsTable.working">
+        <div class="loading-mask loading-mask-panel" ng-show="projectsTable.working">
           <i class="icon-spinner icon-spin"></i>
             {{ "Loading..." | translate }}          
         </div>
@@ -70,4 +72,4 @@
            ng-hide="projectsTable.working"
            translate> No Jenkins Projects to show.
         </p>
-</div>
+      </div>

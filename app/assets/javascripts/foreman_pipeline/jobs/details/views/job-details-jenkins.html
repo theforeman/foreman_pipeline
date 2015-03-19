@@ -13,6 +13,18 @@
 
   <br/> 
 
+  <div ng-show="jenkinsTable.rows.length === 0">
+    <div class="loading-mask loading-mask-panel" ng-show="jenkinsTable.working">
+      <i class="icon-spinner icon-spin"></i>
+        {{ "Loading..." | translate }}          
+    </div>
+
+    <p class="alert alert-info"
+       ng-hide="jenkinsTable.working"
+       translate> No Jenkins Instances to show.
+    </p>
+  </div>
+
   <section ng-show="jenkinsTable.rows.length > 0">
     <div class="row">
       
@@ -78,18 +90,5 @@
         </table>
       </div>
     </div>
-  </section>
-
-  <div ng-show="jenkinsTable.rows.length === 0">
-    <div class="loading-mask" ng-show="jenkinsTable.working">
-      <i class="icon-spinner icon-spin"></i>
-        {{ "Loading..." | translate }}          
-    </div>
-
-    <p class="alert alert-info"
-       ng-hide="jenkinsTable.working"
-       translate> No Jenkins Instances to show.
-    </p>
-  </div>
-
+  </section> 
 </section>

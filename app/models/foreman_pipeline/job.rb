@@ -46,8 +46,8 @@ module ForemanPipeline
     end
 
     def init_run
-      fail "Cannnot contact Jenkins server: no Jenkins Instance set" if jenkins_instance.nil?
-      fail "Cannot log in to Jenkins server: no Jenkins User set" if jenkins_user.nil? 
+      fail "Cannnot contact Jenkins server: no Jenkins Instance set for the job: #{name}" if jenkins_instance.nil?
+      fail "Cannot log in to Jenkins server: no Jenkins User set for the job: #{name}" if jenkins_user.nil? 
       jenkins_instance.create_client(jenkins_user.name, jenkins_user.token)
     end
 

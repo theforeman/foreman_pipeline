@@ -11,10 +11,9 @@ module Actions
           ip = Socket::getaddrinfo(input[:jenkins_instance_hostname], 'www', nil, Socket::SOCK_STREAM)[0][3]          
           Net::SSH.start(ip, 'root', :keys => [input.fetch(:cert_path)]) do |ssh|
             status = ssh_exec!(ssh, command)
-          end
-          
-          output[:jenkins_ip] = ip
-          output[:result] = status
+          end          
+          output[:jenkins_ip] = ip          
+          output[:status] = status
           status[2].to_i == 0
         end
 
