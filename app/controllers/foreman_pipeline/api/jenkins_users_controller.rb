@@ -11,8 +11,7 @@ module ForemanPipeline
     def index
        ids = JenkinsUser.readable
             .where(:organization_id => @organization.id,
-                   :jenkins_instance_id => params[:jenkins_instance_id],
-                   :owner_id => ::User.current.id)
+                   :jenkins_instance_id => params[:jenkins_instance_id])
             .pluck(:id)
       filters = [:terms => {:id => ids}]       
 

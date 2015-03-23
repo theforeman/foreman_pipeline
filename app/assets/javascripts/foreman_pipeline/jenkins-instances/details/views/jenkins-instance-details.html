@@ -32,6 +32,22 @@
       </button>
     </div>
   </header>
+  
+  <nav>
+    <ul class="nav nav-tabs">
+      <li ng-class="{active: stateIncludes('jenkins-instances.details.info')}">
+        <a ui-sref="jenkins-instances.details.info({jenkinsInstanceId: jenkinsInstance.id})">
+          <span translate>Details</span>
+        </a>
+      </li>
 
+      <li ng-class="{active: stateIncludes('jenkins-instances.details.users')}">
+        <a ui-sref="jenkins-instances.details.users({jenkinsInstanceId: jenkinsInstance.id})">
+          <span translate>Jenkins Users</span>
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
   <section class="nutupane-sub-section" ui-view></section>
 </section>

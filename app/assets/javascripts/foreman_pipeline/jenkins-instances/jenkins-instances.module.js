@@ -61,5 +61,12 @@ angular.module('ForemanPipeline.jenkins-instances').config(['$stateProvider', fu
         controller: 'JenkinsInstanceDetailsInfoController',
         templateUrl: 'foreman_pipeline/jenkins-instances/details/views/jenkins-instance-details-info.html'
     })
+    .state('jenkins-instances.details.users', {
+        url: '/jenkins_users',
+        permission: 'view_jenkins_users',
+        collapsed: true,
+        controller: 'JenkinsInstanceDetailsJenkinsUsersController',
+        templateUrl: 'foreman_pipeline/jenkins-instances/details/views/jenkins-instance-details-users.html'
+    })
 
 }]);

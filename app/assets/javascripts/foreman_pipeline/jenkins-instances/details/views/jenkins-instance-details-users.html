@@ -1,24 +1,16 @@
-<span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
+<span page-title ng-model="jenkinsInstance">{{ 'Jenkins Instance: ' | translate }} {{ jenkinsInstance.name }}</span>
 
 <section class="nutupane-sub-section">
   <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
-  <div class="row">
-    <div class="col-sm-5">
-      <a href="" ui-sref="jobs.details.jenkins-instances.list({jobId: job.id})">
-      <i class="icon-double-angle-left"></i>
-      {{ "Back" | translate }}
-      </a>
-    </div>
-  </div>
         
   <h4>
     <span translate>Current Jenkins User: </span>
-      <a ui-sref="jobs.details.jenkins-instances.jenkins-users.info({
-        jenkinsInstanceId: job.jenkins_instance.id, jenkinsUserId: job.jenkins_user.id})">
-        <span class="no-capitalize" ng-show="job.jenkins_user.name" ng-bind="job.jenkins_user.name">
+      <a ui-sref="jenkins-instances.details.users.info({
+        jenkinsInstanceId: jenkinsInstance.jenkins_instance.id, jenkinsUserId: jenkinsInstance.jenkins_user.id})">
+        <span class="no-capitalize" ng-show="jenkinsInstance.jenkins_user.name" ng-bind="jenkinsInstance.jenkins_user.name">
         </span>
       </a>      
-    <span class="no-capitalize" ng-show="!job.jenkins_user.name" translate>none</span>
+    <span class="no-capitalize" ng-show="!jenkinsInstance.jenkins_user.name" translate>none</span>
   </h4>
 
   <br/> 
@@ -75,7 +67,7 @@
             <tr bst-table-row ng-repeat="jenkinsUser in jUserTable.rows | filter:userFilter" row-choice="jenkinsUser">
               
               <td bst-table-cell>
-                <a ui-sref="jobs.details.jenkins-instances.jenkins-users.info({ jenkinsUserId: jenkinsUser.id, jenkinsInstanceId: job.jenkins_instance.id })">
+                <a ui-sref="jenkins-instances.details.users.info({ jenkinsUserId: jenkinsUser.id, jenkinsInstanceId: jenkinsInstance.id })">
                   {{ jenkinsUser.name }}
                 </a>
               </td>

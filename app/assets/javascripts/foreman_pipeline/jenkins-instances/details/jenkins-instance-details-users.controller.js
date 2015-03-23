@@ -1,12 +1,14 @@
-angular.module('ForemanPipeline.jobs').controller('JobDetailsJenkinsUsersController', 
-    ['$scope', '$q', 'translate', 'Job', 'JenkinsUser', 'Nutupane', 
-        function ($scope, $q, translate, Job, JenkinsUser, Nutupane) {
+angular.module('ForemanPipeline.jenkins-instances').controller('JenkinsInstanceDetailsJenkinsUsersController', 
+    ['$scope', '$q', 'translate', 'JenkinsInstance', 'JenkinsUser', 'Nutupane', 
+        function ($scope, $q, translate, JenkinstInstance, JenkinsUser, Nutupane) {
 
             $scope.successMessages = [];
             $scope.errorMessages = [];
 
-            $scope.job = $scope.job || Job.get({id: $scope.$stateParams.jobId}, function () {
-                $scope.panel.loading = false;
+            $scope.jenkinsInstance = $scope.jenkinsInstance || 
+                                        JenkinsInstance.get({id: $scope.$stateParams.jenkinsInstanceId},
+                                            function () {
+                                                $scope.panel.loading = false;
             });
 
             var nutupane, params, destroy;
@@ -27,8 +29,8 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsJenkinsUsersControl
                 console.log(jenkinsUser)
                 JenkinsUser.remove(jenkinsUser, function () {
                     $scope.successMessages.push(translate('Jenkins User "%s" has been deleted.').replace('%s', jenkinsUser.name));
-                    if (jenkinsUser.id === $scope.job.jenkins_user.id) {
-                        $scope.job.jenkins_user = null;
+                    if (jenkinsUser.id === $scope.jenkinsInstance.jenkins_user.id) {
+                        $scope.jenkinsInstance.jenkins_user = null;
                     };
                     $scope.removeRow(jenkinsUser.id);
                 });
@@ -63,7 +65,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsJenkinsUsersControl
                     };
 
                     $scope.jUserTable.working = true;
-                    Job.setJenkinsUser({id: $scope.job.id}, data, success, error);
+                    JenkinsInstance.setJenkinsUser({id: $scope.jenkinsInstance.id}, data, success, error);
                     return deferred.promise;
             };
 
