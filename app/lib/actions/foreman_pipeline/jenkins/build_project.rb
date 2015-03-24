@@ -16,7 +16,6 @@ module Actions
 
         def run
           output[:status] = input[:build_status]
-          Dynflow::Action::Rescue::Skip if input[:build_status].match /^FAILURE$/
         end
 
         def rescue_strategy_for_self

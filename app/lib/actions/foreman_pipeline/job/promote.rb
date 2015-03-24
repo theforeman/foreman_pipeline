@@ -9,12 +9,17 @@ module Actions
         end
 
         def run
-          promote_env unless target_environment.nil?
+          fail "Content View promotion disabled." unless job.promote?
+          promote_environment unless target_environment.nil?
+        end
+
+        def rescue_strategy_for_self
+          Dynflow::Action::Rescue::Skip
         end
 
         private
 
-        def promote_env
+        def promote_environment
           ForemanTasks.trigger(::Actions::Katello::ContentView::Promote, job.target_cv_version, target_environment, false)
           output[:cv_to_promote] = job.content_view.name
           output[:target_environment] = target_environment.name

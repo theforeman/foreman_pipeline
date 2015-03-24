@@ -33,7 +33,7 @@ module Actions
                                       :job_id => job.id,
                                       :data => h,#redeploy.output,
                                       :packages => packages.output[:package_names])
-            # plan_action(Promote, :job_id => job.id, :build_fails => bulk_build.output[:failed_count])            
+            plan_action(Promote, :job_id => job.id, :build_fails => bulk_build.output[:failed_count])            
           end
         end
       end

@@ -1,6 +1,7 @@
 object @resource
 
-attributes :id, :name, :organization_id, :manual_trigger, :sync_trigger, :levelup_trigger
+attributes :id, :name, :organization_id, :manual_trigger, :sync_trigger,
+           :levelup_trigger, :promote
 
 child :content_view => :content_view do
   extends "foreman_pipeline/api/content_views/show"

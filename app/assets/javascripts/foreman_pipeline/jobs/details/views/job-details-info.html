@@ -42,6 +42,16 @@
             formatter="booleanToYesNo"
             on-save="save(job)">
       </span>
+    </div>
+
+    <div class="detail">
+      <span class="info-label" translate>CV promotions?</span>
+      <span class="info-value"
+            bst-edit-checkbox="job.promote"
+            readonly="denied('edit_jobs', job)"
+            formatter="booleanToYesNo"
+            on-save="save(job)">
+      </span>
     </div> 
  
 

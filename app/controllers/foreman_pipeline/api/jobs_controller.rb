@@ -147,7 +147,7 @@ module ForemanPipeline
     end
 
     def job_params
-      params.require(:job).permit(:name, :manual_trigger, :sync_trigger, :levelup_trigger, :projects)
+      params.require(:job).permit(:name, :manual_trigger, :sync_trigger, :levelup_trigger, :projects, :promote)
     end
   end
 end
