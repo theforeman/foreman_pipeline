@@ -93,44 +93,12 @@ angular.module('ForemanPipeline.jobs').config(['$stateProvider', function ($stat
     })
 
     .state('jobs.details.jenkins-instances', {
-        abstract: true,
-        collapsed: true,
-        template: '<div ui-view></div>'
-    })
-    .state('jobs.details.jenkins-instances.list', {
         url: '/jenkins_instances',
         collapsed: true,
         permission: 'edit_jobs',
         controller: 'JobDetailsJenkinsController',
         templateUrl: 'foreman_pipeline/jobs/details/views/job-details-jenkins.html'
     })
-    .state('jobs.details.jenkins-instances.jenkins-users', {
-        abstract: true,
-        collapsed: true,
-        template: '<div ui-view></div>'
-    })
-    .state('jobs.details.jenkins-instances.jenkins-users.list', {
-        url: '/jenkins_instances/:jenkinsInstanceId/jenkins_users',
-        collapsed: true,
-        permission: 'edit_jobs',
-        controller: 'JobDetailsJenkinsUsersController',
-        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-jenkins-users.html'
-    })
-    .state('jobs.details.jenkins-instances.jenkins-users.new', {
-        url: '/jenkins_instances/:jenkinsInstanceId/jenkins_users/new',
-        collapsed: true,
-        permission: 'create_jenkins_users',
-        controller: 'NewJenkinsUserController',
-        templateUrl: 'foreman_pipeline/jenkins-users/new/views/new-jenkins-user.html'
-    })
-    .state('jobs.details.jenkins-instances.jenkins-users.info', {
-        url: '/jenkins_instances/:jenkinsInstanceId/jenkins_users/:jenkinsUserId',
-        collapsed: true,
-        permission: 'edit_jobs',
-        controller: 'JenkinsUserInfoController',
-        templateUrl: 'foreman_pipeline/jenkins-users/details/views/jenkins-user-info.html'
-    })
-
     .state('jobs.details.jenkins-projects', {
         abstract: true,
         collapsed: true,

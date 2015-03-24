@@ -48,15 +48,6 @@
           </button>
         </span>
 
-        <button class="btn btn-default"
-                ng-hide="denied('edit_jobs')"
-                ng-disabled="!job.jenkins_instance" 
-                ui-sref="jobs.details.jenkins-instances.jenkins-users.list({jobId: job.id,
-                                                 jenkinsInstanceId: job.jenkins_instance.id})">
-          <i class="icon-user"></i>      
-          {{ 'Configure Jenkins User' | translate }}
-        </button>
-
       </div>
     </div>
 

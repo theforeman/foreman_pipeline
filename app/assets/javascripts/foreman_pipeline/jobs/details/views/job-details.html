@@ -56,12 +56,9 @@
         </a>
       </li>
 
-      <li ng-class="{active: (stateIncludes('jobs.details.jenkins-instances.list')
-                    || stateIncludes('jobs.details.jenkins-instances.jenkins-users.list')
-                    || stateIncludes('jobs.details.jenkins-instances.jenkins-users.new')
-                    || stateIncludes('jobs.details.jenkins-instances.jenkins-users.info'))}">
-        <a ui-sref="jobs.details.jenkins-instances.list({jobId: job.id})">
-          <span translate>Jenkins Servers</span>
+      <li ng-class="{active: stateIncludes('jobs.details.jenkins-instances')}">
+        <a ui-sref="jobs.details.jenkins-instances({jobId: job.id})">
+          <span translate>Jenkins Instances</span>
         </a>
       </li>            
 
