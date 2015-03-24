@@ -12,7 +12,7 @@ module ForemanPipeline
     belongs_to :organization
     belongs_to :compute_resource, :class_name => '::ComputeResource', :inverse_of => :jobs
     belongs_to :jenkins_instance, :class_name => "ForemanPipeline::JenkinsInstance"
-    belongs_to :environment, :class_name => 'Katello::KTEnvironment', :inverse_of => :jobs
+    belongs_to :environment, :class_name => 'Katello::KTEnvironment'
     
     has_many :job_jenkins_projects, :dependent => :destroy
     has_many :jenkins_projects, :through => :job_jenkins_projects, :class_name => 'ForemanPipeline::JenkinsProject', :dependent => :restrict
@@ -20,6 +20,9 @@ module ForemanPipeline
     has_many :content_view_repositories, :class_name=> 'Katello::ContentViewRepository',
      :primary_key => :content_view_id, :foreign_key => :content_view_id
     has_many :repositories, :through => :content_view_repositories
+
+    has_many :job_paths, :dependent => :destroy
+    has_many :paths, :through => :job_paths, :class_name => 'Katello::KTEnvironment', :dependent => :nullify
     
     validates :name, :presence => true
     validates :organization, :presence => true
