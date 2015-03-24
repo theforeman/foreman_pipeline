@@ -9,8 +9,7 @@ module ForemanPipeline
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view,
                                        :set_hostgroup, :set_resource, :available_resources,
                                        :set_jenkins, :set_environment, :run_job,
-                                       :add_projects, :remove_projects,
-                                       :set_jenkins_user]
+                                       :add_projects, :remove_projects]
 
     before_filter :load_search_service, :only => [:index]
 
@@ -74,14 +73,7 @@ module ForemanPipeline
       @job.environment = Katello::KTEnvironment.find(params[:environment_id])
       @job.save!
       respond_for_show
-    end
-
-    def set_jenkins_user
-      @job.jenkins_user = JenkinsUser.find(params[:jenkins_user_id])
-      @job.save!
-      respond_for_show
-    end
-    
+    end    
 
     def set_resource
       @job.compute_resource = ComputeResource.find(params[:resource_id])

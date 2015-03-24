@@ -13,7 +13,6 @@ module ForemanPipeline
     belongs_to :compute_resource, :class_name => '::ComputeResource', :inverse_of => :jobs
     belongs_to :jenkins_instance, :class_name => "ForemanPipeline::JenkinsInstance"
     belongs_to :environment, :class_name => 'Katello::KTEnvironment', :inverse_of => :jobs
-    belongs_to :jenkins_user, :class_name => "ForemanPipeline::JenkinsUser"
     
     has_many :job_jenkins_projects, :dependent => :destroy
     has_many :jenkins_projects, :through => :job_jenkins_projects, :class_name => 'ForemanPipeline::JenkinsProject', :dependent => :restrict
@@ -25,11 +24,6 @@ module ForemanPipeline
     validates :name, :presence => true
     validates :organization, :presence => true
     validate :no_composite_view
-
-    def no_composite_view
-      errors.add(:base,
-       "Cannot add content view, only non-composites allowed.") if !content_view.nil? && content_view.composite?
-    end
 
     def is_valid?
       !self.attributes.values.include? nil
@@ -53,6 +47,13 @@ module ForemanPipeline
 
     def version_already_promoted?
       self.target_cv_version.environments.include?(self.environment.successor)
+    end
+
+    private
+
+    def no_composite_view
+      errors.add(:base,
+       "Cannot add content view, only non-composites allowed.") if !content_view.nil? && content_view.composite?
     end
     
   end

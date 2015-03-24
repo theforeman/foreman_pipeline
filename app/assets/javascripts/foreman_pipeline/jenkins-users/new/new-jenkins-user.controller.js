@@ -1,6 +1,6 @@
 angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserController', 
-    ['$scope', '$q', 'translate', 'JenkinsUser', 'Job',
-        function ($scope, $q, translate, JenkinsUser, Job) {
+    ['$scope', '$q', 'translate', 'JenkinsUser', 'JenkinsInstance',
+        function ($scope, $q, translate, JenkinsUser, JenkinsInstance) {
 
             $scope.successMessages = [];
             $scope.errorMessages = [];
@@ -8,23 +8,22 @@ angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserContro
             $scope.jenkinsUser = new JenkinsUser();
             var success, error;
 
-            $scope.job = $scope.job || Job.get({id: $scope.$stateParams.jobId}, function () {
+            $scope.jenkinsInstance = $scope.jenkinsInstance || JenkinsInstance.get({id: $scope.$stateParams.jenkinsInstanceId}, function () {
                 $scope.panel.loading = false;
             });
 
             success = function (response) {
                 $scope.working = false;
                 $scope.successMessages.push(translate('New Jenkins User successfully created'))
-                $scope.$state.go('jobs.details.jenkins-instances.jenkins-users.list',
-                 {jobId: $scope.job.id, jenkinsInstanceId: $scope.job.jenkins_instance.id});
+                $scope.transitionBack();
             };
 
             error = function (response) {
                 $scope.working = false;
                 angular.forEach(response.data.errors, function (errors, field) {
                     try {
-                        $scope.jenkinsInstanceForm[field].$setValidity('server', false);
-                        $scope.jenkinsInstanceForm[field].$error.messages = errors;    
+                        $scope.jenkinsUsereForm[field].$setValidity('server', false);
+                        $scope.jenkinsUserForm[field].$error.messages = errors;    
                     } 
                     catch (err) {
                         $scope.errorMessages.push(errors);
@@ -34,13 +33,13 @@ angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserContro
             };
 
             $scope.createJenkinsUser = function (jenkinsUser) {
-                jenkinsUser.job_id = $scope.job.id;
+                jenkinsUser.jenkinsInstance_id = $scope.jenkinsInstance.id;
                 jenkinsUser.$save(success, error);
             };
 
             $scope.transitionBack = function () {
-                $scope.$state.go('jobs.details.jenkins-instances.jenkins-users.list',
-                 {jobId: $scope.job.id, jenkinsInstanceId: $scope.job.jenkins_instance.id});
+                $scope.$state.go('jenkins-instances.details.users.list',
+                 {jenkinsInstanceId: $scope.jenkinsInstance.id});
             };
 
     }]

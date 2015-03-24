@@ -23,13 +23,13 @@ ForemanPipeline::Engine.routes.draw do
             get :run_job
             put :add_projects
             put :remove_projects
-            put :set_jenkins_user
           end
         end
 
         api_resources :jenkins_instances do
           member do
             get :check_jenkins
+            put :set_jenkins_user
           end
 
 

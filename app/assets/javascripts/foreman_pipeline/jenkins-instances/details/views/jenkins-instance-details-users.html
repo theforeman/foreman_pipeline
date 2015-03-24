@@ -6,7 +6,7 @@
   <h4>
     <span translate>Current Jenkins User: </span>
       <a ui-sref="jenkins-instances.details.users.info({
-        jenkinsInstanceId: jenkinsInstance.jenkins_instance.id, jenkinsUserId: jenkinsInstance.jenkins_user.id})">
+        jenkinsInstanceId: jenkinsInstance.id, jenkinsUserId: jenkinsInstance.jenkins_user.id})">
         <span class="no-capitalize" ng-show="jenkinsInstance.jenkins_user.name" ng-bind="jenkinsInstance.jenkins_user.name">
         </span>
       </a>      
@@ -41,8 +41,8 @@
 
         <button class="btn btn-default"
                 ng-hide="denied('edit_jobs')"
-                ui-sref="jobs.details.jenkins-instances.jenkins-users.new(
-                          {jenkinsInstanceId: job.jenkins_instance.id})">
+                ui-sref="jenkins-instances.details.users.new(
+                          {jenkinsInstanceId: jenkinsInstance.id})">
           <i class="icon-file-alt"></i>      
           {{ 'New Jenkins User' | translate }}
         </button>

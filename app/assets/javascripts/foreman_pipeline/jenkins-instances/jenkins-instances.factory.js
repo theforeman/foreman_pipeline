@@ -7,6 +7,8 @@ angular.module('ForemanPipeline.jenkins-instances').factory('JenkinsInstance',
 
                 update: {method: 'PUT'},
                 checkJenkins: {method: 'GET', params: {action: 'check_jenkins'}},
+                setJenkinsUser: {method: 'PUT', params: {action: 'set_jenkins_user'}},
+                
             })
     }]
 );

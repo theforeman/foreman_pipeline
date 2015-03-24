@@ -61,12 +61,33 @@ angular.module('ForemanPipeline.jenkins-instances').config(['$stateProvider', fu
         controller: 'JenkinsInstanceDetailsInfoController',
         templateUrl: 'foreman_pipeline/jenkins-instances/details/views/jenkins-instance-details-info.html'
     })
+
     .state('jenkins-instances.details.users', {
+        abstract: true,
+        collapsed: true,
+        template: '<div ui-view></div>'
+    })
+    .state('jenkins-instances.details.users.list', {
         url: '/jenkins_users',
         permission: 'view_jenkins_users',
         collapsed: true,
         controller: 'JenkinsInstanceDetailsJenkinsUsersController',
         templateUrl: 'foreman_pipeline/jenkins-instances/details/views/jenkins-instance-details-users.html'
     })
+    .state('jenkins-instances.details.users.new', {
+        url: '/jenkins_users/new',
+        permission: 'create_jenkins_users',
+        collapsed: true,
+        controller: 'NewJenkinsUserController',
+        templateUrl: 'foreman_pipeline/jenkins-users/new/views/new-jenkins-user.html'
+    })
+    .state('jenkins-instances.details.users.info', {
+        url: '/jenkins_users/:jenkinsUserId',
+        permission: 'edit_jenkins_users',
+        collapsed: true,
+        controller: 'JenkinsUserInfoController',
+        templateUrl: 'foreman_pipeline/jenkins-users/details/views/jenkins-user-info.html'
+    })
+    
 
 }]);

@@ -1,6 +1,6 @@
 angular.module('ForemanPipeline.jenkins-instances').controller('JenkinsInstanceDetailsJenkinsUsersController', 
     ['$scope', '$q', 'translate', 'JenkinsInstance', 'JenkinsUser', 'Nutupane', 
-        function ($scope, $q, translate, JenkinstInstance, JenkinsUser, Nutupane) {
+        function ($scope, $q, translate, JenkinsInstance, JenkinsUser, Nutupane) {
 
             $scope.successMessages = [];
             $scope.errorMessages = [];
@@ -24,9 +24,7 @@ angular.module('ForemanPipeline.jenkins-instances').controller('JenkinsInstanceD
             $scope.jUserTable = nutupane.table;
             $scope.removeRow = nutupane.removeRow;
 
-
             $scope.destroy = function (jenkinsUser) {
-                console.log(jenkinsUser)
                 JenkinsUser.remove(jenkinsUser, function () {
                     $scope.successMessages.push(translate('Jenkins User "%s" has been deleted.').replace('%s', jenkinsUser.name));
                     if (jenkinsUser.id === $scope.jenkinsInstance.jenkins_user.id) {
@@ -48,7 +46,7 @@ angular.module('ForemanPipeline.jenkins-instances').controller('JenkinsInstanceD
                         deferred.resolve(response);
                         $scope.successMessages.push(translate('New Jenkins User successfully set.'));                        
                         nutupane.refresh();
-                        $scope.job.jenkins_user = $scope.chosen;
+                        $scope.jenkinsInstance.jenkins_user = $scope.chosen;
                         $scope.jUserTable.chosenRow = null;
                         $scope.jUserTable.working = false;
                     };                 

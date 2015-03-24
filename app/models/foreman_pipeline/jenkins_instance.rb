@@ -11,6 +11,7 @@ module ForemanPipeline
 
     belongs_to :organization
     has_many :jobs, :class_name => "ForemanPipeline::Job", :dependent => :nullify
+    belongs_to :jenkins_user, :class_name => "ForemanPipeline::JenkinsUser" 
 
     FILEPATH_REGEX = /^(\/|~)[a-z0-9\-_.\/]*[^\/]$/i
     

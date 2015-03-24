@@ -6,12 +6,10 @@ module ForemanPipeline
     include Glue::ElasticSearch::JenkinsUser
     include ForemanPipeline::Authorization::JenkinsUser
 
-    has_many :jobs, :class_name => "ForemanPipeline::Job", :dependent => :nullify
     belongs_to :organization
-    belongs_to :jenkins_instance, :class_name => "ForemanPipeline::JenkinsInstance"
+    has_many :jenkins_instances, :class_name => "ForemanPipeline::JenkinsInstance", :dependent => :nullify
 
     validates :name, :presence => true
     validates :token, :presence => true
-    validates :jenkins_instance_id, :presence => true
   end
 end

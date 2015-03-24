@@ -4,7 +4,7 @@ module ForemanPipeline
    
     include Api::Rendering
 
-    before_filter :find_jenkins_instance, :only => [:show, :update, :destroy, :check_jenkins]
+    before_filter :find_jenkins_instance, :only => [:show, :update, :destroy, :check_jenkins, :set_jenkins_user]
     before_filter :find_organization, :only => [:index, :create]
     before_filter :load_search_service, :only => [:index]
 
@@ -69,6 +69,12 @@ module ForemanPipeline
                          :id => @jenkins_instance.id, 
                          :name => @jenkins_instance.name)
       @jenkins_instance.server_version = task.output[:version]
+      respond_for_show
+    end
+
+    def set_jenkins_user
+      @jenkins_instance.jenkins_user = JenkinsUser.find(params[:jenkins_user_id])
+      @jenkins_instance.save!
       respond_for_show
     end
 

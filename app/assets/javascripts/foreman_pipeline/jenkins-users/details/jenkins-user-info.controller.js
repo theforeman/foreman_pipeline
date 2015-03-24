@@ -9,7 +9,8 @@ angular.module('ForemanPipeline.jenkins-users').controller('JenkinsUserInfoContr
         $scope.jenkinsUser = $scope.jenkinsUser || JenkinsUser.get({id: $scope.$stateParams.jenkinsUserId}, function () {
             $scope.panel.loading = false;
         });
-
+        $scope.jenkinsInstanceId = $scope.$stateParams.jenkinsInstanceId
+        
         $scope.save = function (jenkinsUser) {
             var success,
                 error,
