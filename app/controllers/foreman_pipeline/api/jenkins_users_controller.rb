@@ -58,7 +58,7 @@ module ForemanPipeline
     end
 
     def jenkins_user_params
-      params.require(:jenkins_user).permit(:name, :token, :job_id)
+      params.require(:jenkins_user).permit(:name, :token)
     end
     
   end

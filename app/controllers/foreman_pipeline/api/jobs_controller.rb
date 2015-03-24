@@ -63,7 +63,6 @@ module ForemanPipeline
 
     def set_jenkins
       instance = JenkinsInstance.find(params[:jenkins_instance_id])
-      @job.jenkins_user = nil unless instance == @job.jenkins_instance
       @job.jenkins_instance = instance
       @job.save!
       respond_for_show

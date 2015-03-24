@@ -6,7 +6,9 @@ module Actions
         def plan(options)
           sequence do
             build_task = plan_action(Build, options)
-            wait_task = plan_action(WaitForBuild, :job_id => options[:job_id], :name => options[:project_name], :build_num => build_task.output[:build_num])
+            wait_task = plan_action(WaitForBuild, :job_id => options[:job_id],
+                                                  :name => options[:project_name],
+                                                  :build_num => build_task.output[:build_num])
             
             plan_self(:build_status => wait_task.output[:details][:result], :name => options[:project_name])
           end
