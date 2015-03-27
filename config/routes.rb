@@ -23,8 +23,10 @@ ForemanPipeline::Engine.routes.draw do
             get :run_job
             put :add_projects
             put :remove_projects
-            put :set_paths
+            put :add_paths
             put :remove_paths
+            get :available_paths
+            get :current_paths
           end
         end
 

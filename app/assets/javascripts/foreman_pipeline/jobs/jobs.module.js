@@ -101,6 +101,13 @@ angular.module('ForemanPipeline.jobs').config(['$stateProvider', function ($stat
         controller: 'JobDetailsPathsController',
         templateUrl: 'foreman_pipeline/jobs/details/views/job-details-paths-list.html'
     })
+    .state('jobs.details.to-environment.paths.add', {
+        url: '/paths/add',
+        collapsed: true, 
+        permission: 'edit_jobs',
+        controller: 'JobDetailsAddPathsController',
+        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-paths-list.html'
+    })
 
     .state('jobs.details.to-environment.environments', {
         url: '/paths/to_environment',

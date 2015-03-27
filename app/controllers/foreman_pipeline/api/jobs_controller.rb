@@ -4,13 +4,13 @@ module ForemanPipeline
 
     include Api::Rendering
 
-    before_filter :find_organization, :only => [:create, :index, :add_projects]
+    before_filter :find_organization, :only => [:create, :index, :add_projects, :available_paths]
 
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view,
                                        :set_hostgroup, :set_resource, :available_resources,
                                        :set_jenkins, :set_environment, :run_job,
                                        :add_projects, :remove_projects, :set_paths,
-                                       :remove_paths]
+                                       :remove_paths, :add_paths, :current_paths, :available_paths]
 
     before_filter :load_search_service, :only => [:index]
 
@@ -81,7 +81,7 @@ module ForemanPipeline
       respond_for_show
     end
 
-    def set_paths
+    def add_paths
       @job.path_ids = (@job.path_ids + params[:path_ids]).uniq
       @job.save!
       respond_for_show
@@ -91,6 +91,37 @@ module ForemanPipeline
       @job.path_ids = (@job.path_ids - params[:path_ids]).uniq
       @job.save!
       respond_for_show
+    end
+
+    def current_paths
+      paths = @job.paths.map(&:full_path)
+
+      current = paths.inject([]) do |result, path|
+        result << { :environments => path }
+      end
+
+      collection = {
+        :results => current,
+        :total => current.size,
+        :subtotal => current.size
+      }      
+      respond_for_index(:collection => collection)
+    end
+
+    def available_paths
+      all_paths = @organization.promotion_paths.map(&:shift)
+      available = (all_paths - @job.paths).map(&:full_path)
+
+      paths = available.inject([]) do |result, path|
+        result << { :environments => path }
+      end
+
+      collection = {
+        :results => paths,
+        :total => paths.size,
+        :subtotal => paths.size
+      }
+      respond_for_index(:collection => collection)
     end
 
     def available_resources
@@ -161,6 +192,19 @@ module ForemanPipeline
 
     def job_params
       params.require(:job).permit(:name, :manual_trigger, :sync_trigger, :levelup_trigger, :projects, :promote)
+    end
+
+    def format_paths(paths)
+      formated_paths = paths.inject([]) do |result, path|
+        result << { :environments => path }
+      end
+
+      collection = {
+        :results => formated_paths,
+        :total => formated_paths.size,
+        :subtotal => formated_paths.size
+      }
+      respond_for_index(:collection => collection)
     end
   end
 end

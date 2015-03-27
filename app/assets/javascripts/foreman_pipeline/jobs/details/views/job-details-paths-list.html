@@ -12,13 +12,24 @@
   <section ng-hide="loading">
     <div class="row">
       <div class="fr select-action">
-        <button class="btn btn-default"
+        <button ng-if="isState('jobs.details.to-environment.paths.add')"
+                class="btn btn-default"
                 ng-hide="denied('edit_jobs')"
                 ng-disabled="pathsTable.working || pathsTable.numSelected === 0"
                 ng-click="setPaths()">
             <i class="icon-pencil" ng-hide="pathsTable.working"></i>
             <i class="icon-spinner icon-spin" ng-show="pathsTable.working"></i>      
-              {{ 'Set Paths' | translate }}
+              {{ 'Add Paths' | translate }}
+        </button>
+
+        <button ng-if="isState('jobs.details.to-environment.paths.list')"
+                class="btn btn-default"
+                ng-hide="denied('edit_jobs')"
+                ng-disabled="pathsTable.working || pathsTable.numSelected === 0"
+                ng-click="setPaths()">
+            <i class="icon-pencil" ng-hide="pathsTable.working"></i>
+            <i class="icon-spinner icon-spin" ng-show="pathsTable.working"></i>      
+              {{ 'Remove Paths' | translate }}
         </button>
         
       </div>
@@ -40,13 +51,9 @@
             <tr bst-table-row ng-repeat="path in pathsTable.rows | filter:userFilter" row-select="path">
               
               <td bst-table-cell>
-                <!-- <ul> -->
                   <span ng-repeat="environment in path">
                     {{ environment.name + ", " }}
                   </span>
-                <!-- </ul> -->
-              </td>
-
               </td>
 
             </tr>
@@ -55,31 +62,4 @@
         </table>
       </div>
     </div>
-    <!-- <span path-selector="environments"
-              ng-model="chosenEnvironment"
-              mode="singleSelect"
-              disabled="denied('edit_jobs', job)"
-              disable-trigger="disableEnvironmentSelection">
-    </span>
-
-    <br/>
-
-    <button class="btn btn-default"
-            ng-hide="denied('edit_jobs')"
-            ng-disabled="!chosenEnvironment || working"
-            ng-click="setEnvironment()">
-      <i class="icon-pencil" ng-hide="working"></i>      
-      <i class="icon-spinner icon-spin" ng-show="working"></i>           
-      <span translate>Set Environment</span>
-    </button>
-  </section>
-  
-  
-  <div ng-show="environmnets.length === 0" >
-    <p class="alert alert-info"
-       ng-hide="loading"
-       translate> No Lifecycle Environmnets to show.
-    </p>
-  </div> -->
-
 </section>
