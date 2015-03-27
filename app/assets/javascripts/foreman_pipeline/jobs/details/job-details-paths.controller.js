@@ -22,14 +22,19 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsPathsController',
             var success,
                 error,
                 deferred = $q.defer(),
+                path_ids = _.map($scope.pathsTable.getSelected(), function (item) {
+                    return item[1].id;
+                });
                 data = {
-                    'path_ids': _.pluck($scope.pathsTable.getSelected(), 'id')
+                    'path_ids': path_ids
                 }
 
             success = function (response) {
-                $scope.successMessages.push(translate('Removed %x Environment Path from job %y.')
-                    .replace('%x', data.path_ids.length)
+                $scope.successMessages.push(translate('Removed %x Environment Paths from job %y.')
+                    .replace('%x', $scope.pathsTable.numSelected)
                     .replace('%y', $scope.job.name));
+                $scope.job.paths = _.difference($scope.job.paths, $scope.pathsTable.getSelected());
+                $scope.pathsTable.rows = _.difference($scope.pathsTable.rows, $scope.pathsTable.getSelected());
                 $scope.pathsTable.working = false;
                 $scope.pathsTable.selectAll(false);
                 deferred.resolve(response);

@@ -2,12 +2,6 @@
 
 <section class="nutupane-sub-section">
   <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
-  
-  <div class="loading-mask loading-mask-panel" ng-show="loading">
-    <i class="icon-spinner icon-spin"></i>
-      {{ "Loading..." | translate }}          
-  </div>
-
 
   <section ng-hide="loading">
     <div class="row">
@@ -16,7 +10,7 @@
                 class="btn btn-default"
                 ng-hide="denied('edit_jobs')"
                 ng-disabled="pathsTable.working || pathsTable.numSelected === 0"
-                ng-click="setPaths()">
+                ng-click="addPaths()">
             <i class="icon-pencil" ng-hide="pathsTable.working"></i>
             <i class="icon-spinner icon-spin" ng-show="pathsTable.working"></i>      
               {{ 'Add Paths' | translate }}
@@ -26,7 +20,7 @@
                 class="btn btn-default"
                 ng-hide="denied('edit_jobs')"
                 ng-disabled="pathsTable.working || pathsTable.numSelected === 0"
-                ng-click="setPaths()">
+                ng-click="removePaths()">
             <i class="icon-pencil" ng-hide="pathsTable.working"></i>
             <i class="icon-spinner icon-spin" ng-show="pathsTable.working"></i>      
               {{ 'Remove Paths' | translate }}
@@ -34,6 +28,18 @@
         
       </div>
     </div>
+
+    <div ng-show="pathsTable.rows.length === 0">
+    <div class="loading-mask loading-mask-panel" ng-show="loading">
+      <i class="icon-spinner icon-spin"></i>
+        {{ "Loading..." | translate }}          
+    </div>
+
+    <p class="alert alert-info"
+         ng-hide="pathsTable.working"
+         translate> No Environment Paths to show.          
+    </p>
+  </div>
 
     <div bst-table="pathsTable" class="nutupane" ng-show="pathsTable.rows.length > 0">
       <div bst-container-scroll bst-infinite-scroll="pathsTable.nextPage()">

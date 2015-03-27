@@ -34,9 +34,13 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsAddPathsController'
                 $scope.successMessages.push(translate('Added %x Environment Paths to job %y.')
                     .replace('%x', $scope.pathsTable.numSelected)
                     .replace('%y', $scope.job.name));
-                $scope.job.paths.push(item[1]); 
+                $scope.job.paths += _.map($scope.pathsTable.getSelected(), function (item) {
+                    return item[1];
+                });
+                $scope.pathsTable.rows = _.difference($scope.pathsTable.rows, $scope.pathsTable.getSelected())
                 $scope.pathsTable.selectAll(false);
                 $scope.pathsTable.working = false;
+                console.log($scope.job)
                 deferred.resolve(response);
             };
 
@@ -52,7 +56,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsAddPathsController'
             };
 
             $scope.pathsTable.working = true;
-            Job.setPaths({id: $scope.job.id}, data, success, error);
+            Job.addPaths({id: $scope.job.id}, data, success, error);
             return deferred.promise;
         };
 
