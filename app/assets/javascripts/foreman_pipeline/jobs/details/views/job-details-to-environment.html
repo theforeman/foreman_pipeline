@@ -3,6 +3,14 @@
 <section class="nutupane-sub-section">
   <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
   
+  <div class="row">
+    <div class="col-sm-5">
+      <a href="" ui-sref="jobs.details.to-environment.paths.list({jobId: job.id})">
+      <i class="icon-double-angle-left"></i>
+      {{ "Back" | translate }}
+      </a>
+    </div>
+  </div>  
   <h4 translate>Lifecycle Environment selection</h4>
 
   <div class="loading-mask loading-mask-panel" ng-show="loading">

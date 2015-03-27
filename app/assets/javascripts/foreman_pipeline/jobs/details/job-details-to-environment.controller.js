@@ -14,7 +14,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentContro
 
             $scope.loading = true;            
 
-            $scope.environments = Org.firstPath({id: CurrentOrganization}, function () {
+            $scope.environments = Job.availableEnvironments({id: $scope.$stateParams.jobId}, function () {
                 $scope.loading = false;
             });
 

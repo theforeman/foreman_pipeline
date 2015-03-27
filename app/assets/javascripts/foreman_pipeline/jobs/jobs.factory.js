@@ -3,13 +3,12 @@ angular.module('ForemanPipeline.jobs').factory('Job',
     function (BastionResource, CurrentOrganization) {
 
         var transformPaths = function (data) {
-            return {
-                results: _.map(angular.fromJson(data)["results"], function (path) {
-                    return _.map(path["environments"], function (env) {
-                        return env;
-                    });
-                })
-            }
+            return _.map(angular.fromJson(data)["results"], function (path) {
+                return _.map(path["environments"], function (env) {
+                    return env;
+                });
+            })
+            
         };
 
         return BastionResource('/../foreman_pipeline/api/organizations/:organizationId/jobs/:id/:action',
@@ -34,10 +33,16 @@ angular.module('ForemanPipeline.jobs').factory('Job',
             addPaths: {method: 'PUT', params: {action: 'add_paths'}},
             removePaths: {method: 'PUT', params: {action: 'remove_paths'}},
             availablePaths: {method: 'GET', params: {action: 'available_paths'}, transformResponse: function (response) {
-                return transformPaths(response);
+                return {results: transformPaths(response)};
             }},
             currentPaths: {method: 'GET', params: {action: 'current_paths'}, transformResponse: function (response) {
-                return transformPaths(response);
+                return {results: transformPaths(response)};
+            }},
+            availableEnvironments: {method: 'GET',
+                                    params: {action: 'current_paths'},
+                                    isArray: true,
+                                    transformResponse: function (response) {
+                                        return transformPaths(response);
             }},
         });
     }]
