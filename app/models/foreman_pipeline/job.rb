@@ -21,7 +21,7 @@ module ForemanPipeline
      :primary_key => :content_view_id, :foreign_key => :content_view_id
     has_many :repositories, :through => :content_view_repositories
 
-    has_many :job_paths, :dependent => :destroy
+    has_many :job_paths, :class_name => 'ForemanPipeline::JobPath', :dependent => :destroy
     has_many :paths, :through => :job_paths, :class_name => 'Katello::KTEnvironment', :dependent => :nullify
     
     validates :name, :presence => true

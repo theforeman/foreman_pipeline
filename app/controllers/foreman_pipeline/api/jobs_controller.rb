@@ -9,7 +9,8 @@ module ForemanPipeline
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view,
                                        :set_hostgroup, :set_resource, :available_resources,
                                        :set_jenkins, :set_environment, :run_job,
-                                       :add_projects, :remove_projects]
+                                       :add_projects, :remove_projects, :set_paths,
+                                       :remove_paths]
 
     before_filter :load_search_service, :only => [:index]
 
@@ -76,6 +77,18 @@ module ForemanPipeline
 
     def set_resource
       @job.compute_resource = ComputeResource.find(params[:resource_id])
+      @job.save!
+      respond_for_show
+    end
+
+    def set_paths
+      @job.path_ids = (@job.path_ids + params[:path_ids]).uniq
+      @job.save!
+      respond_for_show
+    end
+
+    def remove_paths
+      @job.path_ids = (@job.path_ids - params[:path_ids]).uniq
       @job.save!
       respond_for_show
     end

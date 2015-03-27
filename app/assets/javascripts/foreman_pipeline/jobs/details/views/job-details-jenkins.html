@@ -42,8 +42,8 @@
                   ng-hide="denied('edit_jobs')"
                   ng-disabled="!jenkinsTable.chosenRow || jenkinsTable.working" 
                   ng-click="setJenkins()">
-            <i class="icon-pencil" ng-hide="jenkinsTable.working"></i>      
-            <i class="icon-spinner icon-spin" ng-show="jenkinsTable.working"></i>           
+            <i class="icon-pencil" ng-hide="jenkinsTable.working"></i>
+            <i class="icon-spinner icon-spin" ng-show="jenkinsTable.working"></i> 
             {{ 'Set Jenkins Instance' | translate }}
           </button>
         </span>

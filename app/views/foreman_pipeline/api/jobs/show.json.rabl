@@ -26,3 +26,7 @@ end
 child :jenkins_projects => :jenkins_projects do |project|
   extends "foreman_pipeline/api/jenkins_projects/show"
 end
+
+child :paths => :paths do |path|
+  extends "foreman_pipeline/api/environments/show"
+end

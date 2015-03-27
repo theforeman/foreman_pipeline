@@ -85,11 +85,29 @@ angular.module('ForemanPipeline.jobs').config(['$stateProvider', function ($stat
     })
 
     .state('jobs.details.to-environment', {
-        url: '/to_environment',
+       abstract: true,
+       collapsed: true,
+       template: '<div ui-view></div>'
+    })
+    .state('jobs.details.to-environment.paths', {
+        abstract: true,
+        collapsed: true,
+        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-paths.html'
+    })
+    .state('jobs.details.to-environment.paths.list', {
+        url: '/paths',
+        collapsed: true,
+        permission: 'edit_jobs',
+        controller: 'JobDetailsPathsController',
+        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-paths-list.html'
+    })
+
+    .state('jobs.details.to-environment.environments', {
+        url: '/paths/to_environment',
         collapsed: true,
         permission: 'edit_jobs',
         controller: 'JobDetailsToEnvironmentController',
-        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-to-environment.html'
+        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-to-environment.html' 
     })
 
     .state('jobs.details.jenkins-instances', {
