@@ -23,7 +23,7 @@
                 ng-hide="denied('edit_jobs')"
                 ng-disabled="pathsTable.working || pathsTable.numSelected === 0"
                 ng-click="addPaths()">
-            <i class="icon-pencil" ng-hide="pathsTable.working"></i>
+            <i class="icon-plus" ng-hide="pathsTable.working"></i>
             <i class="icon-spinner icon-spin" ng-show="pathsTable.working"></i>      
               {{ 'Add Paths' | translate }}
         </button>
@@ -33,7 +33,7 @@
                 ng-hide="denied('edit_jobs')"
                 ng-disabled="pathsTable.working || pathsTable.numSelected === 0"
                 ng-click="removePaths()">
-            <i class="icon-pencil" ng-hide="pathsTable.working"></i>
+            <i class="icon-minus" ng-hide="pathsTable.working"></i>
             <i class="icon-spinner icon-spin" ng-show="pathsTable.working"></i>      
               {{ 'Remove Paths' | translate }}
         </button>
@@ -57,10 +57,11 @@
             <tr bst-table-row ng-repeat="path in pathsTable.rows | filter:userFilter" row-select="path">
               
               <td bst-table-cell>
-                  <span ng-repeat="environment in path">
-                    {{ environment.name + ", " }}
-                  </span>
+                <span ng-repeat="environment in path">
+                  {{ environment.name + ", " }}
+                </span>
               </td>
+
 
             </tr>
           </tbody>
