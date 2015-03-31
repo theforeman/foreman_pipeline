@@ -10,7 +10,7 @@ module Actions
 
         def run
           fail "Content View promotion disabled." unless job.promote?
-          promote_environment unless target_environment.nil?
+          promote_environment unless target_environments.empty?
         end
 
         def rescue_strategy_for_self
@@ -20,14 +20,18 @@ module Actions
         private
 
         def promote_environment
-          ForemanTasks.trigger(::Actions::Katello::ContentView::Promote, job.target_cv_version, target_environment, false)
           output[:cv_to_promote] = job.content_view.name
-          output[:target_environment] = target_environment.name
-          output[:in_job] = job.name
+          output[:target_environments] = []
+          output[:in_job] = job.name  
+
+          target_environments.each do |env|
+            ForemanTasks.trigger(::Actions::Katello::ContentView::Promote, job.target_cv_version, env, false)
+            output[:target_environment] << env.name
+          end
         end
 
-        def target_environment
-          job.environment.successor
+        def target_environments
+          job.environment.successors
         end
 
         def job

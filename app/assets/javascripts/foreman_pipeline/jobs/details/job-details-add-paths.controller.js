@@ -40,7 +40,6 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsAddPathsController'
                 $scope.pathsTable.rows = _.difference($scope.pathsTable.rows, $scope.pathsTable.getSelected())
                 $scope.pathsTable.selectAll(false);
                 $scope.pathsTable.working = false;
-                console.log($scope.job)
                 deferred.resolve(response);
             };
 
