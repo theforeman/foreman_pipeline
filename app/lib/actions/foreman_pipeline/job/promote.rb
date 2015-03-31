@@ -24,10 +24,7 @@ module Actions
           output[:target_environments] = []
           output[:in_job] = job.name  
 
-          target_environments.each do |env|
-            ForemanTasks.trigger(::Actions::Katello::ContentView::Promote, job.target_cv_version, env, false)
-            output[:target_environment] << env.name
-          end
+          ForemanTasks.trigger(Job::MultiplePromotions, job, target_environments)
         end
 
         def target_environments
