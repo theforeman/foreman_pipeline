@@ -61,7 +61,6 @@
           <thead>
             <tr bst-table-head row-choice="contentView">
               <th bst-table-column="name" translate>Name</th>
-              <th bst-table-column="composite" translate>Composite?</th>
               <th bst-table-column="lastPublished" translate>Last Published</th>
               <th bst-table-column="repositories" translate>Repositories</th>
             </tr>
@@ -76,10 +75,8 @@
                 </a>
               </td>
 
-              <td bst-table-cell>{{ contentView.composite }}</td>
               <td bst-table-cell>{{ contentView.last_published }}</td>
               <td bst-table-cell>{{ contentView.repositories.length }}</td>
-
             </tr>
           </tbody>
 

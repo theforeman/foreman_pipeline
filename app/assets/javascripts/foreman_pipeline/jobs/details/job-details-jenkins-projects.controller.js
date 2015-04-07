@@ -46,8 +46,4 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsJenkinsProjectsCont
                 Job.removeProjects({id: $scope.job.id}, data, success, error);
                 return deferred.promise;
             };
-
-            $scope.debug = function () {
-                console.log($scope.projectsTable.rows)
-            }
         }]);

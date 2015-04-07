@@ -6,6 +6,7 @@ angular.module('ForemanPipeline.jobs').controller('JobsController',
             $scope.errorMessages = [];
 
             var params = {
+                'organization_id': CurrentOrganization,
                 'search': $location.search().search || "",
                 'sort_by': 'name',
                 'sort_order': 'ASC' 

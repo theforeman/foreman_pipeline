@@ -4,30 +4,14 @@ module ForemanPipeline
 
     include Api::Rendering
 
-    before_filter :find_organization, :only => [:create]
-    before_filter :find_jenkins_project, :only => [:show, :update, :destroy]
+    before_filter :find_jenkins_project, :only => [:show]
 
+    api :GET, "/organizations/:organization_id/jenkins_projects/:id", N_("Get jenkins project by identifier")
+    param :organization_id, :number, :desc => N_("Organization identifier")
+    param :id, :number, :desc => N_("Jenkins project identifier")
     def show
       respond_for_show(:resource => @jenkins_project)
     end
-
-    # def destroy
-    #   @jenkins_project.destroy
-    #   respond_for_show(:resource => @jenkins_project)
-    # end
-
-    # def update
-    #   @jenkins_project.update_attributes!(jenkins_project_params)
-    #   @jenkins_project.save!
-    #   respond_for_show(:resource => @jenkins_project)
-    # end
-
-    # def create
-    #   @jenkins_project = JenkinsProject.new(jenkins_project_params)
-    #   @jenkins_project.organization = @organization
-    #   @jenkins_project.save!
-    #   respond_for_show(:resource => @jenkins_project)
-    # end
 
     private
 

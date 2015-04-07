@@ -33,6 +33,9 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsPathsController',
                 $scope.successMessages.push(translate('Removed %x Environment Paths from job %y.')
                     .replace('%x', $scope.pathsTable.numSelected)
                     .replace('%y', $scope.job.name));
+                if (response.environment === null) {
+                    $scope.$emit('envNull')                
+                }
                 $scope.job.paths = _.difference($scope.job.paths, $scope.pathsTable.getSelected());
                 $scope.pathsTable.rows = _.difference($scope.pathsTable.rows, $scope.pathsTable.getSelected());
                 $scope.pathsTable.working = false;

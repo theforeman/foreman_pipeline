@@ -6,6 +6,10 @@ module ForemanPipeline
 
     before_filter :find_job
 
+    api :GET, "/organizations/:organization_id/jenkins_requests/list"
+    param :organization_id, :number, :desc => N_("Organization identifier"), :required => true
+    param :job_id, :number, :desc => N_("Job identifier")
+    param :filter, String, :desc => N_("All jenkins projects with name matching this string will be retrieved")
     def list
       fail "filter string not given" if params[:filter].blank?
       task = async_task(::Actions::ForemanPipeline::Jenkins::List, :job_id => params[:job_id], :filter => params[:filter])

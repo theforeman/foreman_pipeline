@@ -8,9 +8,25 @@ module ForemanPipeline
     before_filter :find_organization, :only => [:index, :create]
     before_filter :load_search_service, :only => [:index]
 
+    def_param_group :jenkins_instance do
+      param :name, String, :desc => N_("Jenkins instance's name")
+      param :url, String, :desc => N_("Jenkins instance's url")
+      param :cert_path, String, :desc => ("Path to the private certificate for passwordless access to jenkins server")
+      param :jenkins_home, String, :desc => ("Location of $JENKINS_HOME")
+    end
+
+    def_param_group :jenkins_instance_id do
+      param :organization_id, :number, :desc => N_("Organization identifier"), :required => true
+      param :id, :number, :desc => N_("Jenkins instance identifier"), :required => true
+    end
+
+    api :GET, "/organizations/:organization_id/jenkins_instances", N_("List jenkins instances")
+    param :organization_id, :number, :desc => N_("organization identifier"), :required => true
+    param :name, String, :desc => N_("Name of the jenkins instance")  
     def index
       ids = JenkinsInstance.readable.where(:organization_id => @organization.id).pluck(:id)
       filters = [:terms => {:id => ids}]
+      filters << {:term => {:name => params[:name]}} if params[:name]
 
       options = {
         :filters => filters,
@@ -20,9 +36,12 @@ module ForemanPipeline
       respond_for_index(:collection => item_search(JenkinsInstance, params, options))
     end
 
+    api :POST, "/organizations/:organization_id/jenkins_instances/:id", N_("Create jenkins instance")
+    param_group :jenkins_instance_id
+    param_group :jenkins_instance
     def create
       @jenkins_instance = JenkinsInstance.new(jenkins_instance_params)
-      @jenkins_instance.organization = @organization          
+      @jenkins_instance.organization = @organization
 
       rollback = false
       JenkinsInstance.transaction do
@@ -35,19 +54,22 @@ module ForemanPipeline
         @jenkins_instance.pubkey = task.output.fetch(:pubkey)
         @jenkins_instance.save!
 
-        if task.output.fetch(:status) == 1 
+        if task.output.fetch(:status) == 1
           raise ActiveRecord::Rollback
           rollback = true
         end
       end       
       
       if rollback
-        fail ::Katello::HttpErrors::Conflict, "Could not access Jenkins server, are you sure you set up certificates?"         
+        fail ::Katello::HttpErrors::Conflict, "Could not access Jenkins server, are you sure you set up certificates?"
       else
-        respond_for_show(:resource => @jenkins_instance)          
-      end     
+        respond_for_show(:resource => @jenkins_instance)
+      end
     end
 
+    api :PUT, "/organizations/:organization_id/jenkins_instances/:id", N_("Update jenkins instance")
+    param_group :jenkins_instance_id
+    param_group :jenkins_instance
     def update
       @jenkins_instance.update_attributes!(jenkins_instance_params.except(:url).except(:jenkins_home))
       @jenkins_instance.save!
@@ -55,15 +77,21 @@ module ForemanPipeline
       respond_for_show(:resource => @jenkins_instance)
     end
 
+    api :GET, "/organizations/:organization_id/jenkins_instances/:id", N_("Get jenkins_instance by identifier")
+    param_group :jenkins_instance_id
     def show
       respond_for_show(:resource => @jenkins_instance)
     end
 
+    api :DELETE, "/organizations/:organization_id/jenkins_instances/:id", N_("Delete jenkins_instance")
+    param_group :jenkins_instance_id
     def destroy
       @jenkins_instance.destroy
       respond_for_show(:resource => @jenkins_instance)
     end
 
+    api :GET,  "/organizations/:organization_id/jenkins_instances/:id/check_jenkins", N_("Check jenkins instance reachability")
+    param_group :jenkins_instance_id
     def check_jenkins
       task = sync_task(::Actions::ForemanPipeline::Jenkins::GetVersion,
                          :id => @jenkins_instance.id, 
@@ -72,6 +100,9 @@ module ForemanPipeline
       respond_for_show
     end
 
+    api :PUT,  "/organizations/:organization_id/jenkins_instances/:id", N_("Set jenkins user")
+    param_group :jenkins_instance_id
+    param :jenkins_user_id, :number, :desc => N_("Jenkins user identifier to be set")
     def set_jenkins_user
       @jenkins_instance.jenkins_user = JenkinsUser.find(params[:jenkins_user_id])
       @jenkins_instance.save!

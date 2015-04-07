@@ -26,5 +26,9 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsController',
                         && $scope.job.jenkins_user !== null;
         }
 
+        $scope.$on('envNull', function () {
+            $scope.job.environment = null;
+        });
+
     }]
 );
