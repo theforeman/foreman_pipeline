@@ -24,7 +24,7 @@ angular.module('ForemanPipeline.jenkins-instances').controller('JenkinsInstanceD
             $scope.jUserTable = nutupane.table;
             $scope.removeRow = nutupane.removeRow;
 
-            $scope.destroy = function (jenkinsUser) {
+            $scope.deleteJenkinsUser = function (jenkinsUser) {
                 JenkinsUser.remove(jenkinsUser, function () {
                     $scope.successMessages.push(translate('Jenkins User "%s" has been deleted.').replace('%s', jenkinsUser.name));
                     if (jenkinsUser.id === $scope.jenkinsInstance.jenkins_user.id) {
