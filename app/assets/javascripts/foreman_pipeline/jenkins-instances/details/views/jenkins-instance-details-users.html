@@ -73,9 +73,12 @@
               </td>
 
               <td bst-table-cell>
-                <a href="" ng-click="openModal()">
-                  Delete
-                </a>
+                 <button class="btn btn-default"
+                         ng-hide="denied('edit_jenkins_instance')"
+                         ng-click="openModal()">
+                  <i class="icon-trash"></i>      
+                  {{ 'Delete' | translate }}
+                </button>
                 <div bst-modal="deleteJenkinsUser(jenkinsUser)" model="jenkinsUser"
                      modal-header='Remove Jenkins User "{{ jenkinsUser.name }}"?'
                      modal-body='Are you sure you want to remove JenkinsUser "{{ jenkinsUser.name }}"?'>

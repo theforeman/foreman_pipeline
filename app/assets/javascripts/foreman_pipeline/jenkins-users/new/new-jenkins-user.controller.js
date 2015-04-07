@@ -14,8 +14,7 @@ angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserContro
 
             success = function (response) {
                 $scope.working = false;
-                $scope.successMessages.push(translate('New Jenkins User successfully created'))
-                $scope.transitionBack();
+                $scope.transitionBack();                
             };
 
             error = function (response) {
@@ -38,7 +37,7 @@ angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserContro
             };
 
             $scope.transitionBack = function () {
-                $scope.$state.go('jenkins-instances.details.users.list',
+                $scope.transitionTo('jenkins-instances.details.users.list',
                  {jenkinsInstanceId: $scope.jenkinsInstance.id});
             };
 
