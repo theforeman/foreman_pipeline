@@ -1,6 +1,6 @@
 angular.module('ForemanPipeline.jobs').controller('JobDetailsPathsController', 
-    ['$scope', '$q', 'translate', 'Nutupane', 'Org', 'Organization', 'Job', 'CurrentOrganization', 
-    function ($scope, $q, translate, Nutupane, Org, Organization, Job, CurrentOrganization) {
+    ['$scope', '$q', 'translate', 'Nutupane', 'Job', 'CurrentOrganization', 
+    function ($scope, $q, translate, Nutupane, Job, CurrentOrganization) {
 
         $scope.successMessages = [];
         $scope.errorMessages = [];

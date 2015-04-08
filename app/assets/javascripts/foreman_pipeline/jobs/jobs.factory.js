@@ -56,33 +56,3 @@ angular.module('ForemanPipeline.jobs').factory('Hostgroup',
             {id: '@id'}, {});
     }]
 );
-
-angular.module('ForemanPipeline.jobs').factory('Org',
-    ['BastionResource', 'CurrentOrganization',
-    function (BastionResource, CurrentOrganization) {
-
-        return BastionResource('/katello/api/v2/organizations/:id/:action',
-            {id: '@id'},
-            {
-                allPaths: {
-                    method: 'GET',
-                    url: '/katello/api/v2/organizations/:id/environments/paths',
-                    transformResponse: function (data) {
-                        // transform [{environments : [{id, name, permissions: {readable : true}}]}]
-                        // to [[{id, name, select: true}]]
-                        var found = _.map(angular.fromJson(data)["results"], function (path) {
-                            return _.map(path["environments"], function (env) {
-                                env.select = env.permissions["readable"];
-                                return env;
-                            });
-                        });
-                        return {results: found}
-                    }
-                },
-                
-            }
-        );
-
-    }]
-);
-

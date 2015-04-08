@@ -109,18 +109,26 @@ module ForemanPipeline
     param_group :job_id
     param :environment_id, :number, :desc => N_("Environment id which will be set"), :required => true
     def set_environment
-      @job.environment = Katello::KTEnvironment.find(params[:environment_id])
-      @job.save!
-      respond_for_show
+      if @job.environment_in_paths? params[:environment_id]
+        @job.environment = Katello::KTEnvironment.find(params[:environment_id])
+        @job.save!
+        respond_for_show
+      else
+        fail Katello::HttpErrors::Conflict, "Cannot add an Environment that is not in Job's Environment paths." 
+      end      
     end    
 
     api :PUT, "/organizations/:organization_id/jobs/:id/set_resource", N_("Set compute resource for job")
     param_group :job_id
     param :resource_id, :number, :desc => N_("Compute resource id which will be set"), :required => true
     def set_resource
-      @job.compute_resource = ComputeResource.find(params[:resource_id])
-      @job.save!
-      respond_for_show
+      if @job.available_compute_resources.map(&:id).include? params[:resource_id]
+        @job.compute_resource = ComputeResource.find(params[:resource_id])
+        @job.save!
+        respond_for_show
+      else
+        fail Katello::HttpErrors::Conflict, "Only a Compute Resource configured for Job's Hostgroup may be set." 
+      end
     end
 
     api :PUT, "/organizations/:organization_id/jobs/:id/add_paths", N_("Add environment paths for job")
@@ -137,7 +145,7 @@ module ForemanPipeline
     param :path_ids, Array, :desc => N_("Identifiers of environments which are library's successors in corresponding paths")
     def remove_paths
       @job.path_ids = (@job.path_ids - params[:path_ids]).uniq
-      @job.environment = nil unless @job.paths.map(&:full_path).flatten.uniq.map(&:id).include? @job.environment_id
+      @job.environment = nil unless @job.environment_in_paths? @job.environment_id
       @job.save!
       respond_for_show
     end
@@ -180,7 +188,7 @@ module ForemanPipeline
     api :GET, "/organizations/:organization_id/jobs/:id/available_resources", N_("List compute resources available for the job")
     param_group :job_id
     def available_resources
-      @compute_resources = @job.hostgroup.compute_profile.compute_attributes.map(&:compute_resource) rescue []
+      @compute_resources = @job.available_compute_resources
       render "api/v2/compute_resources/index"
     end
 

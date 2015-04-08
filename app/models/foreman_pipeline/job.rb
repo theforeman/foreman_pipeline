@@ -53,6 +53,14 @@ module ForemanPipeline
       self.target_cv_version.environments.include?(self.environment.successor)
     end
 
+    def environment_in_paths?(env_id)
+      paths.map(&:full_path).flatten.uniq.map(&:id).include? env_id
+    end
+
+    def available_compute_resources
+      hostgroup.compute_profile.compute_attributes.map(&:compute_resource) rescue []
+    end
+
     private
 
     def no_composite_view

@@ -1,6 +1,6 @@
 angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentController',
-    ['$scope', '$q', 'Organization', 'Job', 'translate', 'CurrentOrganization', 'Org',
-        function ($scope, $q, Organization, Job, translate, CurrentOrganization, Org) {
+    ['$scope', '$q', 'Job', 'translate', 'CurrentOrganization',
+        function ($scope, $q, Job, translate, CurrentOrganization) {
 
             $scope.successMessages = [];
             $scope.errorMessages = [];
