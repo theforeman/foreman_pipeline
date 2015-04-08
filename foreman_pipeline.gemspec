@@ -7,11 +7,11 @@ require "foreman_pipeline/version"
 Gem::Specification.new do |s|
   s.name        = "foreman_pipeline"
   s.version     = ForemanPipeline::VERSION
-  s.authors     = ["N/A"]
+  s.authors     = ["Ondřej Pražák"]
   s.email       = ["oprazak@redhat.com"]
   s.homepage    = "https://github.com/xprazak2/foreman-pipeline"
   s.summary     = ""
-  s.description = "Plugin"
+  s.description = "Makes Foreman talk to Jenkins CI server."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE.txt", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails"
   s.add_development_dependency "sass", "3.2.13" # only to avoid sass/sprockets known bug: https://github.com/sass/sass/issues/1162  
   s.add_dependency "katello"
+  s.add_dependency "staypuft" 
   s.add_dependency "bastion", "~> 0.1.14"
   s.add_dependency "net-scp"  
   # s.add_dependency "nokogiri", "1.6.0" needed for jenkins_api_client > 1.0
