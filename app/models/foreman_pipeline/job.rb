@@ -29,7 +29,7 @@ module ForemanPipeline
     validate :no_composite_view
 
     def is_valid?
-      !self.attributes.values.include? nil
+      !self.attributes.values.include?(nil) && !self.jenkins_instance.jenkins_user.nil?
     end
 
     def target_cv_version_avail?
