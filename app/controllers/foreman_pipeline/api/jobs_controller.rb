@@ -109,13 +109,9 @@ module ForemanPipeline
     param_group :job_id
     param :environment_id, :number, :desc => N_("Environment id which will be set"), :required => true
     def set_environment
-      if @job.environment_in_paths? params[:environment_id]
-        @job.environment = Katello::KTEnvironment.find(params[:environment_id])
-        @job.save!
-        respond_for_show
-      else
-        fail Katello::HttpErrors::Conflict, "Cannot add an Environment that is not in Job's Environment paths." 
-      end      
+      @job.environment = Katello::KTEnvironment.find(params[:environment_id])
+      @job.save!
+      respond_for_show
     end    
 
     api :PUT, "/organizations/:organization_id/jobs/:id/set_resource", N_("Set compute resource for job")

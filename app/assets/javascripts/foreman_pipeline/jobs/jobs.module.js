@@ -84,37 +84,25 @@ angular.module('ForemanPipeline.jobs').config(['$stateProvider', function ($stat
         templateUrl: 'foreman_pipeline/jobs/details/views/job-details-resources.html'
     })
 
-    .state('jobs.details.to-environment', {
+    .state('jobs.details.environments', {
        abstract: true,
        collapsed: true,
        template: '<div ui-view></div>'
     })
-    .state('jobs.details.to-environment.paths', {
-        abstract: true,
-        collapsed: true,
-        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-paths.html'
-    })
-    .state('jobs.details.to-environment.paths.list', {
-        url: '/paths',
+    .state('jobs.details.environments.from-environment', {
+        url: '/environments',
         collapsed: true,
         permission: 'edit_jobs',
-        controller: 'JobDetailsPathsController',
-        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-paths-list.html'
-    })
-    .state('jobs.details.to-environment.paths.add', {
-        url: '/paths/add',
-        collapsed: true, 
-        permission: 'edit_jobs',
-        controller: 'JobDetailsAddPathsController',
-        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-paths-list.html'
+        controller: 'JobDetailsEnvironmentsController',
+        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-environments.html'
     })
 
-    .state('jobs.details.to-environment.environments', {
-        url: '/paths/to_environment',
+    .state('jobs.details.environments.to-environments', {
+        url: '/environments/to_environments',
         collapsed: true,
         permission: 'edit_jobs',
-        controller: 'JobDetailsToEnvironmentController',
-        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-to-environment.html' 
+        controller: 'JobDetailsToEnvironmentsController',
+        templateUrl: 'foreman_pipeline/jobs/details/views/job-details-to-environments.html' 
     })
 
     .state('jobs.details.jenkins-instances', {

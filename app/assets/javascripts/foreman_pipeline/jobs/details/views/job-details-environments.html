@@ -1,17 +1,18 @@
-<span page-title ng-model="job">{{ 'Job: ' | translate }}{{ job.name }}</span>
+<span page-title ng-model="job">{{ 'Path selection fo Job:' | translate }} {{ job.name }}</span>
+
+<h4 translate>Lifecycle Environment selection: Select watched environment</h4>
+
+<div class="row">
+  <div class="fr select-action">
+    <button class="btn btn-default"
+            ui-sref="jobs.details.environments.to-environments">
+      {{ 'To Environments' | translate }}
+    </button>
+  </div>
+</div>
 
 <section class="nutupane-sub-section">
-  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
-  
-  <div class="row">
-    <div class="col-sm-5">
-      <a href="" ui-sref="jobs.details.to-environment.paths.list({jobId: job.id})">
-      <i class="icon-double-angle-left"></i>
-      {{ "Back" | translate }}
-      </a>
-    </div>
-  </div>  
-  <h4 translate>Lifecycle Environment selection</h4>
+  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>  
 
   <div class="loading-mask loading-mask-panel" ng-show="loading">
     <i class="icon-spinner icon-spin"></i>
@@ -40,7 +41,7 @@
   </section>
   
   
-  <div ng-show="environments.length === 0" >
+  <div ng-show="environments.length === 0 && !loading" >
     <p class="alert alert-info"
        ng-hide="loading"
        translate> No Lifecycle Environments to show.
@@ -48,6 +49,3 @@
   </div>
 
 </section>
-
-
-

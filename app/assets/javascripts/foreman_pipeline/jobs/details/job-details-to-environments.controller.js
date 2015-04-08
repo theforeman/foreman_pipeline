@@ -1,4 +1,4 @@
-angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentController',
+angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentsController',
     ['$scope', '$q', 'Job', 'translate', 'CurrentOrganization',
         function ($scope, $q, Job, translate, CurrentOrganization) {
 
