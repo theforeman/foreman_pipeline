@@ -2,7 +2,8 @@ module Actions
   module ForemanPipeline
     module Job
       class MultiplePromotions < Actions::EntryAction
-        
+        middleware.use ::Actions::Middleware::KeepCurrentUser
+                
         def plan(job, environments)
           sequence do
             environments.each do |env|

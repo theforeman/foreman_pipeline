@@ -18,6 +18,9 @@ module Actions
               :host => {
                 :ip => '10.168.100.4',
                 :name => 'random name',
+              },
+              :activation_key => {
+                :cp_key => '42'
               }
             }
             
