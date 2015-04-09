@@ -39,11 +39,12 @@ angular.module('ForemanPipeline.jobs').factory('Job',
                 return {results: transformPaths(response)};
             }},
             availableEnvironments: {method: 'GET',
-                                    params: {action: 'current_paths'},
+                                    params: {action: 'available_paths'},
                                     isArray: true,
-                                    transformResponse: function (response) {
-                                        return transformPaths(response);
-            }},
+                                    transformResponse: function (data) {
+                                       return transformPaths(data);
+                                    }
+            },
         });
     }]
 );

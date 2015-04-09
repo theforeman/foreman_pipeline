@@ -21,7 +21,7 @@ rake foreman_pipeline:seed
 
 * [Katello](https://github.com/Katello/katello)
 * [Foreman](https://github.com/theforeman/foreman)
-* [Bastion](https://github.com/Katello/bastion), 0.1.13
+* [Bastion](https://github.com/Katello/bastion), < 1.0.0, currently 0.3.1
 * [Staypuft](https://github.com/theforeman/staypuft), this dependency will be probably removed in the future as soon as 2 dyflow action clases are moved into foreman-tasks
 * [Jenkins API client](https://github.com/arangamani/jenkins_api_client), 0.14.1
 

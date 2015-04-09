@@ -146,38 +146,39 @@ module ForemanPipeline
       respond_for_show
     end
 
-    api :GET, "/organizations/:organization_id/jobs/:id/current_paths", N_("List environment paths of a job")
-    param_group :job_id
-    def current_paths
-      paths = @job.paths.map(&:full_path)
+    # api :GET, "/organizations/:organization_id/jobs/:id/current_paths", N_("List environment paths of a job")
+    # param_group :job_id
+    # def current_paths
+    #   paths = @job.paths.map(&:full_path)
 
-      current = paths.inject([]) do |result, path|
-        result << { :environments => path }
-      end
+    #   current = paths.inject([]) do |result, path|
+    #     result << { :environments => path }
+    #   end
 
-      collection = {
-        :results => current,
-        :total => current.size,
-        :subtotal => current.size
-      }      
-      respond_for_index(:collection => collection)
-    end
+    #   collection = {
+    #     :results => current,
+    #     :total => current.size,
+    #     :subtotal => current.size
+    #   }      
+    #   respond_for_index(:collection => collection)
+    # end
 
     api :GET, "/organizations/:organization_id/jobs/:id/available_paths", N_("List environment paths available for a job")
     param_group :job_id
     def available_paths
-      all_paths = @organization.promotion_paths.map(&:shift)
-      available = (all_paths - @job.paths).map(&:full_path)
+      available = [@job.environment.full_path] rescue []
 
       paths = available.inject([]) do |result, path|
         result << { :environments => path }
       end
+      paths = [{ :environments => [] }] if paths.empty?
 
       collection = {
         :results => paths,
         :total => paths.size,
         :subtotal => paths.size
       }
+      
       respond_for_index(:collection => collection)
     end
 
