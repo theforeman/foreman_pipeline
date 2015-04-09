@@ -9,6 +9,10 @@ module ForemanPipeline
         has_many :jobs, :through => :job_to_environments, :class_name => 'ForemanPipeline::Job'
       end
       
+      def full_paths
+        return [self.full_path] unless library?
+        successors.map(&:full_path)
+      end
     end
   end
 end

@@ -10,11 +10,11 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentsContr
                 $scope.panel.loading = false;
             });
 
-            $scope.chosenEnvironment = $scope.job.environment;
-
+            $scope.toEnvironments = $scope.job.to_environments;
+            console.log($scope.job.to_environments)
             $scope.loading = true;            
 
-            $scope.environments = Job.availableEnvironments({id: $scope.$stateParams.jobId}, function () {
+            $scope.availableEnvironments = Job.availableEnvironments({id: $scope.$stateParams.jobId}, function () {
                 $scope.loading = false;
             });
 
