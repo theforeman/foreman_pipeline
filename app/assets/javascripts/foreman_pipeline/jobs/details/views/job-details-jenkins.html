@@ -1,7 +1,7 @@
 <span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
 <section class="nutupane-sub-section">
-  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+  <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
     <span translate>Current Jenkins Instance: </span>
@@ -15,7 +15,7 @@
 
   <div ng-show="jenkinsTable.rows.length === 0">
     <div class="loading-mask loading-mask-panel" ng-show="jenkinsTable.working">
-      <i class="icon-spinner icon-spin"></i>
+      <i class="fa fa-spinner fa-spin"></i>
         {{ "Loading..." | translate }}          
     </div>
 
@@ -42,8 +42,8 @@
                   ng-hide="denied('edit_jobs')"
                   ng-disabled="!jenkinsTable.chosenRow || jenkinsTable.working" 
                   ng-click="setJenkins()">
-            <i class="icon-pencil" ng-hide="jenkinsTable.working"></i>
-            <i class="icon-spinner icon-spin" ng-show="jenkinsTable.working"></i> 
+            <i class="fa fa-pencil" ng-hide="jenkinsTable.working"></i>
+            <i class="fa fa-spinner fa-spin" ng-show="jenkinsTable.working"></i> 
             {{ 'Set Jenkins Instance' | translate }}
           </button>
         </span>

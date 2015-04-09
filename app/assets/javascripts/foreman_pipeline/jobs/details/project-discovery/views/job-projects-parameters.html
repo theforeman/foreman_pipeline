@@ -1,9 +1,9 @@
-<div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+<div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
 <div class="row">
     <div class="col-sm-5">
       <a href="" ui-sref="jobs.details.jenkins-projects.list({jobId: job.id})">
-      <i class="icon-double-angle-left"></i>
+      <i class="fa fa-double-angle-left"></i>
       {{ "Back" | translate }}
       </a>
     </div>
@@ -65,7 +65,7 @@
 
   <div ng-show="projectParamsList.length === 0">
     <div class="loading-mask loading-mask-panel" ng-show="loading">
-      <i class="icon-spinner icon-spin"></i>
+      <i class="fa fa-spinner fa-spin"></i>
         {{ "Loading..." | translate }}          
     </div>
     

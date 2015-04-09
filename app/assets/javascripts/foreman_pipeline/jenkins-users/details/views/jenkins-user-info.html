@@ -1,6 +1,6 @@
 <span page-title ng-model="jenkinsUser">{{ 'Jenkins Instance: ' | translate }}{{ jenkinsUser.name }}</span>
 
-<div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+<div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
 <div class="details fl">
   <section>
@@ -8,7 +8,7 @@
       <div class="col-sm-5">
         <a href="" ui-sref="jenkins-instances.details.users.list({
                              jenkinsInstanceId: jenkinsInstanceId})">
-        <i class="icon-double-angle-left"></i>
+        <i class="fa fa-double-angle-left"></i>
         {{ "Back" | translate }}
         </a>
       </div>

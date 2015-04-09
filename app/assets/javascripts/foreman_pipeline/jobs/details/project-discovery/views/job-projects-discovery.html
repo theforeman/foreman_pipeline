@@ -1,12 +1,12 @@
 <span page-title>{{ 'Jenkins Projects' | translate }}</span>
 
 <section class="nutupane-sub-section">
-  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+  <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
   
   <div class="row">
     <div class="col-sm-5">
       <a href="" ui-sref="jobs.details.jenkins-projects.list({jobId: job.id})">
-      <i class="icon-double-angle-left"></i>
+      <i class="fa fa-double-angle-left"></i>
       {{ "Back" | translate }}
       </a>
     </div>
@@ -31,8 +31,8 @@
           <button translate
                   class="btn btn-primary btn-lg"
                   ng-disabled="discovery.pending || discovery.pattern === '' ">
-            <i class="icon-search" ng-show="!discovery.pending"></i>
-            <i class="icon-spinner icon-spin" ng-show="discovery.pending"></i>
+            <i class="fa fa-search" ng-show="!discovery.pending"></i>
+            <i class="fa fa-spinner fa-spin" ng-show="discovery.pending"></i>
             Search
           </button>       
         </span>
@@ -58,8 +58,8 @@
                 ng-disabled="projectsTable.numSelected === 0 || discovery.pending || projectsTable.working"
                 ng-show="isState('jobs.details.jenkins-projects.discovery') && permitted('edit_jobs', job)"
                 ng-click="addProjects(job)">
-          <i class="icon-plus" ng-hide="projectsTable.working"></i>
-          <i class="icon-spinner icon-spin" ng-show="projectsTable.working"></i>
+          <i class="fa fa-plus" ng-hide="projectsTable.working"></i>
+          <i class="fa fa-spinner fa-spin" ng-show="projectsTable.working"></i>
           <span translate>Add Projects</span>
         </button>       
       </div>   

@@ -5,7 +5,7 @@
 </p>
 
 <section class="nutupane-sub-section" ng-show="job.hostgroup">
-  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+  <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
     <span translate>Current Compute Resource: </span>
@@ -19,7 +19,7 @@
 
   <div ng-show="table.rows.length === 0">
     <div class="loading-mask loading-mask-panel" ng-show="table.working">
-      <i class="icon-spinner icon-spin"></i>
+      <i class="fa fa-spinner fa-spin"></i>
         {{ "Loading..." | translate }}
     </div>
 
@@ -43,8 +43,8 @@
                 ng-hide="edit_jobs"
                 ng-disabled="!table.chosenRow || table.working"
                 ng-click="setResource()">
-          <i class="icon-pencil" ng-hide="table.working"></i>
-          <i class="icon-spinner icon-spin" ng-show="table.working"></i>
+          <i class="fa fa-pencil" ng-hide="table.working"></i>
+          <i class="fa fa-spinner fa-spin" ng-show="table.working"></i>
           {{ 'Set Compute Resource' | translate }}
         </button>      
       </div>

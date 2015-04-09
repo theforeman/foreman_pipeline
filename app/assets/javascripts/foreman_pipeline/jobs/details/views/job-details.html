@@ -1,7 +1,7 @@
 <span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
 <div class="loading-mask loading-mask-panel" ng-show="panel.loading">
-  <i class="icon-spinner icon-spin"></i>
+  <i class="fa fa-spinner fa-spin"></i>
   {{ "Loading..." | translate}}
 </div>
 
@@ -11,18 +11,18 @@
     <h2 class="fl" translate>Job {{ job.name }} </h2>
 
     <div class="fr">
-      <div bst-modal="deleteJob(job)" model="job"
-            modal-header='Remove Job "{{ job.name }}"?'
-            modal-body='Are you sure you want to remove Job "{{ job.name }}"?'>
+      <div bst-modal="deleteJob(job)">
+        <div data-block="modal-header" translate>Remove Job "{{ job.name }}"?</div>
+        <div data-block="modal-body" translate>Are you sure you want to remove Job "{{ job.name }}"?</div>
       </div>
       
       <button class="btn btn-default" ng-click="openModal()" ng-hide="denied('destroy_job', job)">
-        <i class="icon-trash"></i>
+        <i class="fa fa-trash-o"></i>
         {{ "Delete Job" | translate }}
       </button>
 
       <button class="btn btn-default" ui-sref="jobs.index">
-        <i class="icon-remove"></i>
+        <i class="fa fa-remove"></i>
         {{ "Close" | translate }}
       </button>
     </div>

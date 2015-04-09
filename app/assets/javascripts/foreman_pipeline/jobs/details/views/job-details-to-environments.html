@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-sm-5">
       <a href="" ui-sref="jobs.details.environments.from-environment({jobId: job.id})">
-      <i class="icon-double-angle-left"></i>
+      <i class="fa fa-double-angle-left"></i>
       {{ "Back" | translate }}
       </a>
     </div>
@@ -11,10 +11,10 @@
 <h4 translate>Lifecycle Environment selection: select target environment</h4>
 <section class="nutupane-sub-section"> 
   
-  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+  <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
   <div class="loading-mask loading-mask-panel" ng-show="loading">
-    <i class="icon-spinner icon-spin"></i>
+    <i class="fa fa-spinner fa-spin"></i>
       {{ "Loading..." | translate }}          
   </div>
 
@@ -33,8 +33,8 @@
             ng-hide="denied('edit_jobs')"
             ng-disabled="!chosenEnvironment || working"
             ng-click="setEnvironment()">
-      <i class="icon-pencil" ng-hide="working"></i>      
-      <i class="icon-spinner icon-spin" ng-show="working"></i>           
+      <i class="fa fa-pencil" ng-hide="working"></i>      
+      <i class="fa fa-spinner fa-spin" ng-show="working"></i>           
       <span translate>Set Environment</span>
     </button>
   </section>

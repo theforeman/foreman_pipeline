@@ -1,7 +1,7 @@
 <span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
 <section class="nutupane-sub-section">
-  <div bst-alert success-messages="successMessages" error-messages="errorMessages"></div>
+  <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
     <span translate>Current Hostgroup: </span>
@@ -15,7 +15,7 @@
 
   <div ng-show="hostgroupsTable.rows.length === 0">
     <div class="loading-mask loading-mask-panel" ng-show="hostgroupsTable.working">
-      <i class="icon-spinner icon-spin"></i>
+      <i class="fa fa-spinner fa-spin"></i>
         {{ "Loading..." | translate }}
     </div>
 
@@ -39,8 +39,8 @@
                   ng-hide="edit_jobs"
                   ng-disabled="!hostgroupsTable.chosenRow || hostgroupsTable.working"
                   ng-click="setHostgroup()">
-            <i class="icon-pencil" ng-hide="hostgroupsTable.working"></i>      
-            <i class="icon-spinner icon-spin" ng-show="hostgroupsTable.working"></i>      
+            <i class="fa fa-pencil" ng-hide="hostgroupsTable.working"></i>      
+            <i class="fa fa-spinner fa-spin" ng-show="hostgroupsTable.working"></i>      
             {{ 'Set Hostgroup' | translate }}
           </button>
       </div>
