@@ -19,10 +19,11 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentsContr
             });
 
             $scope.setToEnvironments = function () {
+                console.log($scope.job)
                 var success, 
                     error,
                     deferred = $q.defer();                    
-                    data = {environment_ids: _.map($scope.toEnvironments, function (env) { return env.id })};
+                    data = {to_environment_ids: _.map($scope.toEnvironments, function (env) { return env.id })};
 
                     success = function (response) {
                         deferred.resolve(response);
@@ -110,7 +111,8 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentsContr
             }
 
             function itemsLoad(){
-                var modelIds = _.map(scope.toEnvironments, function (obj) { return obj.id });
+                var modelIds = _.pluck(scope.toEnvironments, "id"),
+                    succIds = _.pluck(scope.job.environment.successors, "id");
                 forEachItem(function (item) {
                     forEachInModel(function (modelItem) {
                         if (item.id === modelItem.id) {
@@ -125,6 +127,9 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentsContr
                         modelIds = _.union(modelIds, [item.id]);
                     }
                     item.flag = false;
+                    if (_.indexOf(succIds, item.id) < 0) {
+                        item.disabled = true;
+                    }           
                 });                
                 scope.toEnvironments = [];
                 forEachItem(function (item) {

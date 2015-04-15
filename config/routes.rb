@@ -23,10 +23,8 @@ ForemanPipeline::Engine.routes.draw do
             get :run_job
             put :add_projects
             put :remove_projects
-            put :add_paths
-            put :remove_paths
+            put :set_to_environments            
             get :available_paths
-            get :current_paths
           end
         end
 
@@ -35,8 +33,6 @@ ForemanPipeline::Engine.routes.draw do
             get :check_jenkins
             put :set_jenkins_user
           end
-
-
         end
 
         api_resources :jenkins_projects, :only => [:show, :update]
@@ -49,7 +45,13 @@ ForemanPipeline::Engine.routes.draw do
 
         api_resources :jenkins_project_params, :only => [:update]
 
-        api_resources :jenkins_users, :only => [:index, :create, :destroy, :show, :update]  
+        api_resources :jenkins_users, :only => [:index, :create, :destroy, :show, :update]
+
+        api_resources :paths, :only => [] do
+          collection do
+            get :all_paths
+          end
+        end
         
       end
     end

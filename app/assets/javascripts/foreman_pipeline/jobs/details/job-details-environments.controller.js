@@ -1,6 +1,6 @@
 angular.module('ForemanPipeline.jobs').controller('JobDetailsEnvironmentsController', 
-    ['$scope', '$q', 'translate', 'Nutupane', 'Job', 'CurrentOrganization', 'Organization',
-    function ($scope, $q, translate, Nutupane, Job, CurrentOrganization, Organization) {
+    ['$scope', '$q', 'translate', 'Nutupane', 'Job', 'CurrentOrganization', 'Organization', 'Path',
+    function ($scope, $q, translate, Nutupane, Job, CurrentOrganization, Organization, Path) {
 
         $scope.successMessages = [];
         $scope.errorMessages = [];
@@ -16,7 +16,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsEnvironmentsControl
 
         $scope.chosenEnvironment = $scope.job.environment;
 
-        $scope.environments = Organization.readableEnvironments(params, function () {
+        $scope.environments = Path.allPaths(params, function () {
             $scope.loading = false;
         });
 
@@ -31,6 +31,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsEnvironmentsControl
                         $scope.successMessages.push(translate("New Lifecycle Environmnet successfully set."))
                         $scope.working = false;
                         $scope.job.environment = $scope.chosenEnvironment;
+                        $scope.job.to_environments = [];
                     };
 
                     error = function (response) {

@@ -9,8 +9,8 @@ module ForemanPipeline
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view,
                                        :set_hostgroup, :set_resource, :available_resources,
                                        :set_jenkins, :set_environment, :run_job,
-                                       :add_projects, :remove_projects, :set_paths,
-                                       :remove_paths, :add_paths, :current_paths, :available_paths]
+                                       :add_projects, :remove_projects, :set_to_environments,
+                                       :available_paths]
 
     before_filter :load_search_service, :only => [:index]
 
@@ -109,6 +109,7 @@ module ForemanPipeline
     param :environment_id, :number, :desc => N_("Environment id which will be set"), :required => true
     def set_environment
       @job.environment = Katello::KTEnvironment.find(params[:environment_id])
+      @job.to_environments = []
       @job.save!
       respond_for_show
     end    
@@ -126,23 +127,20 @@ module ForemanPipeline
       end
     end
 
-    api :PUT, "/organizations/:organization_id/jobs/:id/add_paths", N_("Add environment paths for job")
-    param_group :job_id
-    param :path_ids, Array, :desc => N_("Identifiers of environments which are library's successors in corresponding paths")
-    def add_paths
-      @job.path_ids = (@job.path_ids + params[:path_ids]).uniq
-      @job.save!
-      respond_for_show
-    end
-
-    api :PUT, "/organizations/:organization_id/jobs/:id/remove_paths", N_("Remove environment paths for job")
-    param_group :job_id
-    param :path_ids, Array, :desc => N_("Identifiers of environments which are library's successors in corresponding paths")
-    def remove_paths
-      @job.path_ids = (@job.path_ids - params[:path_ids]).uniq
-      @job.environment = nil unless @job.environment_in_paths? @job.environment_id
-      @job.save!
-      respond_for_show
+    # api :PUT, "/organizations/:organization_id/jobs/:id/add_paths", N_("Add environment paths for job")
+    # param_group :job_id
+    # param :path_ids, Array, :desc => N_("Identifiers of environments which are library's successors in corresponding paths")
+    def set_to_environments
+      is_ok = params[:to_environment_ids].map do |new_id|
+        @job.environment.successors.map(&:id).include? new_id
+      end.all?
+      if is_ok
+        @job.to_environment_ids
+        @job.save!
+        respond_for_show
+      else
+        fail Katello::HttpErrors::Conflict, "Only Environments that are direct successors of Job's Environment may be set as target Environments." 
+      end
     end
 
     api :GET, "/organizations/:organization_id/jobs/:id/available_paths", N_("List environment paths available for a job")
