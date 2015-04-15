@@ -20,21 +20,20 @@
 
 
   <section ng-hide="loading || availableEnvironments.length === 0">
-    <span path-selector="availableEnvironments"
-              ng-model="toEnvironments"
-              disabled="denied('edit_jobs', job)"
-              disable-trigger="disableEnvironmentSelection">
+    <span pln-path-selector disabled="denied('edit_jobs', job)">
     </span>
+
+    <span basic></span>
 
     <br/>
 
     <button class="btn btn-default"
             ng-hide="denied('edit_jobs')"
             ng-disabled="working"
-            ng-click="setEnvironment()">
+            ng-click="setToEnvironments()">
       <i class="fa fa-pencil" ng-hide="working"></i>      
       <i class="fa fa-spinner fa-spin" ng-show="working"></i>           
-      <span translate>Set Environment</span>
+      <span translate>Set To Environments</span>
     </button>
   </section>
   

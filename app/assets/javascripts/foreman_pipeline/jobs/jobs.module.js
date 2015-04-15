@@ -2,7 +2,7 @@ angular.module('ForemanPipeline.jobs', [
     'ngResource',
     'Bastion.components',
     'ui.router',
-    'Bastion'
+    'Bastion',
 ]);
 
 angular.module('ForemanPipeline.jobs').config(['$stateProvider', function ($stateProvider) {

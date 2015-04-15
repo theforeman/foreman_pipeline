@@ -75,7 +75,6 @@ module ForemanPipeline
       respond_for_show(:resource => @job)
     end
 
-    # TODO?: refactor and remove repetitive methods -> map set actions onto update
     api :PUT, "/organizations/:organization_id/jobs/:id/set_content_view", N_("Set content view for job")
     param_group :job_id
     param :content_view_id, :number, :desc => N_("Content view id which will be set"), :required => true

@@ -5,4 +5,4 @@ BASTION_MODULES.push(
     'ForemanPipeline.jenkins-projects',
     'ForemanPipeline.jenkins-project-params',
     'ForemanPipeline.jenkins-users'
-);
+)

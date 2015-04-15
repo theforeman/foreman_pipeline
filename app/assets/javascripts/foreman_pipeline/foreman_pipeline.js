@@ -1,3 +1,4 @@
+
 //=require "foreman_pipeline/jobs/jobs.module.js"
 //=require_tree "./jobs"
 
