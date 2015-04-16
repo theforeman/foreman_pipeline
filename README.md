@@ -1,6 +1,6 @@
 #Foreman Pipeline#
 
-This project should provide support for Jenkins builds triggered from within Foreman. This plugin is currently under development.
+This project provides support for Jenkins builds triggered from within Foreman. It can supply Jenkins with an information on newly provisioned host by Foreman which makes it possible for Jenkins to deploy artifacts on the host.
 
 ##Installation##
 

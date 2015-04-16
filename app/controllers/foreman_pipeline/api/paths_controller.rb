@@ -6,6 +6,8 @@ module ForemanPipeline
 
     before_filter :find_organization, :only => [:all_paths]
 
+    api :GET, "/organizations/:organization_id/paths/all_paths", N_("List all environment paths in organization")
+    param :organization_id, :number, :sdesc => N_("Organization identifier"), :required => true
     def all_paths
       env_paths = if params[:permission_type] == "promotable"
                     @organization.promotable_promotion_paths
