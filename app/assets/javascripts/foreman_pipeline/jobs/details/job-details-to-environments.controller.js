@@ -27,7 +27,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentsContr
 
                     success = function (response) {
                         deferred.resolve(response);
-                        $scope.successMessages.push(translate("New target environments successfully set."))
+                        $scope.successMessages.push(translate("New 'to environments' successfully set."))
                         $scope.working = false;
                         $scope.job.to_environments = $scope.toEnvironments;
                     };

@@ -127,19 +127,19 @@ module ForemanPipeline
       end
     end
 
-    # api :PUT, "/organizations/:organization_id/jobs/:id/add_paths", N_("Add environment paths for job")
-    # param_group :job_id
-    # param :path_ids, Array, :desc => N_("Identifiers of environments which are library's successors in corresponding paths")
+    api :PUT, "/organizations/:organization_id/jobs/:id/set_to_environments", N_("Set 'to environments' for the job")
+    param_group :job_id
+    param :path_ids, Array, :desc => N_("Identifiers of environments which are successors of job's environment")
     def set_to_environments
       is_ok = params[:to_environment_ids].map do |new_id|
         @job.environment.successors.map(&:id).include? new_id
       end.all?
       if is_ok
-        @job.to_environment_ids
+        @job.to_environment_ids = params[:to_environment_ids]
         @job.save!
         respond_for_show
       else
-        fail Katello::HttpErrors::Conflict, "Only Environments that are direct successors of Job's Environment may be set as target Environments." 
+        fail Katello::HttpErrors::Conflict, "Only environments that are direct successors of Job's Environment may be set as 'to environments'." 
       end
     end
 
@@ -169,7 +169,7 @@ module ForemanPipeline
       render "api/v2/compute_resources/index"
     end
 
-    api :GET, "/organizations/:organization_id/jobs/:id/run_job", N_("Start job execution a job")
+    api :GET, "/organizations/:organization_id/jobs/:id/run_job", N_("Start job execution")
     param_group :job_id
     def run_job      
       if @job.manual_trigger

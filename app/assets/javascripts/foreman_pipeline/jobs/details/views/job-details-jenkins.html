@@ -62,6 +62,7 @@
             <tr bst-table-head row-choice="jenkinsInstance">
               <th bst-table-column="name" translate>Name</th>
               <th bst-table-column="url" translate>URL</th>
+              <th bst-table-column="user" translate>User</th>
             </tr>
           </thead>
 
@@ -75,6 +76,7 @@
               </td>
 
               <td bst-table-cell>{{ jenkinsInstance.url }}</td>
+              <td bst-table-cell>{{ jenkinsInstance.jenkins_user.name }}</td>
             </tr>
           </tbody>
 

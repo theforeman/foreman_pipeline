@@ -6,7 +6,7 @@ module ForemanPipeline
       included do
         has_many :job_to_environments, :class_name => 'ForemanPipeline::JobToEnvironment',
          :dependent => :destroy, :foreign_key => :to_environment_id
-        has_many :jobs, :through => :job_to_environments, :class_name => 'ForemanPipeline::Job'
+        has_many :jobs, :through => :job_to_environments, :class_name => 'ForemanPipeline::Job', :dependent => :nullify
       end
       
       def full_paths

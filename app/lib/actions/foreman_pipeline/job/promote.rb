@@ -9,8 +9,10 @@ module Actions
         end
 
         def run
-          fail "Content View promotion disabled." unless job.promote?
-          promote_environment unless target_environments.empty?
+          unless job.environment.successors.empty?
+            fail "Content View promotion disabled" if job.to_environments.empty?
+            promote_environment 
+          end
         end
 
         def rescue_strategy_for_self
@@ -24,11 +26,7 @@ module Actions
           output[:target_environments] = []
           output[:in_job] = job.name  
 
-          ForemanTasks.trigger(Job::MultiplePromotions, job, target_environments)
-        end
-
-        def target_environments
-          job.environment.successors
+          ForemanTasks.trigger(Job::MultiplePromotions, job)
         end
 
         def job
