@@ -46,12 +46,6 @@ ForemanPipeline::Engine.routes.draw do
         api_resources :jenkins_project_params, :only => [:update]
 
         api_resources :jenkins_users, :only => [:index, :create, :destroy, :show, :update]
-
-        api_resources :paths, :only => [] do
-          collection do
-            get :all_paths
-          end
-        end
         
       end
     end

@@ -1,6 +1,6 @@
 angular.module('ForemanPipeline.jobs').controller('JobDetailsEnvironmentsController', 
-    ['$scope', '$q', 'translate', 'Job', 'CurrentOrganization', 'Path',
-    function ($scope, $q, translate, Job, CurrentOrganization, Path) {
+    ['$scope', '$q', 'translate', 'Job', 'CurrentOrganization',
+    function ($scope, $q, translate, Job, CurrentOrganization) {
 
         $scope.successMessages = [];
         $scope.errorMessages = [];
@@ -10,13 +10,16 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsEnvironmentsControl
         });
 
         var params = {
-            id: CurrentOrganization
+            organization_id: CurrentOrganization,
+            id: $scope.$stateParams.jobId,
+            all_paths: true,
         };
+
         $scope.loading = true;
 
         $scope.chosenEnvironment = $scope.job.environment;
 
-        $scope.environments = Path.allPaths(params, function () {
+        $scope.environments = Job.availableEnvironments(params, function () {
             $scope.loading = false;
         });
 

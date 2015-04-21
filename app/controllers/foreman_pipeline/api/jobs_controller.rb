@@ -79,7 +79,9 @@ module ForemanPipeline
     param_group :job_id
     param :content_view_id, :number, :desc => N_("Content view id which will be set"), :required => true
     def set_content_view
-      @job.content_view = Katello::ContentView.find(params[:content_view_id])
+      cv = Katello::ContentView.find(params[:content_view_id])
+      fail Katello::HttpErrors::Conflict, "Only non-composite views are accepted" if cv.composite?
+      @job.content_view = cv
       @job.save!
       respond_for_show
     end
@@ -131,6 +133,8 @@ module ForemanPipeline
     param_group :job_id
     param :path_ids, Array, :desc => N_("Identifiers of environments which are successors of job's environment")
     def set_to_environments
+      fail Katello::HttpErrors::Conflict, "Job's environment must be assigned before setting 'to environments'." if @job.environment.nil?
+      fail Katello::HttpErrors::Conflict, "Job's environment does not have any successors" if @job.environment.successors.empty?
       is_ok = params[:to_environment_ids].map do |new_id|
         @job.environment.successors.map(&:id).include? new_id
       end.all?
@@ -146,13 +150,22 @@ module ForemanPipeline
     api :GET, "/organizations/:organization_id/jobs/:id/available_paths", N_("List environment paths available for a job")
     param_group :job_id
     def available_paths
-      available = @job.environment.full_paths rescue []
-      
-      paths = available.inject([]) do |result, path|
-        result << { :environments => path }
+      available = []
+      paths = []
+      if params[:all_paths]
+        available = @organization.readable_promotion_paths
+        paths = available.inject([]) do |result, path|
+          result << { :environments => [@organization.library] + path }
+        end
+        paths = [{ :environments => [@organization.library] }] if paths.empty?
+      else
+        available = @job.environment.full_paths rescue []
+        paths = available.inject([]) do |result, path|
+          result << { :environments => path }
+        end
+        paths = [{ :environments => [] }] if paths.empty?
       end
-      paths = [{ :environments => [] }] if paths.empty?
-
+      
       collection = {
         :results => paths,
         :total => paths.size,
@@ -174,7 +187,7 @@ module ForemanPipeline
     def run_job      
       if @job.manual_trigger
         task = async_task(::Actions::ForemanPipeline::Job::RunJobManually, @job)
-        render :nothing => true            
+        render :nothing => true
       else
         fail ::Katello::HttpErrors::Forbidden, "Running manually not allowed for Job: #{@job.name}. Try setting it's :manual_trigger property."
       end
@@ -216,7 +229,7 @@ module ForemanPipeline
       if rollback[:occured]
         fail ::Katello::HttpErrors::NotFound, "Could not retrieve build params for Jenkins project: #{rollback[:project_name]}"
       else
-        respond_for_show        
+        respond_for_show
       end
     end
 
