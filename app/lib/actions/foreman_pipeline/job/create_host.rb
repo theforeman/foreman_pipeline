@@ -15,7 +15,7 @@ module Actions
                     compute_resource_id:  input.fetch(:compute_resource_id),
                     compute_attributes:   input[:compute_attributes],
                     organization_id:      input[:options][:org_id],
-                    location:             Location.find_by_name("promotions") || Location.create({:name => "promotions"})
+                    location:             Location.find_by_name("foreman_pipeline") || Location.create({:name => "foreman_pipeline"})
                   )
 
           organization_param
