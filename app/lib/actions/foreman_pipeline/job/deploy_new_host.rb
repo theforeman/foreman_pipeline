@@ -13,7 +13,7 @@ module Actions
                                                 :jenkins_instance_hostname => jenkins_hostname(job),
                                                 :jenkins_home => job.jenkins_instance.jenkins_home,
                                                 :cert_path => job.jenkins_instance.cert_path)
-            
+
             packages = plan_action(FindPackagesToInstall, :job_id => job.id)
 
             bulk_build = plan_action(Jenkins::BulkBuild, 

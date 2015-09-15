@@ -36,9 +36,9 @@ module ForemanPipeline
     
     private
 
-    def authenticated_client(username, password, hash_args) 
+    def authenticated_client(username, password, hash_args)
       JenkinsApi::Client.new(hash_args.merge({:username => username,
-                                              :password => password}))          
+                                              :password => password}))
     end
 
     def new_client(username, password)

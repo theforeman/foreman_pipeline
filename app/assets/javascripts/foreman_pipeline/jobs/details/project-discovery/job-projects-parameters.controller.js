@@ -46,7 +46,6 @@ angular.module('ForemanPipeline.jobs').controller('JobProjectsParametersControll
                             $scope.errorMessages.push(translate('Error occured while saving Project Param: ') + errorMessage);
                         });
                 };
-                console.log($scope.projectParamsList)
                 JenkinsProjectParam.update({id: param.id}, param, success, error);
                 return deferred.promise;
             };

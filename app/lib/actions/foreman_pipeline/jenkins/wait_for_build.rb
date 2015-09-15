@@ -2,7 +2,7 @@ module Actions
   module ForemanPipeline
     module Jenkins
       class WaitForBuild < WaitAndPoll        
-        
+
         def poll_interval
           10
         end

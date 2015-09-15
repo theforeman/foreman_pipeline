@@ -5,7 +5,8 @@ module Actions
       class Build < AbstractJenkinsAction
 
         def run
-          output[:build_num] = job.jenkins_instance.client.job.build(jenkins_project.name, params, true)
+          #are we willing to wait longer than 5 mins until build starts?
+          output[:build_num] = job.jenkins_instance.client.job.build(jenkins_project.name, params, 'build_start_timeout' => 300)
           output[:project_name] = jenkins_project.name
           output[:build_params] = params
         end

@@ -16,8 +16,7 @@ module Actions
           projects.map do |project|
             trigger(BuildProject, input[:opts].merge({:project_id => project.id, :project_name => project.name}))  
           end
-        end
-        
+        end        
       end
     end
   end

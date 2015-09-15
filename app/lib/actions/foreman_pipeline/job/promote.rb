@@ -23,8 +23,8 @@ module Actions
 
         def promote_environment
           output[:cv_to_promote] = job.content_view.name
-          output[:target_environments] = []
-          output[:in_job] = job.name  
+          output[:target_environments] = job.to_environments.pluck(:name)
+          output[:in_job] = job.name
 
           ForemanTasks.trigger(Job::MultiplePromotions, job)
         end

@@ -24,7 +24,6 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsToEnvironmentsContr
             });
 
             $scope.setToEnvironments = function () {
-                console.log($scope.job)
                 var success, 
                     error,
                     deferred = $q.defer();                    
