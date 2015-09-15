@@ -1,7 +1,20 @@
 module Actions
   module ForemanPipeline
     module Job
-      class CreateHost < Actions::Staypuft::Host::Create
+      class CreateHost < Actions::EntryAction
+        middleware.use ::Actions::Middleware::KeepCurrentUser
+
+        def plan(name, hostgroup, compute_resource, options = {})
+          compute_attributes = hostgroup.compute_profile.compute_attributes
+                                .where(compute_resource_id: compute_resource.id)
+                                .first.vm_attrs
+
+          plan_self name:               name,
+                    hostgroup_id:       hostgroup.id,
+                    compute_attributes: compute_attributes,
+                    options:            options
+          input.update compute_resource_id: compute_resource.id if compute_resource
+        end
         
         def run                     
           hostgroup = Hostgroup.find(input[:hostgroup_id])
@@ -15,7 +28,7 @@ module Actions
                     compute_resource_id:  input.fetch(:compute_resource_id),
                     compute_attributes:   input[:compute_attributes],
                     organization_id:      input[:options][:org_id],
-                    location:             Location.find_by_name("foreman_pipeline") || Location.create({:name => "foreman_pipeline"})
+                    location:             Location.where(:name => "foreman_pipeline").first_or_create
                   )
 
           organization_param
@@ -23,7 +36,7 @@ module Actions
           
           host.save!
           jenkins_pubkey_param_for host
-          host.power.start if input.fetch(:options).fetch(:start)
+          host.power.start
 
           output.update host: { id: host.id,
                                 name: host.name,

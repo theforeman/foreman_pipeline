@@ -19,6 +19,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsResourcesController
             var nutupane = new Nutupane(Job, params, 'availableResources');
             $scope.nutupane = nutupane;
             $scope.table = nutupane.table;
+            nutupane.query();
 
             $scope.setResource = function () {
                 var success,

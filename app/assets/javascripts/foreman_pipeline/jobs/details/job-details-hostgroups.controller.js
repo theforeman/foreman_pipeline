@@ -18,6 +18,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsHostgroupsControlle
             var nutupane = new Nutupane(Hostgroup);
             $scope.nutupane = nutupane;
             $scope.hostgroupsTable = nutupane.table;
+            nutupane.query();
 
             $scope.setHostgroup = function () {
                 var success,

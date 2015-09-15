@@ -1,6 +1,6 @@
 <span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
-<section class="nutupane-sub-section">
+<div class="details details-full">
   <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
@@ -13,20 +13,8 @@
 
   <br/>
 
-  <div ng-show="cvTable.rows.length === 0">
-    <div class="loading-mask loading-mask-panel" ng-show="cvTable.working">
-      <i class="fa fa-spinner fa-spin"></i>
-        {{ "Loading..." | translate }}          
-    </div>
-
-    <p class="alert alert-info"
-       ng-hide="cvTable.working"
-       translate> No Content Views to show.
-    </p>
-  </div> 
-
   <section ng-show="cvTable.rows.length > 0">
-    <div class="row">
+    <div class="details-header row">
       
       <div class="col-sm-3">
         <input type="text"
@@ -50,14 +38,9 @@
     </div>
 
     <div bst-table="cvTable" class="nutupane">
-      <div bst-container-scroll bst-infinite-scroll="cvTable.nextPage()">
-        
-        
+      <div bst-container-scroll bst-infinite-scroll="cvTable.nextPage()">       
 
-        <table
-               ng-class="{'table-mask': cvTable.working}"
-               class="table table-full table-striped">
-
+        <table ng-class="{'table-mask': cvTable.working}" class="table table-full table-striped">
           <thead>
             <tr bst-table-head row-choice="contentView">
               <th bst-table-column="name" translate>Name</th>
@@ -85,6 +68,16 @@
     </div>
   </section>
 
-  
+  <div ng-show="cvTable.rows.length === 0">
+    <div class="loading-mask loading-mask-panel" ng-show="cvTable.working">
+      <i class="fa fa-spinner fa-spin"></i>
+        {{ "Loading..." | translate }}          
+    </div>
 
-</section>
+    <p class="alert alert-info"
+       ng-hide="cvTable.working"
+       translate> No Content Views to show.
+    </p>
+  </div>
+
+</div>

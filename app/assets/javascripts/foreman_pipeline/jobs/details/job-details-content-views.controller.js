@@ -20,6 +20,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsContentViewsControl
             var cvNutupane = new Nutupane(ContentView, params);
             $scope.nutupane = cvNutupane;
             $scope.cvTable = cvNutupane.table;
+            cvNutupane.query();
 
             $scope.setContentView = function () {
                 var success,

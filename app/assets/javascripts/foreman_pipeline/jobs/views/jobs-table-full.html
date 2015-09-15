@@ -1,5 +1,7 @@
-<p class="alert alert-info" ng-show="jobsTable.rows.lenght === 0" translate>
-  You currently do not have any Jobs. You can add Jobs using the button on the right.
+<p bst-alert="info" ng-show="jobsTable.rows.lenght === 0 && !jobsTable.working">
+  <span translate>
+    You currently do not have any Jobs. You can add Jobs using the button on the right.
+  </span>
 </p>
 
 <table class="table table-striped"

@@ -1,6 +1,6 @@
 <span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
-<section class="nutupane-sub-section">
+<div class="details details-full">
   <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
@@ -26,7 +26,8 @@
   </div>
 
   <section ng-show="hostgroupsTable.rows.length > 0">
-    <div class="row">
+    <div class="details-header row">
+
       <div class="col-sm-3">
         <input type="text"
                class="form-control"
@@ -77,4 +78,4 @@
       </div>
     </div>
   </section>
-</section>
+</div>

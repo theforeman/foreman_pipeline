@@ -2,7 +2,9 @@
 
 <div data-extend-template="layouts/nutupane.html">
   
-  <div data-block="header">{{ 'Jobs' | translate }}</div>
+  <div data-block="header">
+    {{ 'Jobs' | translate }}
+  </div>
 
   <div data-block="actions">
     <button class="btn btn-primary" ui-sref="jobs.new">
@@ -10,4 +12,8 @@
       {{ 'New Job' | translate }}
     </button> 
   </div>
+
+  <span data-block="no-rows-message" translate>
+    You currently don't have any Jobs. A Job can be created by using the button on the right.
+  </span>
 </div>

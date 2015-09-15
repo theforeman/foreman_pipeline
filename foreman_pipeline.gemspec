@@ -17,12 +17,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails"
-  s.add_development_dependency "sass", "3.2.13" # only to avoid sass/sprockets known bug: https://github.com/sass/sass/issues/1162  
   s.add_dependency "katello"
-  s.add_dependency "staypuft" 
-  s.add_dependency "bastion", "< 1.0.0"
+  s.add_dependency "foreman_deployments" 
+  s.add_dependency "bastion", "< 3.0.0"
   s.add_dependency "net-scp"  
-  # s.add_dependency "nokogiri", "1.6.0" needed for jenkins_api_client > 1.0
-  s.add_dependency "jenkins_api_client", "~> 0.14.1"
-
+  s.add_dependency "jenkins_api_client", "< 2.0.0"
 end

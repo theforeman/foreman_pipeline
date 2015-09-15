@@ -1,6 +1,6 @@
 <span page-title ng-model="jenkinsInstance">{{ 'Jenkins Instance: ' | translate }} {{ jenkinsInstance.name }}</span>
 
-<section class="nutupane-sub-section">
+<div class="details details-full">
   <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
         
   <h4>
@@ -16,7 +16,7 @@
   <br/> 
 
   <section>
-    <div class="row">
+    <div class="details-header row">
       
       <div class="col-sm-3" ng-show="jUserTable.rows.length > 0">
         <input type="text"
@@ -52,8 +52,7 @@
     <div bst-table="jUserTable" class="nutupane" ng-show="jUserTable.rows.length > 0">
       <div bst-container-scroll bst-infinite-scroll="jUserTable.nextPage()">
   
-        <table
-               ng-class="{'table-mask': jUserTable.working}"
+        <table ng-class="{'table-mask': jUserTable.working}"
                class="table table-full table-striped">
 
           <thead>
@@ -105,4 +104,4 @@
     </p>
   </div>
 
-</section>
+</div>

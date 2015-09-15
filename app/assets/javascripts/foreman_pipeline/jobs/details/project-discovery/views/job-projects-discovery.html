@@ -1,6 +1,6 @@
 <span page-title>{{ 'Jenkins Projects' | translate }}</span>
 
-<section class="nutupane-sub-section">
+<div class="details details-full">
   <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
   
   <div class="row">
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="details-header row">
     <form ng-submit="discover()" role="form" class="col-sm-6" ng-show="permitted('edit_jobs', job)">
       <div class="input-group" >    
                 
@@ -39,9 +39,10 @@
       </div>
     </form>
   </div>
+
   <br/>
 
-  <div class="row">
+  <div class="details-header row">
     <h4 class="col-sm-12" translate>Results</h4>
 
     <div class="col-sm-4">
@@ -66,22 +67,25 @@
     </div>
   </div>
 
-  <div class="col-sm-12">
-    <table bst-table="projectsTable" class="table table-striped">
-      <thead>
-        <tr bst-table-head row-select>
-          <th bst-table-column translate>Name</th>
-        </tr>
-      </thead>
+  <div bst-table="projectsTable" class="nutupane">
+    <div bst-container-scroll bst-infinite-scroll="projectsTable.nextPage()">
 
-      <tbody>
-        <tr bst-table-row 
-            row-select="project"
-            ng-repeat="project in projectsTable.rows | filter:projectsTable.filterTerm">
-          <td bst-table-cell>{{ project.name }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table table-full table-striped">
+        <thead>
+          <tr bst-table-head row-select>
+            <th bst-table-column translate>Name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr bst-table-row 
+              row-select="project"
+              ng-repeat="project in projectsTable.rows | filter:projectsTable.filterTerm">
+            <td bst-table-cell>{{ project.name }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-</section>
+</div>
