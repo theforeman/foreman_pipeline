@@ -1,7 +1,7 @@
 require 'foreman_pipeline/plugin'
 
 Foreman::Plugin.find(:foreman_pipeline).security_block :jenkins_users do
-  permission :view_users,
+  permission :view_jenkins_users,
               {
                 'foreman_pipeline/api/jenkins_users' => [:index, :show]
               },

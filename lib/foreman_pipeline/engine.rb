@@ -14,7 +14,8 @@ module ForemanPipeline
 
     initializer 'foreman_pipeline.register_plugin', :after => :finisher_hook do
       require 'foreman_pipeline/plugin'
-      # require 'foreman_pipeline/permissions'
+      require 'foreman_pipeline/permissions'
+      require 'foreman_pipeline/roles'
     end 
 
     initializer 'foreman_pipeline.assets', :group => :all do |app|

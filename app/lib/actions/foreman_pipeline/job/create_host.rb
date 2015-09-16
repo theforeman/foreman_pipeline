@@ -19,7 +19,8 @@ module Actions
         def run                     
           hostgroup = Hostgroup.find(input[:hostgroup_id])
           location = Location.where(:name => "foreman_pipeline").first_or_create
-          location.subnet_ids = (location.subnet_ids + [hostgroup.subnet_id]).uniq.save!
+          location.subnet_ids = (location.subnet_ids + [hostgroup.subnet_id]).uniq
+          location.save!
           host = ::Host::Managed.new(
                     name:                 input[:name],
                     hostgroup:            hostgroup,
