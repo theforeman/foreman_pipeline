@@ -21,8 +21,8 @@ module Actions
                            :jenkins_instance_id => job.jenkins_instance_id})
 
             
-            # suspend_until = plan_action(SuspendUntilProvisioned, create_host.output[:host][:id])
-            suspend_until = plan_action(::ForemanDeployments::Tasks::WaitUntilBuiltTaskDefinition, 'host_id' => create_host.output[:host][:id])
+            suspend_until = plan_action(SuspendUntilProvisioned, 'host_id' => create_host.output[:host][:id])
+            # suspend_until = plan_action(::ForemanDeployments::Tasks::WaitUntilBuiltTaskDefinition::Action, 'host_id' => create_host.output[:host][:id])
 
             plan_self(:create_host => create_host.output[:host],
                       :installed_at => suspend_until.output[:installed_at],

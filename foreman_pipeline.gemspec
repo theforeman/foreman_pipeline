@@ -20,6 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency "katello"
   s.add_dependency "foreman_deployments" 
   s.add_dependency "bastion", "< 3.0.0"
-  s.add_dependency "net-scp"  
+  s.add_dependency "net-scp"
   s.add_dependency "jenkins_api_client", "< 2.0.0"
 end

@@ -18,9 +18,11 @@ module Actions
         
         def run                     
           hostgroup = Hostgroup.find(input[:hostgroup_id])
+          location = Location.where(:name => "foreman_pipeline").first_or_create
+          location.subnet_ids = (location.subnet_ids + [hostgroup.subnet_id]).uniq.save!
           host = ::Host::Managed.new(
                     name:                 input[:name],
-                    hostgroup_id:         input[:hostgroup_id],
+                    hostgroup:            hostgroup,
                     build:                true, 
                     managed:              true,
                     enabled:              true,
@@ -28,7 +30,7 @@ module Actions
                     compute_resource_id:  input.fetch(:compute_resource_id),
                     compute_attributes:   input[:compute_attributes],
                     organization_id:      input[:options][:org_id],
-                    location:             Location.where(:name => "foreman_pipeline").first_or_create
+                    location:             location
                   )
 
           organization_param
