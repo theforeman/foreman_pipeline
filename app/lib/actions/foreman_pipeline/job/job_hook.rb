@@ -3,7 +3,7 @@ module Actions
     module Job
       class JobHook < Actions::EntryAction
         middleware.use ::Actions::Middleware::KeepCurrentUser
-        
+
         def run
           fail "Multiple jobs defined for the same content view and environment: #{input[:job_names]}.
                This may result in an unexpected behaviour.
@@ -17,7 +17,7 @@ module Actions
         def rescue_strategy_for_self
           Dynflow::Action::Rescue::Skip
         end
-        
+
       end
     end
   end

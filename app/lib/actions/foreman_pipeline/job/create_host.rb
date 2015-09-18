@@ -15,8 +15,8 @@ module Actions
                     options:            options
           input.update compute_resource_id: compute_resource.id if compute_resource
         end
-        
-        def run                     
+
+        def run
           hostgroup = Hostgroup.find(input[:hostgroup_id])
           location = Location.where(:name => "foreman_pipeline").first_or_create
           location.subnet_ids = (location.subnet_ids + [hostgroup.subnet_id]).uniq
@@ -24,19 +24,21 @@ module Actions
           host = ::Host::Managed.new(
                     name:                 input[:name],
                     hostgroup:            hostgroup,
-                    build:                true, 
+                    build:                true,
                     managed:              true,
                     enabled:              true,
                     environment:          hostgroup.environment,
                     compute_resource_id:  input.fetch(:compute_resource_id),
                     compute_attributes:   input[:compute_attributes],
+                    puppet_proxy:         hostgroup.puppet_proxy,
+                    puppet_ca_proxy:      hostgroup.puppet_ca_proxy,
                     organization_id:      input[:options][:org_id],
                     location:             location
                   )
 
           organization_param
           keys_param
-          
+
           host.save!
           jenkins_pubkey_param_for host
           host.power.start
@@ -45,13 +47,13 @@ module Actions
                                 name: host.name,
                                 ip: host.ip,
                                 mac: host.mac,
-                                params: host.params }            
+                                params: host.params }
         end
 
         private
 
-        def kt_org           
-           ::Organization.find(input[:options][:org_id]).name      
+        def kt_org
+           ::Organization.find(input[:options][:org_id]).name
         end
 
         def organization_param
@@ -60,7 +62,7 @@ module Actions
             ::CommonParameter.create(:name => 'kt_org', :value => kt_org)
           else
             org_cp.update_attributes(:value => kt_org)
-          end                            
+          end
         end
 
         def keys_param
@@ -69,7 +71,7 @@ module Actions
             ::CommonParameter.create(:name => 'kt_activation_keys', :value => input[:options][:activation_key][:name])
           else
             keys_cp.update_attributes(:value => input[:options][:activation_key][:name])
-          end                            
+          end
         end
 
         def jenkins_pubkey

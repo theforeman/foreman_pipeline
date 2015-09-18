@@ -2,7 +2,7 @@ module Actions
   module ForemanPipeline
     module Job
       class RepoSyncJobHook < JobHook
-        
+
         def self.subscribe
           Katello::Repository::Sync
         end

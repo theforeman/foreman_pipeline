@@ -9,7 +9,7 @@ module ForemanPipeline
 
     after_destroy :remove_orphaned_projects
 
-    private 
+    private
 
     def org_membership
       unless self.job.organization == self.jenkins_project.organization
@@ -20,6 +20,6 @@ module ForemanPipeline
     def remove_orphaned_projects
       JenkinsProject.find(:all).map { |p| p.destroy if p.jobs.empty? }
     end
-    
+
   end
 end

@@ -24,7 +24,7 @@ module ForemanPipeline
        ids = JenkinsUser.readable
             .where(:organization_id => @organization.id)
             .pluck(:id)
-      filters = [:terms => {:id => ids}]       
+      filters = [:terms => {:id => ids}]
       filters << {:term => {:name => params[:name]}} if params[:name]
 
       options = {
@@ -78,12 +78,12 @@ module ForemanPipeline
     def find_jenkins_user
       @jenkins_user = JenkinsUser.find_by_id(params[:id])
       fail ::Katello::HttpErrors::NotFound, "Could not find Jenkins User with id #{params[:id]}" if @jenkins_user.nil?
-      @jenkins_user 
+      @jenkins_user
     end
 
     def jenkins_user_params
       params.require(:jenkins_user).permit(:name, :token)
     end
-    
+
   end
 end

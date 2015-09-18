@@ -16,7 +16,7 @@ module ForemanPipeline
       require 'foreman_pipeline/plugin'
       require 'foreman_pipeline/permissions'
       require 'foreman_pipeline/roles'
-    end 
+    end
 
     initializer 'foreman_pipeline.assets', :group => :all do |app|
       SETTINGS[:foreman_pipeline] = {
@@ -32,12 +32,12 @@ module ForemanPipeline
       ForemanTasks.dynflow.require!
 
       action_paths = %W(#{ForemanPipeline::Engine.root}/app/lib/actions)
-      
+
       ForemanTasks.dynflow.config.eager_load_paths.concat(action_paths)
     end
 
     config.to_prepare do
-      
+
       Bastion.register_plugin({
         :name => 'foreman_pipeline',
         :javascript => 'foreman_pipeline/foreman_pipeline',
@@ -61,6 +61,6 @@ module ForemanPipeline
       load "#{ForemanPipeline::Engine.root}/lib/foreman_pipeline/tasks/foreman_pipeline_seed.rake"
       load "#{ForemanPipeline::Engine.root}/lib/foreman_pipeline/tasks/foreman_pipeline_test.rake"
     end
-       
+
   end
 end

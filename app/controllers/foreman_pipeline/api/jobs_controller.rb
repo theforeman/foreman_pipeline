@@ -24,7 +24,7 @@ module ForemanPipeline
 
     def_param_group :job_id do
       param :organization_id, :number, :desc => N_("organization identifier"), :required => true
-      param :id, :number, :desc => N_("job identifier"), :required => true  
+      param :id, :number, :desc => N_("job identifier"), :required => true
     end
 
     api :GET, "/organizations/:organization_id/jobs", N_("List jobs")
@@ -105,7 +105,7 @@ module ForemanPipeline
       @job.save!
       respond_for_show
     end
-    
+
     api :PUT, "/organizations/:organization_id/jobs/:id/set_environment", N_("Set environment for job")
     param_group :job_id
     param :environment_id, :number, :desc => N_("Environment id which will be set"), :required => true
@@ -114,7 +114,7 @@ module ForemanPipeline
       @job.to_environments = []
       @job.save!
       respond_for_show
-    end    
+    end
 
     api :PUT, "/organizations/:organization_id/jobs/:id/set_resource", N_("Set compute resource for job")
     param_group :job_id
@@ -125,7 +125,7 @@ module ForemanPipeline
         @job.save!
         respond_for_show
       else
-        fail Katello::HttpErrors::Conflict, "Only a Compute Resource configured for Job's Hostgroup may be set." 
+        fail Katello::HttpErrors::Conflict, "Only a Compute Resource configured for Job's Hostgroup may be set."
       end
     end
 
@@ -143,7 +143,7 @@ module ForemanPipeline
         @job.save!
         respond_for_show
       else
-        fail Katello::HttpErrors::Conflict, "Only environments that are direct successors of Job's Environment may be set as 'to environments'." 
+        fail Katello::HttpErrors::Conflict, "Only environments that are direct successors of Job's Environment may be set as 'to environments'."
       end
     end
 
@@ -165,7 +165,7 @@ module ForemanPipeline
         end
         paths = [{ :environments => [] }] if paths.empty?
       end
-      
+
       collection = {
         :results => paths,
         :total => paths.size,
@@ -184,7 +184,7 @@ module ForemanPipeline
 
     api :GET, "/organizations/:organization_id/jobs/:id/run_job", N_("Start job execution")
     param_group :job_id
-    def run_job      
+    def run_job
       if @job.manual_trigger
         task = async_task(::Actions::ForemanPipeline::Job::RunJobManually, @job)
         render :nothing => true
@@ -209,7 +209,7 @@ module ForemanPipeline
         projects_to_add.each do |project|
           project.reload
           task = sync_task(::Actions::ForemanPipeline::Jenkins::GetBuildParams, :job_id => @job.id, :name => project.name)
-          
+
           unless task.output[:build_params]
             raise ActiveRecord::Rollback
             rollback[:occured] = true
@@ -248,7 +248,7 @@ module ForemanPipeline
     def find_job
       @job = Job.find_by_id(params[:id])
       fail ::Katello::HttpErrors::NotFound, "Could not find job with id #{params[:id]}" if @job.nil?
-      @job 
+      @job
     end
 
     def job_params

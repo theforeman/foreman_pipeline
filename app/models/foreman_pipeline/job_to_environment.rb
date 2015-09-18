@@ -7,13 +7,13 @@ module ForemanPipeline
     belongs_to :organization
     validate :org_membership
 
-    private 
+    private
 
     def org_membership
       unless self.job.organization == self.to_environment.organization
         errors.add(:base, "Cannot add an Environment Path from different organization than #{job.organization.name}")
       end
     end
-    
+
   end
 end

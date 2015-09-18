@@ -1,7 +1,7 @@
 module Actions
   module ForemanPipeline
     module Jenkins
-      class WaitForBuild < WaitAndPoll        
+      class WaitForBuild < WaitAndPoll
 
         def poll_interval
           10
@@ -21,9 +21,9 @@ module Actions
           if external_task_data.is_a?(Hash)
             output[:result] = !external_task_data[:result].nil?
             if external_task_data[:result] == "FAILURE"
-              fail "Jenkins build failed"          
+              fail "Jenkins build failed"
             end
-          end                    
+          end
         end
 
         private

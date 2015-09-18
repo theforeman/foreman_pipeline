@@ -11,7 +11,7 @@ module Actions
         def run
           unless job.environment.successors.empty?
             fail "Content View promotion disabled" if job.to_environments.empty?
-            promote_environment 
+            promote_environment
           end
         end
 

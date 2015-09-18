@@ -13,7 +13,7 @@ module ForemanPipeline
     belongs_to :compute_resource, :class_name => '::ComputeResource', :inverse_of => :jobs
     belongs_to :jenkins_instance, :class_name => "ForemanPipeline::JenkinsInstance"
     belongs_to :environment, :class_name => 'Katello::KTEnvironment'
-    
+
     has_many :job_jenkins_projects, :dependent => :destroy
     has_many :jenkins_projects, :through => :job_jenkins_projects, :class_name => 'ForemanPipeline::JenkinsProject', :dependent => :restrict
 
@@ -23,7 +23,7 @@ module ForemanPipeline
 
     has_many :job_to_environments, :class_name => 'ForemanPipeline::JobToEnvironment', :dependent => :destroy
     has_many :to_environments, :through => :job_to_environments, :class_name => 'Katello::KTEnvironment', :dependent => :nullify
-    
+
     validates :name, :presence => true
     validates :organization, :presence => true
     validate :no_composite_view
@@ -45,7 +45,7 @@ module ForemanPipeline
     def init_run
       fail "Cannnot contact Jenkins server: no Jenkins Instance set for the job: #{name}" if jenkins_instance.nil?
       fail "Cannot log in to Jenkins server:
-            no Jenkins User set for the Jenkins Instance: #{jenkins_instancej.name}" if jenkins_instance.jenkins_user.nil? 
+            no Jenkins User set for the Jenkins Instance: #{jenkins_instancej.name}" if jenkins_instance.jenkins_user.nil?
       jenkins_instance.create_client(jenkins_instance.jenkins_user.name, jenkins_instance.jenkins_user.token)
     end
 
@@ -67,6 +67,6 @@ module ForemanPipeline
       errors.add(:base,
        "Cannot add content view, only non-composites allowed.") if !content_view.nil? && content_view.composite?
     end
-    
+
   end
 end

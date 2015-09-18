@@ -1,7 +1,7 @@
 module ForemanPipeline
   class Api::JenkinsInstancesController < Katello::Api::V2::ApiController
     respond_to :json
-   
+
     include Api::Rendering
 
     before_filter :find_jenkins_instance, :only => [:show, :update, :destroy, :check_jenkins, :set_jenkins_user]
@@ -22,7 +22,7 @@ module ForemanPipeline
 
     api :GET, "/organizations/:organization_id/jenkins_instances", N_("List jenkins instances")
     param :organization_id, :number, :desc => N_("organization identifier"), :required => true
-    param :name, String, :desc => N_("Name of the jenkins instance")  
+    param :name, String, :desc => N_("Name of the jenkins instance")
     def index
       ids = JenkinsInstance.readable.where(:organization_id => @organization.id).pluck(:id)
       filters = [:terms => {:id => ids}]
@@ -46,7 +46,7 @@ module ForemanPipeline
       rollback = false
       JenkinsInstance.transaction do
         @jenkins_instance.save!
-        task = sync_task(::Actions::ForemanPipeline::JenkinsInstance::CreateJenkinsInstanceKeys, 
+        task = sync_task(::Actions::ForemanPipeline::JenkinsInstance::CreateJenkinsInstanceKeys,
                       :jenkins_url => jenkins_instance_params[:url],
                       :cert_path => @jenkins_instance.cert_path,
                       :jenkins_home => jenkins_instance_params[:jenkins_home])
@@ -58,8 +58,8 @@ module ForemanPipeline
           raise ActiveRecord::Rollback
           rollback = true
         end
-      end       
-      
+      end
+
       if rollback
         fail ::Katello::HttpErrors::Conflict, "Could not access Jenkins server, are you sure you set up certificates?"
       else
@@ -94,7 +94,7 @@ module ForemanPipeline
     param_group :jenkins_instance_id
     def check_jenkins
       task = sync_task(::Actions::ForemanPipeline::Jenkins::GetVersion,
-                         :id => @jenkins_instance.id, 
+                         :id => @jenkins_instance.id,
                          :name => @jenkins_instance.name)
       @jenkins_instance.server_version = task.output[:version]
       respond_for_show

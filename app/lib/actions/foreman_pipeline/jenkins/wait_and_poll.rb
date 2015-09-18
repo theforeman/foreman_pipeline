@@ -4,7 +4,7 @@ module Actions
       class WaitAndPoll < AbstractJenkinsAction
         include Dynflow::Action::Polling
         include Dynflow::Action::Cancellable
-        
+
         def external_task
           output[:result]
         end
@@ -26,7 +26,7 @@ module Actions
         def poll_interval
           5
         end
-        
+
       end
     end
   end

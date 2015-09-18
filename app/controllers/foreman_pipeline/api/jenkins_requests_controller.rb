@@ -16,13 +16,13 @@ module ForemanPipeline
       respond_for_async(:resource => task)
     end
 
-    private 
+    private
 
     def find_job
       @job = Job.find_by_id(params[:job_id])
       fail ::Katello::HttpErrors::NotFound, "Could not find job with id #{params[:job_id]}" if @job.nil?
-      @job 
+      @job
     end
-    
+
   end
 end

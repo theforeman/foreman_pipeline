@@ -1,15 +1,15 @@
-require 'test_helper'
+require "test_helper"
 
 def katello_root
   "#{ForemanPipeline::Engine::Railties.engines
     .select {|engine| engine.railtie_name == "katello"}
-    .first.config.root}"  
+    .first.config.root}"
 end
 
-# requiring Katello's helper does not work, it requires more files that cannot be reached
-# require "#{katello_root}/test/katello_test_helper"
-
 require "#{katello_root}/spec/models/model_spec_helper"
+FactoryGirl.definition_file_paths << File.join(katello_root, 'test', 'factories')
+FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
+FactoryGirl.reload
 
 class ActiveSupport::TestCase
 
@@ -24,5 +24,5 @@ class ActiveSupport::TestCase
     User.current = saved_user
     organization
   end
-  
+
 end

@@ -37,7 +37,7 @@ module ForemanPipeline
         @instance.errors[:url].wont_be_empty
         @instance.errors[:cert_path].wont_be_empty
         @instance.errors[:jenkins_home].wont_be_empty
-      end      
+      end
     end
 
     describe "creating" do
@@ -52,10 +52,10 @@ module ForemanPipeline
       end
     end
 
-    
+
 
     describe "updating" do
-      
+
       it "should accept name" do
         j = JenkinsInstance.find_by_name(i_name)
         j.wont_be :nil?

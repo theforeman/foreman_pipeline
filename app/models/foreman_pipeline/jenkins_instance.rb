@@ -11,10 +11,10 @@ module ForemanPipeline
 
     belongs_to :organization
     has_many :jobs, :class_name => "ForemanPipeline::Job", :dependent => :nullify
-    belongs_to :jenkins_user, :class_name => "ForemanPipeline::JenkinsUser" 
+    belongs_to :jenkins_user, :class_name => "ForemanPipeline::JenkinsUser"
 
     FILEPATH_REGEX = /^(\/|~)[a-z0-9\-_.\/]*[^\/]$/i
-    
+
     validates :name, :presence => true
     validates :cert_path, :format => {:with => FILEPATH_REGEX }
     validates :url, :uniqueness => true, :format => { :with => /^(http|https):\/\/\S+:\d{1,4}$/}
@@ -25,7 +25,7 @@ module ForemanPipeline
     def create_client(username = nil, password = nil)
       fail "Cannot create Jenkins client: no url in Jenkins Instance" if url.nil?
       fail "Token required if username given." if !username.nil? && password.nil?
-      
+
       if !@client.nil? && @client.username.nil? && !username.nil?
         @client = new_client username, password
       else
@@ -33,7 +33,7 @@ module ForemanPipeline
       end
       @client
     end
-    
+
     private
 
     def authenticated_client(username, password, hash_args)
@@ -46,6 +46,6 @@ module ForemanPipeline
       return JenkinsApi::Client.new(hash_args) if username.nil?
       authenticated_client username, password, hash_args
     end
-    
+
   end
 end

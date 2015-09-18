@@ -15,7 +15,7 @@ module Actions
           plan_self(:trigger => trigger.output,
                     :job_ids => allowed_jobs.map(&:id),
                     :job_names => allowed_jobs.map(&:name))
-        end        
+        end
       end
     end
   end

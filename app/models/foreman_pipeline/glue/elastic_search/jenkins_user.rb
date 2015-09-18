@@ -3,9 +3,9 @@ module ForemanPipeline
 
     def self.included(base)
       base.class_eval do
-        include Glue::ElasticSearch::BaseModel        
+        include Glue::ElasticSearch::BaseModel
       end
     end
 
-  end  
+  end
 end

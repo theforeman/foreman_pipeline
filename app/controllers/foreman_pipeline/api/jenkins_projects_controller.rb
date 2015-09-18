@@ -25,7 +25,5 @@ module ForemanPipeline
       params.require(:jenkins_project).permit(:name)
     end
 
-
-    
   end
 end
