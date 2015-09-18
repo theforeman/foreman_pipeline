@@ -6,12 +6,11 @@ module Actions
 
         def plan(job)
           sequence do
-            job.to_environments.each do |env|
+            job.envs_for_promotion.each do |env|
               plan_action(::Actions::Katello::ContentView::Promote, job.target_cv_version, env, false)
             end
           end
         end
-
       end
     end
   end

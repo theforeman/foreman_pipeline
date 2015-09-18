@@ -26,7 +26,7 @@ module ForemanPipeline
 
     validates :name, :presence => true
     validates :organization, :presence => true
-    validate :no_composite_view
+    validate :no_composite_view, :check_env_succession
 
     def is_valid?
       !self.attributes.values.include?(nil) && !self.jenkins_instance.jenkins_user.nil?
@@ -39,6 +39,7 @@ module ForemanPipeline
     def target_cv_version
       fail "Cannot fetch target version, no environment set" if environment.nil?
       fail "Cannot fetch target version, no content view set" if content_view.nil?
+      fail "Content view has no versions!" if content_view.content_view_versions.empty?
       self.environment.content_view_versions.where(:content_view_id => self.content_view.id).first
     end
 
@@ -49,12 +50,31 @@ module ForemanPipeline
       jenkins_instance.create_client(jenkins_instance.jenkins_user.name, jenkins_instance.jenkins_user.token)
     end
 
-    def version_already_promoted?
-      self.target_cv_version.environments.include?(self.environment.successor)
+    #Is any to_env set? (Do we want to promote to any env?)
+    def should_be_promoted?
+      !to_environments.empty?
     end
 
-    def environment_in_paths?(env_id)
-      paths.map(&:full_path).flatten.uniq.map(&:id).include? env_id
+    # this shlould make sure not to trigger cyclic runs in hook actions
+    def not_yet_promoted?
+      # no to_envs means we do not want to promote, no need to check further here
+      return true if to_environments.empty?
+      #we want to promote, but are any of to_envs safe to promote to?
+      can_be_promoted?
+    end
+
+    #If we want to promote, is it safe (or could we get a cycle)?
+    def promotion_safe?
+      should_be_promoted? ? can_be_promoted? : false
+    end
+
+    #we have some to_envs set (== we want to promote), but cv version may already be in those envs
+    def envs_for_promotion
+      to_environments.reject { |env| target_cv_version.environments.include?(env) }
+    end
+
+    def can_be_promoted?
+      !envs_for_promotion.empty?
     end
 
     def available_compute_resources
@@ -68,5 +88,14 @@ module ForemanPipeline
        "Cannot add content view, only non-composites allowed.") if !content_view.nil? && content_view.composite?
     end
 
+    def check_env_succession
+      if environment && should_be_promoted?
+        to_environments.each do |to_env|
+          unless to_env.prior == environment
+            errors.add(:base, "Environment succession violation: #{to_env.name}")
+          end
+        end
+      end
+    end
   end
 end

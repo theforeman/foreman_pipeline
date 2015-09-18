@@ -11,7 +11,7 @@ module Actions
           valid_jobs = repo.jobs.select { |job| job.is_valid? }
 
           jobs_to_run = valid_jobs.select { |job| job.target_cv_version_avail? }
-          allowed_jobs = jobs_to_run.select { |job| job.sync_trigger && !job.version_already_promoted? }
+          allowed_jobs = jobs_to_run.select { |job| job.sync_trigger && job.not_yet_promoted? }
           grouped_jobs = allowed_jobs.group_by(&:target_cv_version).values
 
           if grouped_jobs.max_by(&:length).length > 1

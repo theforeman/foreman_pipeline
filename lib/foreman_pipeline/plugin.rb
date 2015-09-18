@@ -1,8 +1,9 @@
 Foreman::Plugin.register :foreman_pipeline do
-  
+  requires_foreman '>= 1.9'
+
   sub_menu :top_menu, :foreman_pipeline_menu, :caption => N_('Pipeline') do
     menu :top_menu,
-         :jobs,       
+         :jobs,
          :caption => N_("Jobs"),
          :url => '/jobs',
          :url_hash => {:controller => 'foreman_pipeline/api/jobs', :action => 'index'},

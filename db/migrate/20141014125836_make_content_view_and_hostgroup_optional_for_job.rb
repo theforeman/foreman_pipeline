@@ -1,5 +1,5 @@
 class MakeContentViewAndHostgroupOptionalForJob < ActiveRecord::Migration
-  def up    
+  def up
     change_column_null :integration_jobs, :content_view_id, true
     change_column_null :integration_jobs, :hostgroup_id, true
   end

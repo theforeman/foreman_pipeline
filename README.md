@@ -42,6 +42,7 @@ rake foreman_pipeline:seed
 |:-------:|:-------:|:-------------------:|:------------------:|:----------------:|
 |>= 1.9   | >= 2.3  | ~> 0.0.1            | < 2.0.0            |   0.0.1          |
 
+
 ##Usage##
 
 See [wiki](https://github.com/xprazak2/foreman-pipeline/wiki/Jobs).
