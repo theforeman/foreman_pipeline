@@ -17,7 +17,7 @@ module Actions
         end
 
         def humanized_name
-          "Run manually ForemanPipeline::Job: %s" % input[:name]
+          "Run manually ForemanPipeline::Job: #{input[:name]}"
         end
       end
     end
