@@ -4,13 +4,13 @@ This project provides support for Jenkins builds triggered from within Foreman. 
 
 ##Installation##
 
- Not gemified yet, can be used from source.
+from source:
 
 ```
 #foreman/bundler.d/*.local.rb
 gemspec :path => 'path/to/this/plugin'
 ```
-Foreman Deployments have not yet been released, which means you have to manually clone their [repo](https://github.com/theforeman/foreman_deployments) and add them to Foreman the same way as this plugin.
+
 Then execute from Foreman's root
 ```
 bundle install
@@ -21,10 +21,16 @@ rake foreman_pipeline:seed
 ##Dependencies##
 
 * [Katello](https://github.com/Katello/katello)
-* [Foreman](https://github.com/theforeman/foreman), >= 1.9, because we depend on Foreman Deployments now
-* [Bastion](https://github.com/Katello/bastion), < 3.0.0.
+* [Foreman](https://github.com/theforeman/foreman)
+* [Bastion](https://github.com/Katello/bastion)
 * [Foreman Deployments](https://github.com/theforeman/foreman_deployments)
-* [Jenkins API client](https://github.com/arangamani/jenkins_api_client), < 2.0.0
+* [Jenkins API client](https://github.com/arangamani/jenkins_api_client)
+
+##Versions##
+
+|Foreman  |Katello  |Bastion             |Foreman Deployments  |Jenkins API client  |Foreman Pipeline  |
+|:-------:|:-------:|:------------------:|:-------------------:|:------------------:|:----------------:|
+|>= 1.9   | >= 2.3  |>= 2.0.0, < 3.0.0   | ~> 0.0.1            | < 2.0.0            |   0.0.1          |
 
 ##Usage##
 
