@@ -22,15 +22,14 @@ rake foreman_pipeline:seed
 
 * [Katello](https://github.com/Katello/katello)
 * [Foreman](https://github.com/theforeman/foreman)
-* [Bastion](https://github.com/Katello/bastion)
 * [Foreman Deployments](https://github.com/theforeman/foreman_deployments)
 * [Jenkins API client](https://github.com/arangamani/jenkins_api_client)
 
 ##Versions##
 
-|Foreman  |Katello  |Bastion             |Foreman Deployments  |Jenkins API client  |Foreman Pipeline  |
-|:-------:|:-------:|:------------------:|:-------------------:|:------------------:|:----------------:|
-|>= 1.9   | >= 2.3  |>= 2.0.0, < 3.0.0   | ~> 0.0.1            | < 2.0.0            |   0.0.1          |
+|Foreman  |Katello  |Foreman Deployments  |Jenkins API client  |Foreman Pipeline  |
+|:-------:|:-------:|:-------------------:|:------------------:|:----------------:|
+|>= 1.9   | >= 2.3  | ~> 0.0.1            | < 2.0.0            |   0.0.1          |
 
 ##Usage##
 
