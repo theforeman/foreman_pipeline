@@ -4,7 +4,18 @@ This project provides support for Jenkins builds triggered from within Foreman. 
 
 ##Installation##
 
-from source:
+```
+gem install foreman_pipeline
+```
+
+and
+
+```
+#foreman/bundler.d/*.local.rb
+gem 'foreman_pipeline'
+```
+
+or from source:
 
 ```
 #foreman/bundler.d/*.local.rb
