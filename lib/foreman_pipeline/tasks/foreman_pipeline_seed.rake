@@ -12,7 +12,5 @@ namespace :foreman_pipeline  do
         tmplt.update_attributes(defaults.merge(template))
       end
     end
-    
   end
-  
 end
