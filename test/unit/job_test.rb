@@ -185,4 +185,51 @@ class JobTest < ActiveSupport::TestCase
     job.save
     assert_equal "Environment succession violation: #{to_env.name}", job.errors[:base].first
   end
+
+  test "was not yet promoted" do
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
+    env = Katello::KTEnvironment.find(katello_environments(:library))
+    job = ForemanPipeline::Job.create(:name => "test job",
+                                      :organization => @organization,
+                                      :hostgroup => @hostgroup,
+                                      :compute_resource => @compute_resource,
+                                      :content_view => cv,
+                                      :jenkins_instance => @jenkins_instance,
+                                      :environment => env,
+                                      :to_environments => [])
+    assert job.not_yet_promoted?
+  end
+
+  test "there should be env for promotion" do
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
+    env = Katello::KTEnvironment.find(katello_environments(:dev))
+    to_env = Katello::KTEnvironment.find(katello_environments(:test))
+
+    job = ForemanPipeline::Job.create(:name => "test job",
+                                      :organization => @organization,
+                                      :hostgroup => @hostgroup,
+                                      :compute_resource => @compute_resource,
+                                      :content_view => cv,
+                                      :jenkins_instance => @jenkins_instance,
+                                      :environment => env,
+                                      :to_environments => [to_env])
+    assert_equal 1, job.envs_for_promotion.count
+    assert_equal to_env, job.envs_for_promotion.first
+  end
+
+  test "there shloud not be env for promotion" do
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
+    env = Katello::KTEnvironment.find(katello_environments(:library))
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev))
+
+    job = ForemanPipeline::Job.create(:name => "test job",
+                                      :organization => @organization,
+                                      :hostgroup => @hostgroup,
+                                      :compute_resource => @compute_resource,
+                                      :content_view => cv,
+                                      :jenkins_instance => @jenkins_instance,
+                                      :environment => env,
+                                      :to_environments => [to_env])
+    assert job.envs_for_promotion.empty?
+  end
 end
