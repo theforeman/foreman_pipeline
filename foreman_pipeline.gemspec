@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency "bastion", "~> 2.0"
   s.add_dependency "net-ssh", "<= 2.9.2"
   s.add_dependency "net-scp", "~> 1.2"
-  s.add_dependency "jenkins_api_client", "~> 1.4"
+  s.add_dependency "jenkins_api_client", "~> 1.4.0"
 end
