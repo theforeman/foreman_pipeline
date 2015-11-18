@@ -39,7 +39,7 @@ module ForemanPipeline
 
     config.to_prepare do
 
-      Bastion.register_plugin({
+      ::Bastion.register_plugin({
         :name => 'foreman_pipeline',
         :javascript => 'foreman_pipeline/foreman_pipeline',
         :stylesheet => 'foreman_pipeline/foreman_pipeline',
