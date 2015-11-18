@@ -2,6 +2,7 @@ module ForemanPipeline
   class Engine < ::Rails::Engine
     isolate_namespace ForemanPipeline
     require 'foreman_deployments'
+    require 'bastion'
 
     initializer 'foreman_pipeline.mount_engine', :after => :build_middleware_stack do |app|
       app.routes_reloader.paths << "#{ForemanPipeline::Engine.root}/config/mount_engine.rb"
