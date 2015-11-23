@@ -9,6 +9,8 @@ module ForemanPipeline
 
     after_destroy :remove_orphaned_projects
 
+    attr_accessible :job_id, :jenkins_project_id
+
     private
 
     def org_membership
