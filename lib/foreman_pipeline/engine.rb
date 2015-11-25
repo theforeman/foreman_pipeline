@@ -10,7 +10,9 @@ module ForemanPipeline
     end
 
     initializer 'foreman_pipeline.load_app_instance_data' do |app|
-      app.config.paths['db/migrate'] += ForemanPipeline::Engine.paths['db/migrate'].existent
+      ForemanPipeline::Engine.paths['db/migrate'].existent.each do |path|
+        app.config.paths['db/migrate'] << path
+      end
       app.config.autoload_paths += Dir["#{config.root}/app/lib"]
       app.config.autoload_paths += Dir["#{config.root}/app/views/foreman"]
     end

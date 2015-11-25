@@ -8,6 +8,8 @@ module ForemanPipeline
 
     belongs_to :organization
 
+    attr_accessible :name, :organization_id
+
     has_many :job_jenkins_projects, :dependent => :destroy
     has_many :jobs, :through => :job_jenkins_projects, :class_name => 'ForemanPipeline::Job'
 

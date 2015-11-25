@@ -28,6 +28,9 @@ module ForemanPipeline
     validates :organization, :presence => true
     validate :no_composite_view, :check_env_succession
 
+    attr_accessible :name, :content_view_id, :hostgroup_id, :organization_id, :compute_resource_id, :jenkins_instance_id,
+      :environment_id, :manual_trigger, :levelup_trigger, :sync_trigger
+
     def is_valid?
       !self.attributes.values.include?(nil) && !self.jenkins_instance.jenkins_user.nil?
     end

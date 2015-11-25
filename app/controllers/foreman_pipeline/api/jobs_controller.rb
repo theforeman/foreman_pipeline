@@ -200,7 +200,7 @@ module ForemanPipeline
       rollback = {:occured => false}
       Job.transaction do
         projects = params[:projects].map do |p|
-          JenkinsProject.create(:name => p, :organization => @organization)
+          JenkinsProject.create(:name => p, :organization_id => @organization.id)
         end
         projects_to_add = projects.delete_if { |p| @job.jenkins_projects.include? p }
         @job.jenkins_projects = @job.jenkins_projects + projects_to_add
