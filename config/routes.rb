@@ -5,13 +5,13 @@ class ActionDispatch::Routing::Mapper
 end
 
 ForemanPipeline::Engine.routes.draw do
-  
+
 
   scope :foreman_pipeline, :path => '/foreman_pipeline' do
-    
+
     namespace :api do
-    
-      api_resources :organizations, :only => [] do  
+
+      api_resources :organizations, :only => [] do
         api_resources :jobs do
           member do
             put :set_content_view
@@ -23,7 +23,7 @@ ForemanPipeline::Engine.routes.draw do
             get :run_job
             put :add_projects
             put :remove_projects
-            put :set_to_environments            
+            put :set_to_environments
             get :available_paths
           end
         end
@@ -46,8 +46,8 @@ ForemanPipeline::Engine.routes.draw do
         api_resources :jenkins_project_params, :only => [:update]
 
         api_resources :jenkins_users, :only => [:index, :create, :destroy, :show, :update]
-        
+
       end
     end
-  end  
+  end
 end

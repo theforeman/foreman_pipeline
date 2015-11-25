@@ -31,6 +31,10 @@ module ForemanPipeline
       }
     end
 
+    initializer "foreman_pipeline.apipie" do
+      Apipie.configuration.checksum_path += ['/foreman_pipeline/api/']
+    end
+
     initializer 'foreman_pipeline.register_actions', :before => 'foreman_tasks.initialize_dynflow' do |app|
       ForemanTasks.dynflow.require!
 
