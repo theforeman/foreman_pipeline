@@ -22,5 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency "bastion", "~> 2.0"
   s.add_dependency "net-ssh", "~> 2.9"
   s.add_dependency "net-scp", "~> 1.1"
-  s.add_dependency "less-rails", "~> 2.5.0" #to install in test env for bastion
+  #TODO: find a way to install this in a test env on jenkins for bastion
+  # s.add_dependency "less-rails", "~> 2.5.0"
 end
