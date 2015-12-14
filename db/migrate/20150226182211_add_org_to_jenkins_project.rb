@@ -1,6 +1,7 @@
 class AddOrgToJenkinsProject < ActiveRecord::Migration
   def up
-    add_column :integration_jenkins_projects, :organization_id, :integer, :null => false
+    add_column :integration_jenkins_projects, :organization_id, :integer
+    change_column :integration_jenkins_projects, :organization_id, :integer, :null => false
   end
 
   def down
