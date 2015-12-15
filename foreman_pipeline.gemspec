@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Makes Foreman talk to Jenkins CI server."
   s.description = "Jenkins is able to deploy artifacts onto newly provisioned host by Foreman"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib,script}/**/*"] + ["LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "foreman_deployments", "~> 0.0.1"
