@@ -3,7 +3,6 @@ module ForemanPipeline
     self.include_root_in_json = false
 
     include Katello::Glue
-    include Glue::ElasticSearch::JenkinsUser
     include ForemanPipeline::Authorization::JenkinsUser
 
     belongs_to :organization
@@ -13,5 +12,7 @@ module ForemanPipeline
     validates :token, :presence => true
 
     attr_accessible :name, :token, :organization_id
+
+    scoped_search :on => :name, :complete_value => true
   end
 end

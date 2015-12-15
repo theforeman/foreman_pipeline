@@ -3,6 +3,7 @@ module ForemanPipeline
     respond_to :json
 
     include Api::Rendering
+    include Concerns::ApiControllerExtensions
 
     before_filter :find_organization, :only => [:create, :index, :add_projects, :available_paths]
 
@@ -11,8 +12,6 @@ module ForemanPipeline
                                        :set_jenkins, :set_environment, :run_job,
                                        :add_projects, :remove_projects, :set_to_environments,
                                        :available_paths]
-
-    before_filter :load_search_service, :only => [:index]
 
     def_param_group :job do
       param :name, String, :desc => N_("Name of the job"), :required => true
@@ -31,15 +30,17 @@ module ForemanPipeline
     param :organization_id, :number, :desc => N_("organization identifier"), :required => true
     param :name, String, :desc => N_("Name of the job")
     def index
-      ids = Job.readable.where(:organization_id => @organization.id).pluck(:id)
-      filters = [:terms => {:id => ids}]
-      filters << {:term => {:name => params[:name]}} if params[:name]
+      respond_for_index(:collection => scoped_search(index_relation.uniq, params[:sort_by], params[:sort_order]))
+    end
 
-      options = {
-         :filters => filters,
-         :load_records? => true
-      }
-      respond_for_index(:collection => item_search(Job, params, options))
+    def index_relation
+      query = Job.readable.where(:organization_id => @organization.id)
+      query = query.where(:name => params[:name]) if params[:name]
+      query = query.where(:manual_trigger => params[:manual_trigger]) if params[:manual_trigger]
+      query = query.where(:sync_trigger => params[:sync_trigger]) if params[:sync_trigger]
+      query = query.where(:levelup_trigger => params[:levelup_trigger]) if params[:levelup_trigger]
+      query = query.where(:promote => params[:promote]) if params[:promote]
+      query
     end
 
     api :GET, "/organizations/:organization_id/jobs/:id", N_("Get job by identifier")

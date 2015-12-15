@@ -6,7 +6,6 @@ module ForemanPipeline
 
     attr_accessor :client, :server_version
     include Katello::Glue
-    include Glue::ElasticSearch::JenkinsInstance
     include ForemanPipeline::Authorization::JenkinsInstance
 
     attr_accessible :name, :url, :organization_id, :pubkey, :jenkins_home, :cert_path, :jenkins_user_id
@@ -22,6 +21,8 @@ module ForemanPipeline
     validates :url, :uniqueness => true, :format => { :with => /^(http|https):\/\/\S+:\d{1,4}$/}
     validates :organization, :presence => true
     validates :jenkins_home, :format => { :with => FILEPATH_REGEX }
+
+    scoped_search :on => :name , :complete_value => true
 
     # TODO: loose coupling
     def create_client(username = nil, password = nil)

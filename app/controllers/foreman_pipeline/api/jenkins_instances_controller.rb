@@ -3,10 +3,10 @@ module ForemanPipeline
     respond_to :json
 
     include Api::Rendering
+    include Concerns::ApiControllerExtensions
 
     before_filter :find_jenkins_instance, :only => [:show, :update, :destroy, :check_jenkins, :set_jenkins_user]
     before_filter :find_organization, :only => [:index, :create]
-    before_filter :load_search_service, :only => [:index]
 
     def_param_group :jenkins_instance do
       param :name, String, :desc => N_("Jenkins instance's name")
@@ -24,16 +24,13 @@ module ForemanPipeline
     param :organization_id, :number, :desc => N_("organization identifier"), :required => true
     param :name, String, :desc => N_("Name of the jenkins instance")
     def index
-      ids = JenkinsInstance.readable.where(:organization_id => @organization.id).pluck(:id)
-      filters = [:terms => {:id => ids}]
-      filters << {:term => {:name => params[:name]}} if params[:name]
+      respond_for_index(:collection => scoped_search(index_relation.uniq, params[:sort_by], params[:sort_order]))
+    end
 
-      options = {
-        :filters => filters,
-        :load_records? => true
-      }
-
-      respond_for_index(:collection => item_search(JenkinsInstance, params, options))
+    def index_relation
+      query = JenkinsInstance.where(:organization_id => @organization.id)
+      query = query.where(:name => params[:name]) if params[:name]
+      query
     end
 
     api :POST, "/organizations/:organization_id/jenkins_instances/:id", N_("Create jenkins instance")

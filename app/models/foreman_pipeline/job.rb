@@ -3,7 +3,6 @@ module ForemanPipeline
     self.include_root_in_json = false
 
     include Katello::Glue
-    include Glue::ElasticSearch::Job
     include ForemanPipeline::Authorization::Job
     include ActiveModel::Validations
 
@@ -30,6 +29,12 @@ module ForemanPipeline
 
     attr_accessible :name, :content_view_id, :hostgroup_id, :organization_id, :compute_resource_id, :jenkins_instance_id,
       :environment_id, :manual_trigger, :levelup_trigger, :sync_trigger
+
+    scoped_search :on => :name, :complete_value => true
+    scoped_search :on => :organization_id, :complete_value => true
+    scoped_search :on => :manual_trigger, :complete_value => true
+    scoped_search :on => :levelup_trigger, :complete_value => true
+    scoped_search :on => :sync_trigger, :complete_value => true
 
     def is_valid?
       !self.attributes.values.include?(nil) && !self.jenkins_instance.jenkins_user.nil?
