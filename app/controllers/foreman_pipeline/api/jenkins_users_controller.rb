@@ -3,6 +3,7 @@ module ForemanPipeline
     respond_to :json
 
     include Api::Rendering
+    include Concerns::ApiControllerExtensions
 
     before_filter :find_organization, :only => [:create, :index]
     before_filter :find_jenkins_user, :only => [:show, :destroy, :update]
@@ -21,17 +22,13 @@ module ForemanPipeline
     param :organization_id, :number, :desc => N_("organization identifier"), :required => true
     param :name, String, :desc => N_("Name of the jenkins instance")
     def index
-       ids = JenkinsUser.readable
-            .where(:organization_id => @organization.id)
-            .pluck(:id)
-      filters = [:terms => {:id => ids}]
-      filters << {:term => {:name => params[:name]}} if params[:name]
+      respond_for_index(:collection => scoped_search(index_relation.uniq, params[:sort_by], params[:sort_order]))
+    end
 
-      options = {
-         :filters => filters,
-         :load_records? => true
-      }
-      respond_for_index(:collection => item_search(JenkinsUser, params, options))
+    def index_relation
+      query = JenkinsUser.where(:organization_id => @organization.id)
+      query = query.where(:name => params[:name]) if params[:name]
+      query
     end
 
     api :GET, "/organizations/:organization_id/jenkins_users/:id", N_("Get jenkins user by identifier")

@@ -3,7 +3,6 @@ module ForemanPipeline
     self.include_root_in_json = false
 
     include Katello::Glue
-
     include ForemanPipeline::Authorization::JenkinsProjectParam
 
     self.inheritance_column = :_inheritance_type_disabled
