@@ -14,11 +14,11 @@ module ForemanPipeline
     has_many :jobs, :class_name => "ForemanPipeline::Job", :dependent => :nullify
     belongs_to :jenkins_user, :class_name => "ForemanPipeline::JenkinsUser"
 
-    FILEPATH_REGEX = /^(\/|~)[a-z0-9\-_.\/]*[^\/]$/i
+    FILEPATH_REGEX = /\A(\/|~)[a-z0-9\-_.\/]*[^\/]\z/i
 
     validates :name, :presence => true
     validates :cert_path, :format => {:with => FILEPATH_REGEX }
-    validates :url, :uniqueness => true, :format => { :with => /^(http|https):\/\/\S+:\d{1,4}$/}
+    validates :url, :uniqueness => true, :format => { :with => /\A(http|https):\/\/\S+:\d{1,4}\z/}
     validates :organization, :presence => true
     validates :jenkins_home, :format => { :with => FILEPATH_REGEX }
 

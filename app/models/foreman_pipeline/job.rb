@@ -14,8 +14,7 @@ module ForemanPipeline
     belongs_to :environment, :class_name => 'Katello::KTEnvironment'
 
     has_many :job_jenkins_projects, :dependent => :destroy
-    has_many :jenkins_projects, :through => :job_jenkins_projects, :class_name => 'ForemanPipeline::JenkinsProject', :dependent => :restrict
-
+    has_many :jenkins_projects, :through => :job_jenkins_projects, :class_name => 'ForemanPipeline::JenkinsProject'
     has_many :content_view_repositories, :class_name=> 'Katello::ContentViewRepository',
      :primary_key => :content_view_id, :foreign_key => :content_view_id
     has_many :repositories, :through => :content_view_repositories

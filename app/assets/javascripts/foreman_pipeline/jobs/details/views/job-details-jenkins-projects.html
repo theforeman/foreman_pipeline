@@ -6,70 +6,62 @@
   <h4>
     <span translate>Current Jenkins Projects: </span>
   </h4>
-      
-    <input type="text"
-            class="form-control filter-input"  
-            placeholder="{{ 'Filter' | translate }}"
-            ng-model="jenkinsFilter"/>
-      
-      
-      <span class="pull-right">
-        <button class="btn btn-default"
-                ng-disabled="projectsTable.numSelected === 0 || projectsTable.working"
-                ng-show="isState('jobs.details.jenkins-projects.list') && permitted('edit_jobs', job) && projectsTable.rows.length > 0"
-                ng-click="removeProjects()">
-          <i class="fa fa-minus" ng-hide="projectsTable.working"></i>
-          <i class="fa fa-spinner fa-spin" ng-show="projectsTable.working"></i>      
-          <span translate>Remove Projects</span>
-        </button>
-        
-        <button class="btn btn-default"
-                ng-show="isState('jobs.details.jenkins-projects.list') 
-                         && permitted('edit_jobs', job) 
-                         && job.jenkins_instance !== null
-                         && job.jenkins_user !== null"
-                ui-sref="jobs.details.jenkins-projects.discovery({jobId: job.id})"
-                translate>
-                <i class="fa fa-eye"></i>
-                Find more...
-        </button>
-      </span>  
 
-      
-    
-      
-      <table bst-table="projectsTable"
-             class="table table-striped"
-             ng-show="projectsTable.rows.length > 0 && !projectsTable.working"
-             ng-class="{'table-mask': projectsTable.working}">
-        <thead>
-          <tr bst-table-head row-select="jenkinsProject">
-            <th bst-table-column="name" translate>Name</th>
-          </tr>
-        </thead>
+  </br>
 
-        <tbody>
-          <tr bst-table-row ng-repeat="jenkinsProject in projectsTable.rows | filter:jenkinsFilter" row-select="jenkinsProject">
-            <td bst-table-cell>
-              <a href="" ui-sref="jobs.details.jenkins-projects.parameters({ projectId: jenkinsProject.id })">
-                {{ jenkinsProject.name }}
-              </a>
-            </td>
-          </tr>
-        </tbody>
+  <div class="details-header row">
+    <div class="col-sm-3">
+      <input type="text"
+              class="form-control filter-input"
+              placeholder="{{ 'Filter' | translate }}"
+              ng-model="jenkinsFilter"/>
+    </div>
 
-      </table>   
+
+    <div class="fr select-action">
+      <button class="btn btn-default"
+              ng-disabled="projectsTable.numSelected === 0 || projectsTable.working"
+              ng-show="isState('jobs.details.jenkins-projects.list') && permitted('edit_jobs', job) && projectsTable.rows.length > 0"
+              ng-click="removeProjects()">
+        <i class="fa fa-minus" ng-hide="projectsTable.working"></i>
+        <i class="fa fa-spinner fa-spin" ng-show="projectsTable.working"></i>
+        <span translate>Remove Projects</span>
+      </button>
+
+      <button class="btn btn-default"
+              ng-show="isState('jobs.details.jenkins-projects.list')
+                       && permitted('edit_jobs', job)
+                       && job.jenkins_instance !== null
+                       && job.jenkins_user !== null"
+              ui-sref="jobs.details.jenkins-projects.discovery({jobId: job.id})"
+              translate>
+              <i class="fa fa-eye"></i>
+              Find more...
+      </button>
+    </div>
+  </div>
+
+  <table bst-table="projectsTable"
+         class="table table-striped"
+         ng-show="projectsTable.rows.length > 0 && !projectsTable.working"
+         ng-class="{'table-mask': projectsTable.working}">
+    <thead>
+      <tr bst-table-head row-select="jenkinsProject">
+        <th bst-table-column="name" translate>Name</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr bst-table-row ng-repeat="jenkinsProject in projectsTable.rows | filter:jenkinsFilter" row-select="jenkinsProject">
+        <td bst-table-cell>
+          <a href="" ui-sref="jobs.details.jenkins-projects.parameters({ projectId: jenkinsProject.id })">
+            {{ jenkinsProject.name }}
+          </a>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
 
 </section>
 
-<div ng-show="projectsTable.rows.length === 0">
-        <div class="loading-mask loading-mask-panel" ng-show="projectsTable.working">
-          <i class="fa fa-spinner fa-spin"></i>
-            {{ "Loading..." | translate }}          
-        </div>
-
-        <p class="alert alert-info"
-           ng-hide="projectsTable.working"
-           translate> No Jenkins Projects to show.
-        </p>
-      </div>

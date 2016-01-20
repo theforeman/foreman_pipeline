@@ -1,13 +1,13 @@
 <span page-title ng-model="job">{{ 'Job: ' | translate }} {{ job.name }}</span>
 
-<div class="details details-full">
+<section class="details details-full">
   <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
   <h4>
     <span translate>Current Hostgroup: </span>
     <a ng-click="transitionToHostgroup(job.hostgroup)" ng-show="job.hostgroup.name">
       <span class="no-capitalize"  ng-bind="job.hostgroup.name"></span>
-    </a> 
+    </a>
     <span class="no-capitalize" ng-show="!job.hostgroup.name" translate>none</span>
   </h4>
 
@@ -21,8 +21,8 @@
 
     <p class="alert alert-info"
        ng-hide="hostgroupsTable.working"
-       translate> No Hostgroups to show.          
-    </p>        
+       translate> No Hostgroups to show.
+    </p>
   </div>
 
   <section ng-show="hostgroupsTable.rows.length > 0">
@@ -40,8 +40,8 @@
                   ng-hide="edit_jobs"
                   ng-disabled="!hostgroupsTable.chosenRow || hostgroupsTable.working"
                   ng-click="setHostgroup()">
-            <i class="fa fa-pencil" ng-hide="hostgroupsTable.working"></i>      
-            <i class="fa fa-spinner fa-spin" ng-show="hostgroupsTable.working"></i>      
+            <i class="fa fa-pencil" ng-hide="hostgroupsTable.working"></i>
+            <i class="fa fa-spinner fa-spin" ng-show="hostgroupsTable.working"></i>
             {{ 'Set Hostgroup' | translate }}
           </button>
       </div>
@@ -50,7 +50,7 @@
     <div bst-table="hostgroupsTable" class="nutupane">
       <div bst-container-scroll bst-infinite-scroll="hostgroupsTable.nextPage()">
 
-        <table 
+        <table
                ng-class="{'table-mask': hostgroupsTable.working}"
                class="table table-striped table-full">
 
@@ -63,7 +63,7 @@
 
           <tbody>
             <tr bst-table-row ng-repeat="hostgroup in hostgroupsTable.rows | filter:hostgroupFilter" row-choice="hostgroup">
-              
+
               <td bst-table-cell>
                 <a ng-click="transitionToHostgroup(hostgroup)">
                   {{ hostgroup.name }}
@@ -73,9 +73,9 @@
 
             </tr>
           </tbody>
-          
+
         </table>
       </div>
     </div>
   </section>
-</div>
+</section>

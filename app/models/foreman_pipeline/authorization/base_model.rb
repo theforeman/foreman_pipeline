@@ -22,7 +22,6 @@ module ForemanPipeline
         authorized(normalize_name("view"))
       end
 
-      # TODO: remove argument
       def normalize_name(action_string)
         (action_string + self.class.name.demodulize.pluralize).underscore.to_sym
       end

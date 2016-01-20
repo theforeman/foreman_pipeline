@@ -7,13 +7,15 @@ Foreman::Plugin.register :foreman_pipeline do
          :caption => N_("Jobs"),
          :url => '/jobs',
          :url_hash => {:controller => 'foreman_pipeline/api/jobs', :action => 'index'},
-         :engine => ForemanPipeline::Engine
+         :engine => ForemanPipeline::Engine,
+         :turbolinks => false
     menu :top_menu,
          :jenkins_instances,
          :caption => N_("Jenkins Instances"),
          :url => '/jenkins_instances',
          :url_hash => {:controller => 'foreman_pipeline/api/jenkins_instances', :action => 'index'},
-         :engine => ForemanPipeline::Engine
+         :engine => ForemanPipeline::Engine,
+         :turbolinks => false
 
     #skipping Bastion routes as they have no permissions
     tests_to_skip({"AccessPermissionsTest" => ["route bastion/bastion/index should have a permission that grants access",

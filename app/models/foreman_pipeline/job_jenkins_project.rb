@@ -20,7 +20,7 @@ module ForemanPipeline
     end
 
     def remove_orphaned_projects
-      JenkinsProject.find(:all).map { |p| p.destroy if p.jobs.empty? }
+      JenkinsProject.all.map { |p| p.destroy if p.jobs.empty? }
     end
 
   end

@@ -8,6 +8,10 @@ module ForemanPipeline
   class Engine < ::Rails::Engine
     isolate_namespace ForemanPipeline
 
+    initializer 'foreman_pipeline.assets_dispatcher', :before => :build_middleware_stack do |app|
+      app.middleware.use ::ActionDispatch::Static, "#{ForemanPipeline::Engine.root}/app/assets/javascripts/foreman_pipeline"
+    end
+
     initializer 'foreman_pipeline.mount_engine', :after => :build_middleware_stack do |app|
       app.routes_reloader.paths << "#{ForemanPipeline::Engine.root}/config/mount_engine.rb"
     end
@@ -20,17 +24,23 @@ module ForemanPipeline
       app.config.autoload_paths += Dir["#{config.root}/app/views/foreman"]
     end
 
-    initializer 'foreman_pipeline.register_plugin', :after => :finisher_hook do
+    initializer 'foreman_pipeline.register_plugin', :before => :finisher_hook do
       require 'foreman_pipeline/plugin'
       require 'foreman_pipeline/permissions'
       require 'foreman_pipeline/roles'
     end
 
-    initializer 'foreman_pipeline.assets', :group => :all do |app|
+    initializer 'foreman_pipeline.assets.precompile' do |app|
+       app.config.assets.precompile += %w(foreman_pipeline/foreman_pipeline.js
+                                          foreman_pipeline/foreman_pipeline.css)
+    end
+
+    initializer 'foreman_pipeline.configure_assets', :group => :assets do |app|
       SETTINGS[:foreman_pipeline] = {
         :assets => {
           :precompile => [
-            'foreman_pipeline/foreman_pipeline.js'
+            'foreman_pipeline/foreman_pipeline.js',
+            'foreman_pipeline/foreman_pipeline.css'
           ]
         }
       }
@@ -68,6 +78,7 @@ module ForemanPipeline
       ::Hostgroup.send :include, ForemanPipeline::Concerns::HostgroupExtension
       ::ComputeResource.send :include, ForemanPipeline::Concerns::ComputeResourceExtension
     end
+
 
     rake_tasks do
       load "#{ForemanPipeline::Engine.root}/lib/foreman_pipeline/tasks/foreman_pipeline_seed.rake"
