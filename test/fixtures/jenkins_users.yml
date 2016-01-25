@@ -1,0 +1,4 @@
+jenkins_user_one:
+  name: "Jenkins user"
+  token: "53asd74f6g6sd36gdsfg37d7fg3"
+  organization_id: <%= ActiveRecord::FixtureSet.identify(:empty_organization) %>

@@ -1,12 +1,8 @@
-require 'foreman_pipeline_plugin_test_helper'
+require 'foreman_pipeline_test_helper'
 
-class IntegrationTest < ActiveSupport::TestCase
-  # setup do
-  #   User.current = User.admin
-  # end
+class SanityTest < ActiveSupport::TestCase
 
   test "the truth" do
     assert true
   end
-
 end

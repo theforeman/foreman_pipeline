@@ -1,0 +1,11 @@
+valid:
+  name: "valid job"
+  organization_id: <%= ActiveRecord::FixtureSet.identify(:empty_organization) %>
+  hostgroup_id: <%= ActiveRecord::FixtureSet.identify(:common) %>
+  compute_resource_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  content_view_id: <%= ActiveRecord::FixtureSet.identify(:library_view) %>
+  jenkins_instance_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  environment_id: <%= ActiveRecord::FixtureSet.identify(:library) %>
+  manual_trigger: true
+  sync_trigger: false
+  levelup_trigger: false

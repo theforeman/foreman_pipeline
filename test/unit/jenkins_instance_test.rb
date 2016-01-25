@@ -1,4 +1,4 @@
-require 'foreman_pipeline_plugin_test_helper'
+require 'foreman_pipeline_test_helper'
 
 class JenkinsInstanceTest < ActiveSupport::TestCase
 

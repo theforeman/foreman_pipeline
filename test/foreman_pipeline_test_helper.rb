@@ -5,6 +5,11 @@ FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'factorie
 FactoryGirl.reload
 
 require "#{Katello::Engine.root}/test/support/fixtures_support"
+require "fixtures_support"
+
+require 'dynflow/testing'
+Mocha::Mock.send :include, Dynflow::Testing::Mimic
+require "#{Katello::Engine.root}/test/support/foreman_tasks/task"
 
 module FixtureTestCase
   extend ActiveSupport::Concern
@@ -17,15 +22,16 @@ module FixtureTestCase
     self.pre_loaded_fixtures = true
 
     Katello::FixturesSupport.set_fixture_classes(self)
+    ForemanPipeline::FixturesSupport.set_fixture_classes(self)
 
-    self.fixture_path = Dir.mktmpdir("katello_fixtures")
+    self.fixture_path = Dir.mktmpdir("pipeline_and_katello_fixtures")
     FileUtils.cp(Dir.glob("#{Katello::Engine.root}/test/fixtures/models/*"), self.fixture_path)
+    FileUtils.cp(Dir.glob("#{ForemanPipeline::Engine.root}/test/fixtures/*"), self.fixture_path)
     FileUtils.cp(Dir.glob("#{Rails.root}/test/fixtures/*"), self.fixture_path)
     fixtures(:all)
     FIXTURES = load_fixtures(ActiveRecord::Base)
 
     # load_permissions
-
     Setting::Katello.load_defaults
   end
 
@@ -50,5 +56,11 @@ class ActiveSupport::TestCase
     organization.save!
     User.current = saved_user
     organization
+  end
+end
+
+class ActionController::TestCase
+  def setup_engine_routes
+    @routes = ForemanPipeline::Engine.routes
   end
 end

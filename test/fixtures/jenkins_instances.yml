@@ -1,0 +1,8 @@
+one:
+  name: "jenkins.example.com"
+  url: "http://jenkins.example.com:3000"
+  organization_id: <%= ActiveRecord::FixtureSet.identify(:empty_organization) %>
+  pubkey: "sha-rsa 3gsdf5gsdf4g== jenkins@jenkins.example.com"
+  jenkins_home: "/var/lib/jenkins"
+  cert_path: "/tmp/my_certs"
+  jenkins_user_id: <%= ActiveRecord::FixtureSet.identify(:jenkins_user_one) %>

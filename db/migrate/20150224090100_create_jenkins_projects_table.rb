@@ -3,13 +3,13 @@ class CreateJenkinsProjectsTable < ActiveRecord::Migration
     create_table "integration_jenkins_projects" do |t|
       t.string "name",                  :null => false
     end
-    
+
     create_table "integration_job_jenkins_projects" do |t|
-      t.integer "job_id"              
-      t.integer "jenkins_project_id" 
+      t.integer "job_id"
+      t.integer "jenkins_project_id"
       t.datetime "created_at",          :null => false
       t.datetime "updated_at",          :null => false
-    end    
+    end
   end
 
   def down

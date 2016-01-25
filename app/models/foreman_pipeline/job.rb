@@ -24,7 +24,7 @@ module ForemanPipeline
 
     validates :name, :presence => true
     validates :organization, :presence => true
-    validate :no_composite_view, :check_env_succession
+    validate :no_composite_view, :env_succession, :compute_resource_on_hg, :compute_profile_on_hg
 
     attr_accessible :name, :content_view_id, :hostgroup_id, :organization_id, :compute_resource_id, :jenkins_instance_id,
       :environment_id, :manual_trigger, :levelup_trigger, :sync_trigger, :content_view, :hostgroup, :organization, :compute_resource,
@@ -85,6 +85,8 @@ module ForemanPipeline
     end
 
     def available_compute_resources
+      # ids = ComputeAttribute.where(:compute_profile_id => hostgroup.compute_profile_id).map(&:compute_resource_id)
+      # ComputeResource.where(:id => ids)
       hostgroup.compute_profile.compute_attributes.map(&:compute_resource) rescue []
     end
 
@@ -95,13 +97,25 @@ module ForemanPipeline
        "Cannot add content view, only non-composites allowed.") if !content_view.nil? && content_view.composite?
     end
 
-    def check_env_succession
+    def env_succession
       if environment && should_be_promoted?
         to_environments.each do |to_env|
           unless to_env.prior == environment
             errors.add(:base, "Environment succession violation: #{to_env.name}")
           end
         end
+      end
+    end
+
+    def compute_profile_on_hg
+      errors.add(:base,
+        "Cannot add Hostgroup without Compute Profile") if hostgroup && hostgroup.compute_profile.nil?
+    end
+
+    def compute_resource_on_hg
+      if hostgroup && compute_resource && !available_compute_resources.include?(compute_resource)
+        errors.add(:base,
+          "Cannot add a Compute resource that is not associated with assigned Hostgroup through a Compute profile")
       end
     end
   end

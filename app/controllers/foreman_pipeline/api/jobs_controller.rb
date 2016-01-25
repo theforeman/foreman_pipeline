@@ -81,7 +81,6 @@ module ForemanPipeline
     param :content_view_id, :number, :desc => N_("Content view id which will be set"), :required => true
     def set_content_view
       cv = Katello::ContentView.find(params[:content_view_id])
-      fail Katello::HttpErrors::Conflict, "Only non-composite views are accepted" if cv.composite?
       @job.content_view = cv
       @job.save!
       respond_for_show
@@ -121,13 +120,9 @@ module ForemanPipeline
     param_group :job_id
     param :resource_id, :number, :desc => N_("Compute resource id which will be set"), :required => true
     def set_resource
-      if @job.available_compute_resources.map(&:id).include? params[:resource_id]
-        @job.compute_resource = ComputeResource.find(params[:resource_id])
-        @job.save!
-        respond_for_show
-      else
-        fail Katello::HttpErrors::Conflict, "Only a Compute Resource configured for Job's Hostgroup may be set."
-      end
+      @job.compute_resource = ComputeResource.find(params[:resource_id])
+      @job.save!
+      respond_for_show
     end
 
     api :PUT, "/organizations/:organization_id/jobs/:id/set_to_environments", N_("Set 'to environments' for the job")
@@ -137,7 +132,7 @@ module ForemanPipeline
       fail Katello::HttpErrors::Conflict, "Job's environment must be assigned before setting 'to environments'." if @job.environment.nil?
       fail Katello::HttpErrors::Conflict, "Job's environment does not have any successors" if @job.environment.successors.empty?
       is_ok = params[:to_environment_ids].map do |new_id|
-        @job.environment.successors.map(&:id).include? new_id
+        @job.environment.successors.map(&:id).include? new_id.to_i
       end.all?
       if is_ok
         @job.to_environment_ids = params[:to_environment_ids]
@@ -194,7 +189,7 @@ module ForemanPipeline
       end
     end
 
-    api :GET, "/organizations/:organization_id/jobs/:id/add_projects", N_("Add jenkins projects to the job")
+    api :PUT, "/organizations/:organization_id/jobs/:id/add_projects", N_("Add jenkins projects to the job")
     param_group :job_id
     param :projects, Array, :desc => N_("Names of the jenkins projects to be added to the job")
     def add_projects
@@ -206,7 +201,6 @@ module ForemanPipeline
         projects_to_add = projects.delete_if { |p| @job.jenkins_projects.include? p }
         @job.jenkins_projects = @job.jenkins_projects + projects_to_add
         @job.save!
-
         projects_to_add.each do |project|
           project.reload
           task = sync_task(::Actions::ForemanPipeline::Jenkins::GetBuildParams, :job_id => @job.id, :name => project.name)
@@ -234,7 +228,7 @@ module ForemanPipeline
       end
     end
 
-    api :GET, "/organizations/:organization_id/jobs/:id/remove_projects", N_("Remove jenkins projects from the job")
+    api :PUT, "/organizations/:organization_id/jobs/:id/remove_projects", N_("Remove jenkins projects from the job")
     param_group :job_id
     param :projects, Array, :desc => N_("Identifiers of the projects to be removed from the job")
     def remove_projects

@@ -1,0 +1,7 @@
+valid_first:
+  job_id: <%= ActiveRecord::FixtureSet.identify(:valid) %>
+  jenkins_project_id: <%= ActiveRecord::FixtureSet.identify(:first) %>
+valid_second:
+  job_id: <%= ActiveRecord::FixtureSet.identify(:valid) %>
+  jenkins_project_id: <%= ActiveRecord::FixtureSet.identify(:second) %>
+
