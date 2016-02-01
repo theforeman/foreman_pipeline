@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "foreman_deployments", "~> 0.0.1"
   s.add_dependency "jenkins_api_client", "~> 1.4.0"
-  s.add_dependency "katello", "~> 2.5.0"
-  s.add_dependency "bastion", "~> 2.0"
+  # s.add_dependency "katello", "~> 2.5.0"
+  # s.add_dependency "bastion", "~> 2.0"
   s.add_dependency "net-ssh", "~> 2.9"
   s.add_dependency "net-scp", "~> 1.1"
   #TODO: find a way to install this in a test env on jenkins for bastion
