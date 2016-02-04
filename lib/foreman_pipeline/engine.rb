@@ -1,11 +1,12 @@
+require 'foreman_pipeline/monkeys'
+require 'bastion'
+require 'katello'
+require 'net/ssh'
+require 'net/scp'
+
 module ForemanPipeline
   class Engine < ::Rails::Engine
     isolate_namespace ForemanPipeline
-    require 'foreman_deployments'
-    require 'bastion'
-    require 'katello'
-    require 'net/ssh'
-    require 'net/scp'
 
     initializer 'foreman_pipeline.mount_engine', :after => :build_middleware_stack do |app|
       app.routes_reloader.paths << "#{ForemanPipeline::Engine.root}/config/mount_engine.rb"
