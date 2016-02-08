@@ -1,0 +1,20 @@
+simple:
+  compute_profile_id: <%= ActiveRecord::FixtureSet.identify(:small) %>
+  compute_resource_id: <%= ActiveRecord::FixtureSet.identify(:ec2) %>
+  vm_attrs:
+    flavor_id: m1.small
+    availability_zone: eu-west-1a
+
+intermediate:
+  compute_profile_id: <%= ActiveRecord::FixtureSet.identify(:big) %>
+  compute_resource_id: <%= ActiveRecord::FixtureSet.identify(:ec2) %>
+  vm_attrs:
+    cpus: 2
+    memory: 536870912
+
+advanced:
+  compute_profile_id: <%= ActiveRecord::FixtureSet.identify(:big) %>
+  compute_resource_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  vm_attrs:
+    cpus: 2
+    memory: 536870912

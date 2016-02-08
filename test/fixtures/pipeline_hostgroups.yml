@@ -1,0 +1,25 @@
+basic:
+  name: Basic
+  architecture: x86_64
+  environment: production
+  operatingsystem: centos5_3
+  medium: one
+  puppet_proxy: puppetmaster
+  domain: mydomain
+  title: Basic
+  root_pass: $1$foreman$NW1XVtbk4/XkJqmKNrFWV0
+  compute_profile_id: <%= ActiveRecord::FixtureSet.identify(:small) %>
+  lookup_value_matcher: hostgroup=Basic
+
+advanced:
+  name: Advanced
+  architecture: x86_64
+  environment: production
+  operatingsystem: centos5_3
+  medium: one
+  puppet_proxy: puppetmaster
+  domain: mydomain
+  title: advanced
+  root_pass: $1$foreman$NW1XVtbk4/XkJqmKNrFWV0
+  compute_profile_id: <%= ActiveRecord::FixtureSet.identify(:big) %>
+  lookup_value_matcher: hostgroup=Advanced

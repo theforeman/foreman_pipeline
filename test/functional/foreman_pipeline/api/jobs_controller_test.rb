@@ -14,15 +14,16 @@ class ForemanPipeline::Api::JobsControllerTest < ActionController::TestCase
     get :index, { :organization_id => @org.id}
     assert_response :success
     response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal 1, response['total']
-    assert_equal "valid job", response['results'].first['name']
+    assert_equal 4, response['total']
+    assert response['results'].map { |item| item['name'] }.include?("valid job")
   end
 
   test 'should get show' do
-    get :index, { :organization_id => @org.id}
+    job = ForemanPipeline::Job.find(jobs(:valid).id)
+    get :show, { :organization_id => @org.id, :id => job.id }
     assert_response :success
     response = ActiveSupport::JSON.decode(@response.body)
-    assert_equal "valid job", response['results'].first['name']
+    assert_equal job.name, response['name']
   end
 
   test 'should create new job' do
@@ -81,7 +82,7 @@ class ForemanPipeline::Api::JobsControllerTest < ActionController::TestCase
   end
 
   test 'should set hostgroup' do
-    hg_id = hostgroups(:common).id
+    hg_id = pipeline_hostgroups(:basic).id
     put :set_hostgroup, :organization_id => @org.id,
                         :id => @job.id,
                         :hostgroup_id => hg_id
@@ -115,9 +116,11 @@ class ForemanPipeline::Api::JobsControllerTest < ActionController::TestCase
   test "should not set compute resource" do
     compute_id = compute_resources(:mycompute).id
     put :set_resource, :organization_id => @org.id,
-                        :id => @job.id,
-                        :resource_id => compute_id
+                       :id => @job.id,
+                       :resource_id => compute_id
     assert_response :unprocessable_entity
+    message = "Cannot add a Compute resource that is not associated with assigned Hostgroup through a Compute profile"
+    assert_equal message, JSON.parse(@response.body)['errors']['base'].first
   end
 
   test "should set to_environments" do
@@ -148,15 +151,13 @@ class ForemanPipeline::Api::JobsControllerTest < ActionController::TestCase
     get :available_resources, :organization_id => @org.id,
                               :id => @job.id
     resp = JSON.parse(@response.body)
-    assert_equal 2, resp.count
-    ["bigcompute", "amazon123"].each do |item|
-      assert resp.map { |hash| hash['name']}.include?(item)
-    end
+    assert_equal 1, resp.count
   end
 
   test "should run job" do
     get :run_job, :organization_id => @org.id,
                   :id => @job.id
+    assert_equal "", @response.body
     assert_response :success
   end
 

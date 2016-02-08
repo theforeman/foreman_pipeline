@@ -175,7 +175,7 @@ class JobTest < ActiveSupport::TestCase
     assert_equal "Environment succession violation: #{to_env.name}", job.errors[:base].first
   end
 
-  test "was not yet promoted" do
+  test "was not yet promoted to given envs" do
     cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
     env = Katello::KTEnvironment.find(katello_environments(:library).id)
     job = ForemanPipeline::Job.create(:name => "test job",
@@ -187,6 +187,22 @@ class JobTest < ActiveSupport::TestCase
                                       :environment => env,
                                       :to_environments => [])
     assert job.not_yet_promoted?
+  end
+
+  test "was already promoted to all to_environments" do
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
+    lib = Katello::KTEnvironment.find(katello_environments(:library).id)
+
+    job = ForemanPipeline::Job.create(:name => "test job",
+                                      :organization => @organization,
+                                      :hostgroup => @hostgroup,
+                                      :compute_resource => @compute_resource,
+                                      :content_view => cv,
+                                      :jenkins_instance => @jenkins_instance,
+                                      :environment => lib,
+                                      :to_environments => [to_env])
+    refute job.not_yet_promoted?
   end
 
   test "there should be env for promotion" do
@@ -242,12 +258,26 @@ class JobTest < ActiveSupport::TestCase
 
   test "should not save job when compute resource is not available through hostgroup" do
     job = ForemanPipeline::Job.create(:name => "test job",
-                                    :organization => @organization,
-                                    :hostgroup => Hostgroup.find(hostgroups(:common).id),
-                                    :compute_resource => @compute_resource,
-                                    :content_view => @content_view,
-                                    :jenkins_instance => @jenkins_instance,
-                                    :environment => @environment)
+                                      :organization => @organization,
+                                      :hostgroup => Hostgroup.find(pipeline_hostgroups(:basic).id),
+                                      :compute_resource => @compute_resource,
+                                      :content_view => @content_view,
+                                      :jenkins_instance => @jenkins_instance,
+                                      :environment => @environment)
     refute job.is_valid?
+  end
+
+  test "should find one compute resource available" do
+    job = ForemanPipeline::Job.create(:name => "test_job",
+                                      :organization => @organization,
+                                      :hostgroup => Hostgroup.find(pipeline_hostgroups(:basic).id))
+    assert_equal 1, job.available_compute_resources.count
+  end
+
+  test "should find two compute resources available" do
+    job = ForemanPipeline::Job.create(:name => "test_job",
+                                      :organization => @organization,
+                                      :hostgroup => Hostgroup.find(pipeline_hostgroups(:advanced).id))
+    assert_equal 2, job.available_compute_resources.count
   end
 end

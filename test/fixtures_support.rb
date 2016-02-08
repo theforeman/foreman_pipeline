@@ -5,7 +5,10 @@ module ForemanPipeline
       :jenkins_instances => ForemanPipeline::JenkinsInstance,
       :jenkins_users => ForemanPipeline::JenkinsUser,
       :jenkins_projects => ForemanPipeline::JenkinsProject,
-      :job_jenkins_projects => ForemanPipeline::JobJenkinsProject
+      :job_jenkins_projects => ForemanPipeline::JobJenkinsProject,
+      :pipeline_hostgroups => Hostgroup,
+      :pipeline_compute_profiles => ComputeProfile,
+      :pipeline_compute_attributes => ComputeAttribute,
     }
 
     def self.set_fixture_classes(test_class)

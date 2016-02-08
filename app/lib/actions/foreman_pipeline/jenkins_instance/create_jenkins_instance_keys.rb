@@ -15,7 +15,7 @@ module Actions
           buffer = StringIO.new
           ip = Socket::getaddrinfo(host, 'www', nil, Socket::SOCK_STREAM)[0][3]
 
-          Net::SSH.start(ip, 'root', :keys => [input.fetch(:cert_path)]) do |ssh|
+          Net::SSH.start(ip, 'root', :keys => [input.fetch(:cert_path)], :non_interactive => true) do |ssh|
             status = ssh_exec!(ssh, "ls #{key_location}")[2]
             ssh.exec!("mkdir #{key_location}") if status > 0
             ssh.exec! "sed -i s:Defaults\\.*requiretty:#Defaults\\ requiretty:g /etc/sudoers"

@@ -12,6 +12,7 @@ module ForemanPipeline
                                        :set_jenkins, :set_environment, :run_job,
                                        :add_projects, :remove_projects, :set_to_environments,
                                        :available_paths]
+    before_filter :job_filter, :only => [:run_job]
 
     def_param_group :job do
       param :name, String, :desc => N_("Name of the job"), :required => true
@@ -182,8 +183,12 @@ module ForemanPipeline
     param_group :job_id
     def run_job
       if @job.manual_trigger
-        task = async_task(::Actions::ForemanPipeline::Job::RunJobManually, @job)
-        render :nothing => true
+        if @filter.allow_run_for? @job
+          task = async_task(::Actions::ForemanPipeline::Job::RunJobManually, @job)
+          render :nothing => true
+        else
+          fail ::Katello::HttpErrors::Forbidden, "Job cannot be allowed to run, check your configuration"
+        end
       else
         fail ::Katello::HttpErrors::Forbidden, "Running manually not allowed for Job: #{@job.name}. Try setting it's :manual_trigger property."
       end
@@ -248,6 +253,10 @@ module ForemanPipeline
 
     def job_params
       params.require(:job).permit(:name, :manual_trigger, :sync_trigger, :levelup_trigger, :projects, :promote)
+    end
+
+    def job_filter
+      @filter ||= ForemanPipeline::JobFilter.new
     end
 
     def format_paths(paths)
