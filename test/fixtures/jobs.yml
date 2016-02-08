@@ -1,11 +1,47 @@
 valid:
   name: "valid job"
   organization_id: <%= ActiveRecord::FixtureSet.identify(:empty_organization) %>
-  hostgroup_id: <%= ActiveRecord::FixtureSet.identify(:common) %>
-  compute_resource_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  hostgroup_id: <%= ActiveRecord::FixtureSet.identify(:basic) %>
+  compute_resource_id: <%= ActiveRecord::FixtureSet.identify(:ec2) %>
   content_view_id: <%= ActiveRecord::FixtureSet.identify(:library_view) %>
   jenkins_instance_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
   environment_id: <%= ActiveRecord::FixtureSet.identify(:library) %>
   manual_trigger: true
   sync_trigger: false
   levelup_trigger: false
+
+runs_on_sync:
+  name:  "runs on sync"
+  organization_id: <%= ActiveRecord::FixtureSet.identify(:empty_organization) %>
+  hostgroup_id: <%= ActiveRecord::FixtureSet.identify(:basic) %>
+  compute_resource_id: <%= ActiveRecord::FixtureSet.identify(:ec2) %>
+  content_view_id: <%= ActiveRecord::FixtureSet.identify(:library_view) %>
+  jenkins_instance_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  environment_id: <%= ActiveRecord::FixtureSet.identify(:library) %>
+  manual_trigger: false
+  sync_trigger: true
+  levelup_trigger: false
+
+runs_on_levelup:
+  name: "runs on publish/promote"
+  organization_id: <%= ActiveRecord::FixtureSet.identify(:empty_organization) %>
+  hostgroup_id: <%= ActiveRecord::FixtureSet.identify(:basic) %>
+  compute_resource_id: <%= ActiveRecord::FixtureSet.identify(:ec2) %>
+  content_view_id: <%= ActiveRecord::FixtureSet.identify(:library_view) %>
+  jenkins_instance_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  environment_id: <%= ActiveRecord::FixtureSet.identify(:library) %>
+  manual_trigger: false
+  sync_trigger: false
+  levelup_trigger: true
+
+runs_on_first_publish:
+  name: "runs on publish/promote"
+  organization_id: <%= ActiveRecord::FixtureSet.identify(:empty_organization) %>
+  hostgroup_id: <%= ActiveRecord::FixtureSet.identify(:basic) %>
+  compute_resource_id: <%= ActiveRecord::FixtureSet.identify(:ec2) %>
+  content_view_id: <%= ActiveRecord::FixtureSet.identify(:no_environment_view) %>
+  jenkins_instance_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  environment_id: <%= ActiveRecord::FixtureSet.identify(:library) %>
+  manual_trigger: false
+  sync_trigger: false
+  levelup_trigger: true

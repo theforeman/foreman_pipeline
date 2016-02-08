@@ -8,9 +8,7 @@ module Actions
         end
 
         def plan(content_view, descripton)
-          valid_jobs = content_view.jobs.select { |job| job.is_valid? }
-          jobs_to_run = valid_jobs.select { |job| job.environment.library? }
-          allowed_jobs = jobs_to_run.select { |job| job.levelup_trigger && job.not_yet_promoted? }
+          allowed_jobs = filter.allowed_jobs_for_cv content_view
 
           plan_self(:trigger => trigger.output,
                     :job_ids => allowed_jobs.map(&:id),

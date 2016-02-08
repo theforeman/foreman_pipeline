@@ -24,6 +24,7 @@ module ForemanPipeline
 
     validates :name, :presence => true
     validates :organization, :presence => true
+
     validate :no_composite_view, :env_succession, :compute_resource_on_hg, :compute_profile_on_hg
 
     attr_accessible :name, :content_view_id, :hostgroup_id, :organization_id, :compute_resource_id, :jenkins_instance_id,
@@ -85,9 +86,9 @@ module ForemanPipeline
     end
 
     def available_compute_resources
-      # ids = ComputeAttribute.where(:compute_profile_id => hostgroup.compute_profile_id).map(&:compute_resource_id)
-      # ComputeResource.where(:id => ids)
-      hostgroup.compute_profile.compute_attributes.map(&:compute_resource) rescue []
+      return [] unless hostgroup
+      ids = ComputeAttribute.where(:compute_profile_id => hostgroup.compute_profile_id).map(&:compute_resource_id)
+      ComputeResource.where(:id => ids)
     end
 
     private
@@ -113,7 +114,7 @@ module ForemanPipeline
     end
 
     def compute_resource_on_hg
-      if hostgroup && compute_resource && !available_compute_resources.include?(compute_resource)
+      if (hostgroup && compute_resource && !available_compute_resources.include?(compute_resource)) || (!hostgroup && compute_resource)
         errors.add(:base,
           "Cannot add a Compute resource that is not associated with assigned Hostgroup through a Compute profile")
       end
