@@ -20,10 +20,10 @@ module Actions
                            :activation_key => create_key.output[:new_key],
                            :jenkins_instance_id => job.jenkins_instance_id})
 
-            suspend_until = plan_action(SuspendUntilProvisioned, 'host_id' => create_host.output[:host][:id])
+            wait_until = plan_action(WaitUntilProvisioned, :host_id => create_host.output[:host][:id])
 
             plan_self(:create_host => create_host.output[:host],
-                      :installed_at => suspend_until.output[:object][:installed_at],
+                      :installed_at => wait_until.output[:host][:installed_at],
                       :new_key => create_key.output[:new_key])
 
           end
