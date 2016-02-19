@@ -16,12 +16,12 @@ Foreman::Plugin.register :foreman_pipeline do
          :engine => ForemanPipeline::Engine
 
     #skipping Bastion routes as they have no permissions
-    tests_to_skip({"AccessPermissionsTest" => ["route_bastion/bastion/index should have a permission that grants access",
-                                               "route_bastion/bastion/index_ie should have a permission that grants access",
+    tests_to_skip({"AccessPermissionsTest" => ["route bastion/bastion/index should have a permission that grants access",
+                                               "route bastion/bastion/index_ie should have a permission that grants access",
                                                "route katello/api/v2/host_packages/auto_complete_search should have a permission that grants access"],
     #skipping seeds tests because katello adds its settings and we get 'unexpected invocation'  for mock object
-                    "SeedsTest" => ["with defaults",
-                                    "with environment defaults",
+                    "SeedsTest" => ["populating an initial admin user.test_0001_with defaults",
+                                    "populating an initial admin user.test_0002_with environment overrides",
                                     "all access permissions are created by permissions seed",
                                     "doesn't add a template back that was deleted",
                                     "doesn't add a template back that was renamed",
