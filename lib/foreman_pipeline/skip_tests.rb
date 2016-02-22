@@ -72,7 +72,8 @@ tests_to_skip = {
   "OrganizationsControllerTest" => ["should get edit",
                                     "should delete null organization",
                                     "should clear the session if the user deleted their current organization",
-                                    "should clone organization with assocations"]
+                                    "should clone organization with assocations"],
+  "UnattendedControllerTest" => ["template with hostgroup should be identified as hostgroup provisioning"]
 }
 
 Foreman::Plugin.find(:foreman_pipeline).send :tests_to_skip, tests_to_skip
