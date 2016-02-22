@@ -28,6 +28,7 @@ module ForemanPipeline
       require 'foreman_pipeline/plugin'
       require 'foreman_pipeline/permissions'
       require 'foreman_pipeline/roles'
+      require 'foreman_pipeline/skip_tests'
     end
 
     initializer 'foreman_pipeline.assets.precompile' do |app|
