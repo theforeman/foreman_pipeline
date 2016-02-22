@@ -19,10 +19,8 @@ Foreman::Plugin.register :foreman_pipeline do
     tests_to_skip({"AccessPermissionsTest" => ["route bastion/bastion/index should have a permission that grants access",
                                                "route bastion/bastion/index_ie should have a permission that grants access",
                                                "route katello/api/v2/host_packages/auto_complete_search should have a permission that grants access"],
-    #skipping seeds tests because katello adds its settings and we get 'unexpected invocation'  for mock object
-                    "SeedsTest" => ["populating an initial admin user.test_0001_with defaults",
-                                    "populating an initial admin user.test_0002_with environment overrides",
-                                    "all access permissions are created by permissions seed",
+    #skipping seeds tests because katello adds its settings and we get 'unexpected invocation' for mock object
+                    "SeedsTest" => ["all access permissions are created by permissions seed",
                                     "doesn't add a template back that was deleted",
                                     "doesn't add a template back that was renamed",
                                     "don't seed location when a location already exists",
@@ -39,6 +37,8 @@ Foreman::Plugin.register :foreman_pipeline do
                                     "seed location when environment SEED_LOCATION specified",
                                     "seed organization when environment SEED_ORGANIZATION specified",
                                     "viewer role contains all view permissions"],
+                    "SeedsTest::populating an initial admin user" => ["with defaults",
+                                                                      "with environment overrides"],
                     "LocationTest" => ["selected_or_inherited_ids for inherited location",
                                        "used_and_selected_or_inherited_ids for inherited location"],
                     "OrganizationTest" => ["name can be the same if parent is different",
