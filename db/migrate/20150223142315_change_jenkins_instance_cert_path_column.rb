@@ -1,6 +1,6 @@
 class ChangeJenkinsInstanceCertPathColumn < ActiveRecord::Migration
   def up
-    change_column :integration_jenkins_instances, :cert_path, :string, :default => ""
+    change_column :integration_jenkins_instances, :cert_path, :string, :default => "", :limit => 255
   end
 
   def down
