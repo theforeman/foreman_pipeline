@@ -3,7 +3,10 @@ angular.module('ForemanPipeline.jenkins-instances', [
     'Bastion.components',
     'ui.router',
     'Bastion'
-]);
+])
+.run(["FencedPages", function (FencedPages) {
+    FencedPages.addPages("jenkins_instances");
+}]);
 
 angular.module('ForemanPipeline.jenkins-instances').config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state('jenkins-instances', {

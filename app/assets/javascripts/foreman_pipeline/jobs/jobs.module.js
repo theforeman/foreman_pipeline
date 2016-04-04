@@ -3,7 +3,10 @@ angular.module('ForemanPipeline.jobs', [
     'Bastion.components',
     'ui.router',
     'Bastion',
-]);
+])
+.run(["FencedPages", function (FencedPages) {
+    FencedPages.addPages("jobs");
+}]);
 
 angular.module('ForemanPipeline.jobs').config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state('jobs', {
