@@ -41,7 +41,7 @@ module ForemanPipeline
     param_group :jenkins_user_id
     param_group :jenkins_user
     def update
-      if jenkins_user_params[:token].empty? || jenkins_user_params[:token].nil?
+      if jenkins_user_params[:token].empty?
         @jenkins_user.update_attributes!(jenkins_user_params.except(:token).except(:name))
       else
         @jenkins_user.update_attributes!(jenkins_user_params.except(:name))
