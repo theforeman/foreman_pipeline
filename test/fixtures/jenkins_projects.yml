@@ -1,8 +1,9 @@
 first:
   name: "first jenkins project"
   organization_id: <%= ActiveRecord::FixtureSet.identify(:empty_organization) %>
-  job_jenkins_project_id: <%= ActiveRecord::FixtureSet.identify(:valid_first)%>
+  job_id: <%= ActiveRecord::FixtureSet.identify(:valid)%>
+
 second:
   name: "second jenkins project"
   organization_id: <%= ActiveRecord::FixtureSet.identify(:empty_organization) %>
-  job_jenkins_project_id: <%= ActiveRecord::FixtureSet.identify(:valid_second)%>
+  job_id: <%= ActiveRecord::FixtureSet.identify(:valid)%>

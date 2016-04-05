@@ -7,11 +7,10 @@ module ForemanPipeline
 
     belongs_to :organization
 
-    attr_accessible :name, :organization_id
+    attr_accessible :name, :organization_id, :job_id
+    validates :name, :presence => true, :uniqueness => true
 
-    has_many :job_jenkins_projects, :dependent => :destroy
-    has_many :jobs, :through => :job_jenkins_projects, :class_name => 'ForemanPipeline::Job'
-
+    belongs_to :job, :class_name => 'ForemanPipeline::Job', :inverse_of => :jenkins_projects
     has_many :jenkins_project_params, :class_name => 'ForemanPipeline::JenkinsProjectParam', :dependent => :destroy
 
     accepts_nested_attributes_for :jenkins_project_params

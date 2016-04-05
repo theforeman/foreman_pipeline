@@ -198,16 +198,14 @@ module ForemanPipeline
     param_group :job_id
     param :projects, Array, :desc => N_("Names of the jenkins projects to be added to the job")
     def add_projects
-      rollback = {:occured => false}
+      rollback = { :occured => false }
       Job.transaction do
-        projects = params[:projects].map do |p|
-          JenkinsProject.create(:name => p, :organization_id => @organization.id)
+        names = params[:projects].delete_if { |name| @job.jenkins_projects.map(&:name).include? name }
+        projects = names.map do |name|
+          JenkinsProject.create(:name => name, :organization_id => @organization.id, :job_id => @job.id)
         end
-        projects_to_add = projects.delete_if { |p| @job.jenkins_projects.include? p }
-        @job.jenkins_projects = @job.jenkins_projects + projects_to_add
-        @job.save!
-        projects_to_add.each do |project|
-          project.reload
+
+        projects.each do |project|
           task = sync_task(::Actions::ForemanPipeline::Jenkins::GetBuildParams, :job_id => @job.id, :name => project.name)
 
           unless task.output[:build_params]
@@ -216,13 +214,12 @@ module ForemanPipeline
             rollback[:project_name] = project.name
           end
           task.output[:build_params].each do |param|
-            new_param = JenkinsProjectParam.new(:name => param[:name],
-                                                :type => param[:type],
-                                                :description => param[:description],
-                                                :value => param[:default])
-            new_param.organization = @organization
-            new_param.jenkins_project = project
-            new_param.save!
+            JenkinsProjectParam.create(:name => param[:name],
+                                       :type => param[:type],
+                                       :description => param[:description],
+                                       :value => param[:default],
+                                       :organization => @organization,
+                                       :jenkins_project => project)
           end
         end
       end
@@ -238,8 +235,8 @@ module ForemanPipeline
     param :projects, Array, :desc => N_("Identifiers of the projects to be removed from the job")
     def remove_projects
       ids = params[:project_ids]
-      jj_projects = JobJenkinsProject.where(:jenkins_project_id => ids)
-      jj_projects.map(&:destroy)
+      projects = JenkinsProject.where(:id => ids)
+      projects.map(&:destroy)
       respond_for_show
     end
 

@@ -1,5 +1,5 @@
 angular.module('ForemanPipeline.jobs').controller('JobDetailsJenkinsProjectsController',
-    ['$scope', '$q', 'translate', 'Nutupane', 'Job', 
+    ['$scope', '$q', 'translate', 'Nutupane', 'Job',
         function ($scope, $q, translate, Nutupane, Job) {
 
             $scope.errorMessages = [];
@@ -9,7 +9,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsJenkinsProjectsCont
                 'sort_by': 'name',
                 'sort_order': 'ASC',
                 'id': $scope.$stateParams.jobId
-            } 
+            }
 
             nutupane = new Nutupane(Job, params, 'projects');
             $scope.projectsTable = nutupane.table;
