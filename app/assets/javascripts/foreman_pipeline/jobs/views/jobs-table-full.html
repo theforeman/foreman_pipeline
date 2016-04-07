@@ -3,12 +3,11 @@
     You currently do not have any Jobs. You can add Jobs using the button on the right.
   </span>
 </p>
-
 <table class="table table-striped"
-        ng-class="{'table-mask' : jobsTable.working}"
-        ng-show="jobsTable.rows.length > 0">
+       ng-class="{'table-mask' : jobsTable.working}"
+       ng-show="jobsTable.rows.length > 0">
   <thead>
-    <tr bst-table-head row-select>
+    <tr bst-table-head>
       <th bst-table-column="name" sortable><span translate>Name</span></th>
       <th bst-table-column="content_view"><span translate>Content View</span></th>
       <th bst-table-column="hostgroup"><span translate>Hostgroup</span></th>
@@ -20,7 +19,7 @@
   <div data-extend-template="layouts/select-all-results.html"></div>
 
   <tbody>
-    <tr bst-table-row ng-repeat="job in jobsTable.rows" row-select="job">
+    <tr bst-table-row ng-repeat="job in jobsTable.rows">
       <td bst-table-cell>
         <a ui-sref="jobs.details.info({jobId: job.id})">
           <div>{{ job.name }}</div>
