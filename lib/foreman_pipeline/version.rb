@@ -1,3 +1,3 @@
 module ForemanPipeline
-  VERSION = "0.0.9-develop"
+  VERSION = "0.0.9"
 end

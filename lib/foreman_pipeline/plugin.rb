@@ -1,5 +1,5 @@
 Foreman::Plugin.register :foreman_pipeline do
-  requires_foreman '>= 1.9'
+  requires_foreman '>= 1.11'
 
   sub_menu :top_menu, :foreman_pipeline_menu, :caption => N_('Pipeline') do
     menu :top_menu,
