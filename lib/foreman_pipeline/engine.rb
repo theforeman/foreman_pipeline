@@ -31,12 +31,7 @@ module ForemanPipeline
       require 'foreman_pipeline/skip_tests'
     end
 
-    initializer 'foreman_pipeline.assets.precompile' do |app|
-       app.config.assets.precompile += %w(foreman_pipeline/foreman_pipeline.js
-                                          foreman_pipeline/foreman_pipeline.css)
-    end
-
-    initializer 'foreman_pipeline.configure_assets', :group => :assets do |app|
+    initializer 'foreman_pipeline.configure_assets', :group => :all do |app|
       SETTINGS[:foreman_pipeline] = {
         :assets => {
           :precompile => [
@@ -45,6 +40,10 @@ module ForemanPipeline
           ]
         }
       }
+    end
+
+    initializer 'foreman_pipeline.assets.precompile', :after => 'foreman_pipeline.configure_assets' do |app|
+       app.config.assets.precompile += SETTINGS[:foreman_pipeline][:assets][:precompile]
     end
 
     initializer "foreman_pipeline.apipie" do
