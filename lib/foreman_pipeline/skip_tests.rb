@@ -76,7 +76,8 @@ tests_to_skip = {
                                     "should clear the session if the user deleted their current organization",
                                     "should clone organization with assocations"],
   "UnattendedControllerTest" => ["template with hostgroup should be identified as hostgroup provisioning"],
-  # core compute resoure fixtures do not care about plugins
+
+# core compute resoure fixtures do not care about plugins
   "ComputeResourceTest" => ["ensure compute resource with associated profile can get destroyed"]
 }
 
