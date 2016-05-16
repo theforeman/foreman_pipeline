@@ -78,7 +78,16 @@ tests_to_skip = {
   "UnattendedControllerTest" => ["template with hostgroup should be identified as hostgroup provisioning"],
 
 # core compute resoure fixtures do not care about plugins
-  "ComputeResourceTest" => ["ensure compute resource with associated profile can get destroyed"]
+  "ComputeResourceTest" => ["ensure compute resource with associated profile can get destroyed"],
+
+# katello uses keyword args, not compatible with 1.9.3
+  "AboutControllerTest" => ["test_index", "test_registered_providers_list"],
+# docker related
+  "ContainerStepsTest" => ["shows a link to a new compute resource if none is available",
+                            "shows taxonomies tab"],
+  "OrganizationsControllerTest::wizard" => ["redirects to step 3 if no unassigned hosts exist",
+                                            "redirects to step 2 if unassigned hosts exist",
+                                            "redirects to step 3 if no permissins for hosts"]
 }
 
 Foreman::Plugin.find(:foreman_pipeline).send :tests_to_skip, tests_to_skip
