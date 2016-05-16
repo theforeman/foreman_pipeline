@@ -1,11 +1,13 @@
 require 'foreman_pipeline/plugin'
 
-#skipping Bastion routes as they have no permissions
+# skipping Bastion routes as they have no permissions
 tests_to_skip = {
   "AccessPermissionsTest" => ["route bastion/bastion/index should have a permission that grants access",
                               "route bastion/bastion/index_ie should have a permission that grants access",
-                              "route katello/api/v2/host_packages/auto_complete_search should have a permission that grants access"],
-#skipping seeds tests because katello adds its settings and we get 'unexpected invocation' for mock object
+                              "route katello/api/v2/host_packages/auto_complete_search should have a permission that grants access",
+                              "route katello/api/v2/host_subscriptions/create should have a permission that grants access",
+                              "route katello/api/v2/host_subscriptions/destroy should have a permission that grants access"],
+# skipping seeds tests because katello adds its settings and we get 'unexpected invocation' for mock object
   "SeedsTest" => ["all access permissions are created by permissions seed",
                   "doesn't add a template back that was deleted",
                   "doesn't add a template back that was renamed",
@@ -29,9 +31,9 @@ tests_to_skip = {
                      "used_and_selected_or_inherited_ids for inherited location"],
   "OrganizationTest" => ["name can be the same if parent is different",
                          ".my_organizations returns user's associated orgs and children"],
-#parent_id for organization is disabled by default
+# parent_id for organization is disabled by default
   "TaxonomixTest" => [".used_organization_ids can work with array of organizations"],
-#bunch of broken tests, various causes
+# bunch of broken tests, various causes
   "UserTest" => ["when a user logs in, last login time should be updated",
                  "return organization and child ids for non-admin user",
                  "#ensure_last_admin_is_not_deleted with non-admins",
@@ -73,7 +75,9 @@ tests_to_skip = {
                                     "should delete null organization",
                                     "should clear the session if the user deleted their current organization",
                                     "should clone organization with assocations"],
-  "UnattendedControllerTest" => ["template with hostgroup should be identified as hostgroup provisioning"]
+  "UnattendedControllerTest" => ["template with hostgroup should be identified as hostgroup provisioning"],
+  # core compute resoure fixtures do not care about plugins
+  "ComputeResourceTest" => ["ensure compute resource with associated profile can get destroyed"]
 }
 
 Foreman::Plugin.find(:foreman_pipeline).send :tests_to_skip, tests_to_skip
