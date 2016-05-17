@@ -87,7 +87,8 @@ tests_to_skip = {
                             "shows taxonomies tab"],
   "OrganizationsControllerTest::wizard" => ["redirects to step 3 if no unassigned hosts exist",
                                             "redirects to step 2 if unassigned hosts exist",
-                                            "redirects to step 3 if no permissins for hosts"]
+                                            "redirects to step 3 if no permissins for hosts"],
+  "Api::V2::ContainersControllerTest::container operations" => ["creates a container with correct params"]
 }
 
 Foreman::Plugin.find(:foreman_pipeline).send :tests_to_skip, tests_to_skip
