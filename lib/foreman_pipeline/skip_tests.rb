@@ -84,7 +84,8 @@ tests_to_skip = {
   "AboutControllerTest" => ["test_index", "test_registered_providers_list"],
 # docker related
   "ContainerStepsTest" => ["shows a link to a new compute resource if none is available",
-                            "shows taxonomies tab"],
+                           "shows taxonomies tabs"],
+
   "OrganizationsControllerTest::wizard" => ["redirects to step 3 if no unassigned hosts exist",
                                             "redirects to step 2 if unassigned hosts exist",
                                             "redirects to step 3 if no permissins for hosts"],
