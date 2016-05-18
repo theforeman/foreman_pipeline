@@ -1,7 +1,7 @@
 require File.expand_path("../engine", File.dirname(__FILE__))
 
 namespace :test do
-
+  desc "Run the plugin test suite"
   task :foreman_pipeline => ['db:test:prepare'] do
     test_task = Rake::TestTask.new('foreman_pipeline_test_task') do |t|
       t.libs << ["test", "#{ForemanPipeline::Engine.root}/test"]

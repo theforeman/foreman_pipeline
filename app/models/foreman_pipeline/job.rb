@@ -27,7 +27,8 @@ module ForemanPipeline
     validate :no_composite_view, :check_env_succession
 
     attr_accessible :name, :content_view_id, :hostgroup_id, :organization_id, :compute_resource_id, :jenkins_instance_id,
-      :environment_id, :manual_trigger, :levelup_trigger, :sync_trigger
+      :environment_id, :manual_trigger, :levelup_trigger, :sync_trigger, :organization, :hostgroup, :compute_resource, :content_view,
+      :jenkins_instance, :environment, :to_environments
 
     scoped_search :on => :name, :complete_value => true
     scoped_search :on => :organization_id, :complete_value => true
