@@ -1,0 +1,15 @@
+language: ruby
+sudo: required
+services:
+  - docker
+env:
+  - RUBY=2.0
+  - RUBY=2.1
+  - RUBY=2.2
+before_install:
+  - sudo docker pull oprazak/centos7:ruby_test2
+  - sudo docker pull postgres
+install:
+ - ./shell/travis_install.sh
+script:
+  - ./shell/travis_script.sh
