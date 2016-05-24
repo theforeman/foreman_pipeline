@@ -24,9 +24,9 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "should find target cv" do
-    cv = Katello::ContentView.find(katello_content_views(:acme_default))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
-    to_env = Katello::KTEnvironment.find(katello_environments(:dev))
+    cv = Katello::ContentView.find(katello_content_views(:acme_default).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -41,8 +41,8 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "should not find target cv" do
-    cv = Katello::ContentView.find(katello_content_views(:acme_default))
-    env = Katello::KTEnvironment.find(katello_environments(:test))
+    cv = Katello::ContentView.find(katello_content_views(:acme_default).id)
+    env = Katello::KTEnvironment.find(katello_environments(:test).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -56,10 +56,10 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "should find envs for promotion" do
-    cv = Katello::ContentView.find(katello_content_views(:acme_default))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
-    to_env = Katello::KTEnvironment.find(katello_environments(:dev))
-    to_env2 = Katello::KTEnvironment.find(katello_environments(:staging))
+    cv = Katello::ContentView.find(katello_content_views(:acme_default).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
+    to_env2 = Katello::KTEnvironment.find(katello_environments(:staging).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -73,10 +73,10 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "envs_for_promotion should exclude one env from promotions" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
-    to_env = Katello::KTEnvironment.find(katello_environments(:dev))
-    to_env2 = Katello::KTEnvironment.find(katello_environments(:staging))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
+    to_env2 = Katello::KTEnvironment.find(katello_environments(:staging).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -90,10 +90,10 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "job can be promoted" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
-    to_env = Katello::KTEnvironment.find(katello_environments(:dev))
-    to_env2 = Katello::KTEnvironment.find(katello_environments(:staging))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
+    to_env2 = Katello::KTEnvironment.find(katello_environments(:staging).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -107,9 +107,9 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "job cannot be promoted" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
-    to_env = Katello::KTEnvironment.find(katello_environments(:dev))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -123,10 +123,10 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "is promotion safe" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
-    to_env = Katello::KTEnvironment.find(katello_environments(:dev))
-    to_env2 = Katello::KTEnvironment.find(katello_environments(:staging))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
+    to_env2 = Katello::KTEnvironment.find(katello_environments(:staging).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -140,8 +140,8 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "is not promotion safe" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -154,9 +154,9 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "is not promotion safe again" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
-    to_env = Katello::KTEnvironment.find(katello_environments(:dev))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -170,9 +170,9 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "should detect env succession violation" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
-    to_env = Katello::KTEnvironment.find(katello_environments(:test))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:test).id)
 
     job = ForemanPipeline::Job.new(:name => "test job",
                                       :organization => @organization,
@@ -187,8 +187,8 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "was not yet promoted" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
                                       :hostgroup => @hostgroup,
@@ -201,9 +201,9 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "there should be env for promotion" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:dev))
-    to_env = Katello::KTEnvironment.find(katello_environments(:test))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:dev).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:test).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,
@@ -218,9 +218,9 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test "there shloud not be env for promotion" do
-    cv = Katello::ContentView.find(katello_content_views(:library_dev_view))
-    env = Katello::KTEnvironment.find(katello_environments(:library))
-    to_env = Katello::KTEnvironment.find(katello_environments(:dev))
+    cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
+    env = Katello::KTEnvironment.find(katello_environments(:library).id)
+    to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
 
     job = ForemanPipeline::Job.create(:name => "test job",
                                       :organization => @organization,

@@ -6,7 +6,8 @@ namespace :test do
     test_task = Rake::TestTask.new('foreman_pipeline_test_task') do |t|
       t.libs << ["test", "#{ForemanPipeline::Engine.root}/test"]
       t.test_files = ["#{ForemanPipeline::Engine.root}/test/**/*_test.rb"]
-      t.verbose = true
+      t.warning = false
+      t.verbose = false
     end
     Rake::Task[test_task.name].invoke
   end

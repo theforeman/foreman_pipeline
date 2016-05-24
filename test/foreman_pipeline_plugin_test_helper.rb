@@ -22,7 +22,7 @@ module FixtureTestCase
     FileUtils.cp(Dir.glob("#{Katello::Engine.root}/test/fixtures/models/*"), self.fixture_path)
     FileUtils.cp(Dir.glob("#{Rails.root}/test/fixtures/*"), self.fixture_path)
     fixtures(:all)
-    FIXTURES = load_fixtures
+    FIXTURES = load_fixtures(ActiveRecord::Base)
 
     # load_permissions
 
@@ -42,9 +42,9 @@ class ActiveSupport::TestCase
 
   def get_organization(org = nil)
     saved_user = User.current
-    User.current = User.find(users(:admin))
+    User.current = User.find(users(:admin).id)
     org = org.nil? ? :empty_organization : org
-    organization = Organization.find(taxonomies(org.to_sym))
+    organization = Organization.find(taxonomies(org.to_sym).id)
     organization.stubs(:label_not_changed).returns(true)
     organization.setup_label_from_name
     organization.save!
