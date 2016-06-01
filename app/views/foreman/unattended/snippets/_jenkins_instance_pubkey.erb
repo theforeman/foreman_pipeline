@@ -1,10 +1,10 @@
-echo "running jenkins_pubkey snippet"
+echo "running pipeline_jenkins_pubkey snippet"
 mkdir -p /root/.ssh
 touch /root/.ssh/authorized_keys || exit
-echo "<%= @host.params['foreman_pipeline_jenkins_pubkey']%>" >> /root/.ssh/authorized_keys
+echo "<%= @host.params['pipeline_jenkins_pubkey']%>" >> /root/.ssh/authorized_keys
 
 <% if @host.operatingsystem.name.match(/centos/i) -%>
 restorecon -R -v /root/.ssh
 <% end -%>
 
-echo "jenkins_pubkey snippet done"
+echo "pipeline_jenkins_pubkey snippet done"

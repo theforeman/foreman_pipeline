@@ -32,8 +32,16 @@ cat > foreman/config/settings.yaml << EOF
 :organizations_enabled: true
 EOF
 
+mkdir foreman/config/settings.plugins.d
+cat > foreman/config/settings.plugins.d/katello.yaml << EOF
+:katello:
+  :use_pulp: false
+EOF
+
 cat foreman/bundler.d/Gemfile.local.rb
 cat foreman/config/database.yml
-cat foreman/config/settings.yml
+cat foreman/config/settings.yaml
+cat foreman/config/settings.plugins.d/katello.yml
+
 cd ..
 chmod -R o+w projects
