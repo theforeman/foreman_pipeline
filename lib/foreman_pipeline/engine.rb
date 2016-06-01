@@ -81,8 +81,7 @@ module ForemanPipeline
 
 
     rake_tasks do
-      load "#{ForemanPipeline::Engine.root}/lib/foreman_pipeline/tasks/foreman_pipeline_seed.rake"
-      load "#{ForemanPipeline::Engine.root}/lib/foreman_pipeline/tasks/foreman_pipeline_test.rake"
+      load "#{ForemanPipeline::Engine.root}/lib/foreman_pipeline/tasks/test.rake"
     end
 
   end

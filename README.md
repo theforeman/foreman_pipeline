@@ -26,7 +26,7 @@ Then execute from Foreman's root
 ```
 bundle install
 rake db:migrate
-rake foreman_pipeline:seed
+rake db:seed
 ```
 
 ##Dependencies##

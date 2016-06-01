@@ -77,7 +77,7 @@ module Actions
         end
 
         def jenkins_pubkey_param_for(host)
-          ::HostParameter.create(:name => 'foreman_pipeline_jenkins_pubkey', :value => jenkins_pubkey, :reference_id => host.id)
+          ::HostParameter.create(:name => 'pipeline_jenkins_pubkey', :value => jenkins_pubkey, :reference_id => host.id)
         end
       end
     end
