@@ -131,12 +131,19 @@ class ForemanPipeline::Api::JobsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should not set to_environments" do
+  test "should not set to_environments and detect env succession violation" do
     ids = [katello_environments(:beta).id]
     put :set_to_environments, :organization_id => @org.id,
                               :id => @job.id,
                               :to_environment_ids => ids
-    assert_response :conflict
+    assert_response :unprocessable_entity
+  end
+
+  test "should set empty to_environments" do
+    put :set_to_environments, :organization_id => @org.id,
+                              :id => @job.id,
+                              :to_environment_ids => []
+    assert_response :success
   end
 
   test "should list available paths" do

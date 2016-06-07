@@ -222,7 +222,7 @@ class JobTest < ActiveSupport::TestCase
     assert_equal to_env, job.envs_for_promotion.first
   end
 
-  test "there shloud not be env for promotion" do
+  test "there should not be env for promotion" do
     cv = Katello::ContentView.find(katello_content_views(:library_dev_view).id)
     env = Katello::KTEnvironment.find(katello_environments(:library).id)
     to_env = Katello::KTEnvironment.find(katello_environments(:dev).id)
