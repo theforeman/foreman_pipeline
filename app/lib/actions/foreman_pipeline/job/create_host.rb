@@ -36,7 +36,7 @@ module Actions
 
           organization_param
           keys_param
-
+          host.apply_compute_profile(InterfaceMerge.new)
           host.save!
           jenkins_pubkey_param_for host
           host.power.start

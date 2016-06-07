@@ -34,8 +34,11 @@ module Actions
         end
 
         def build_status(host = nil)
+          info = "Cannot find host by id" if host.nil?
+          info = "Host not yet created, no reports received" if !host.nil? && host.reports.count < 1
+          info = "Host has invalid configuration" if !host.nil? && (host.reports.count > 1) && host.reports.last.error?
           status = (!host.nil? && (host.reports.count > 1) && !host.reports.last.error?)
-          { :build => status }
+          { :build => status, :info => info }
         end
       end
     end
