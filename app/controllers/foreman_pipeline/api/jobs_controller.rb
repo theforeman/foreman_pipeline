@@ -130,18 +130,9 @@ module ForemanPipeline
     param_group :job_id
     param :path_ids, Array, :desc => N_("Identifiers of environments which are successors of job's environment")
     def set_to_environments
-      fail Katello::HttpErrors::Conflict, "Job's environment must be assigned before setting 'to environments'." if @job.environment.nil?
-      fail Katello::HttpErrors::Conflict, "Job's environment does not have any successors" if @job.environment.successors.empty?
-      is_ok = params[:to_environment_ids].map do |new_id|
-        @job.environment.successors.map(&:id).include? new_id.to_i
-      end.all?
-      if is_ok
-        @job.to_environment_ids = params[:to_environment_ids]
-        @job.save!
-        respond_for_show
-      else
-        fail Katello::HttpErrors::Conflict, "Only environments that are direct successors of Job's Environment may be set as 'to environments'."
-      end
+      @job.to_environment_ids = params[:to_environment_ids]
+      @job.save!
+      respond_for_show
     end
 
     api :GET, "/organizations/:organization_id/jobs/:id/available_paths", N_("List environment paths available for a job")

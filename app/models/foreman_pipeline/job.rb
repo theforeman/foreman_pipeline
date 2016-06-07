@@ -83,7 +83,7 @@ module ForemanPipeline
 
     def available_compute_resources
       return [] unless hostgroup
-      ids = ComputeAttribute.where(:compute_profile_id => hostgroup.compute_profile_id).map(&:compute_resource_id)
+      ids = ComputeAttribute.where(:compute_profile_id => hostgroup.compute_profile_id).pluck(:compute_resource_id).uniq
       ComputeResource.where(:id => ids)
     end
 
