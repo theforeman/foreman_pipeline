@@ -25,7 +25,7 @@ module ForemanPipeline
     validates :name, :presence => true
     validates :organization, :presence => true
 
-    validate :no_composite_view, :env_succession, :compute_resource_on_hg, :compute_profile_on_hg
+    validate :no_composite_view, :env_succession, :compute_resource_on_hg, :compute_profile_on_hg, :hg_with_puppet_env
 
     attr_accessible :name, :content_view_id, :hostgroup_id, :organization_id, :compute_resource_id, :jenkins_instance_id,
       :environment_id, :manual_trigger, :levelup_trigger, :sync_trigger, :content_view, :hostgroup, :organization, :compute_resource,
@@ -118,6 +118,10 @@ module ForemanPipeline
         errors.add(:base,
           "Cannot add a Compute resource that is not associated with assigned Hostgroup through a Compute profile")
       end
+    end
+
+    def hg_with_puppet_env
+      errors.add(:base, "Cannot add Hostgroup without Puppet environment") if hostgroup && !hostgroup.environment
     end
   end
 end

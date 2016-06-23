@@ -5,7 +5,7 @@ class JobTest < ActiveSupport::TestCase
   def setup
     @organization = get_organization
     @compute_resource = FactoryGirl.create(:compute_resource, :libvirt)
-    @hostgroup = FactoryGirl.create(:pipeline_hostgroup)
+    @hostgroup = FactoryGirl.create(:hostgroup)
     @content_view = FactoryGirl.create(:katello_content_view)
     @jenkins_user = FactoryGirl.create(:jenkins_user, :organization => get_organization)
     @jenkins_instance = FactoryGirl.create(:jenkins_instance, :jenkins_user => @jenkins_user, :organization => get_organization)
@@ -279,5 +279,13 @@ class JobTest < ActiveSupport::TestCase
                                       :organization => @organization,
                                       :hostgroup => Hostgroup.find(pipeline_hostgroups(:advanced).id))
     assert_equal 2, job.available_compute_resources.count
+  end
+
+  test "should not save when hostgroup has no puppet env" do
+    job = ForemanPipeline::Job.new(:name => "test job",
+                                   :organization => @organization,
+                                   :hostgroup => @hostgroup)
+    refute job.save
+    assert job.errors.messages[:base].include? "Cannot add Hostgroup without Puppet environment"
   end
 end
