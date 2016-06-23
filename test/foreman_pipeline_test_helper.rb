@@ -30,9 +30,6 @@ module FixtureTestCase
     FileUtils.cp(Dir.glob("#{Rails.root}/test/fixtures/*"), self.fixture_path)
     fixtures(:all)
     FIXTURES = load_fixtures(ActiveRecord::Base)
-
-    # load_permissions
-    Setting::Katello.load_defaults
   end
 
   module ClassMethods
