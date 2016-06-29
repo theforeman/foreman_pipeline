@@ -17,6 +17,10 @@ module Actions
             trigger(BuildProject, input[:opts].merge({:project_id => project.id, :project_name => project.name}))
           end
         end
+
+        def check_for_errors!
+          # Do nothing. Just wait for all builds to finish and gather results
+        end
       end
     end
   end

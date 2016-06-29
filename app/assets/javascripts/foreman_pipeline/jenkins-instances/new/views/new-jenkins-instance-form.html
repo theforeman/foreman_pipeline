@@ -15,13 +15,13 @@
            name="url"
            ng-model="jenkinsInstance.url"
            type="text"
-           tabindex="2"           
+           tabindex="2"
            required/>
   </div>
-  <div bst-form-group>   
+  <div bst-form-group>
     <p class="alert alert-info" translate>
       Make sure to specify the port Jenkins master is running on. Example: http://jenkins.example.com:8080
-    </p>     
+    </p>
   </div>
 
   <div bst-form-group label="{{ 'Jenkins Home' | translate }}">
@@ -40,6 +40,21 @@
            type="text"
            tabindex="4"
            required/>
+  </div>
+
+  <div bst-form-group label="{{ 'Timeout' | translate }}">
+    <input id="timeout"
+           name="timeout"
+           ng-model="jenkinsInstance.timeout"
+           type="number"
+           min="1"
+           tabindex="5" />
+  </div>
+
+  <div bst-form-group>
+    <p class="alert alert-info" translate>
+      Time in minutes we are willing to wait before build on Jenkins starts.
+    </p>
   </div>
 
   <div bst-form-buttons

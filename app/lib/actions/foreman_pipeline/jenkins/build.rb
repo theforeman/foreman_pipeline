@@ -5,16 +5,22 @@ module Actions
       class Build < AbstractJenkinsAction
 
         def run
-          # are we willing to wait longer than 30 mins until build starts?
-          output[:build_num] = job.jenkins_instance.client.job.build(jenkins_project.name, params, 'build_start_timeout' => (30 * 60))
+          timeout = job.jenkins_instance.timeout_sec
           output[:project_name] = jenkins_project.name
           output[:build_params] = params
+          output[:build_num] = job.jenkins_instance.client.job.build(jenkins_project.name, params, 'build_start_timeout' => timeout)
+        rescue => e
+          fail "Jenkins build for #{jenkins_project.name} failed to start in a timely manner."
         end
 
         def params
           project_params = jenkins_project.jenkins_project_params
           return {} if project_params.empty?
           template_binding project_params
+        end
+
+        def rescue_strategy_for_self
+          Dynflow::Action::Rescue::Skip
         end
 
         def template_binding(project_params)

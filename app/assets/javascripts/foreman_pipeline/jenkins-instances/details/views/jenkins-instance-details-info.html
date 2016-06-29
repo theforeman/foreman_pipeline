@@ -32,9 +32,28 @@
       </span>
     </div>
 
+    <div class="detail">
+      <span class="info-label" translate>Timeout&nbsp;
+          <i class="fa fa-question-circle"
+             tooltip="{{ 'Time in minutes we are willing to wait before build on Jenkins starts' | translate }}"
+             tooltip-animation="false"
+             tooltip-append-to-body="true">
+          </i>
+      </span>
+      <span class="info-value"
+            bst-edit-custom="jenkinsInstance.timeout"
+            on-save="save(jenkinsInstance)">
+        <div class="form input">
+          <input ng-model="jenkinsInstance.timeout"
+                 name="timeout"
+                 type="number"
+                 min="1"/>
+        </div>
+      </span>
+    </div>
+
   </section>
 </div>
-
 <div class="fr">
   <button class="btn btn-default" ng-click="checkJenkins()" ng-disabled="working">
       <i class="fa fa-wrench" ng-hide="working"></i>

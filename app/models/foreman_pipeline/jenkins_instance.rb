@@ -15,8 +15,9 @@ module ForemanPipeline
     FILEPATH_REGEX = /\A(\/|~)[a-z0-9\-_.\/]*[^\/]\z/i
 
     validates :name, :presence => true
-    validates :cert_path, :format => {:with => FILEPATH_REGEX }
-    validates :url, :uniqueness => true, :format => { :with => /\A(http|https):\/\/\S+:\d{1,4}\z/}
+    validates :timeout, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
+    validates :cert_path, :format => { :with => FILEPATH_REGEX }
+    validates :url, :uniqueness => true, :format => { :with => /\A(http|https):\/\/\S+:\d{1,4}\z/ }
     validates :organization, :presence => true
     validates :jenkins_home, :format => { :with => FILEPATH_REGEX }
 
@@ -35,6 +36,10 @@ module ForemanPipeline
       @client
     end
 
+    def timeout_sec
+      timeout * 60
+    end
+
     private
 
     def authenticated_client(username, password, hash_args)
@@ -47,6 +52,5 @@ module ForemanPipeline
       return JenkinsApi::Client.new(hash_args) if username.nil?
       authenticated_client username, password, hash_args
     end
-
   end
 end

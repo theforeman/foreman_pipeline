@@ -16,6 +16,8 @@ module Actions
 
         def run
           output[:status] = input[:build_status]
+          output[:name] = input[:name]
+          fail "Build on Jenkins failed for #{output[:name]}" unless output[:build_status] == "SUCCESS"
         end
 
         def rescue_strategy_for_self

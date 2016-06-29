@@ -115,7 +115,7 @@ module ForemanPipeline
     end
 
     def jenkins_instance_params
-      params.require(:jenkins_instance).permit(:name, :url, :jenkins_home, :cert_path)
+      params.require(:jenkins_instance).permit(:name, :url, :jenkins_home, :cert_path, :timeout)
     end
   end
 end
