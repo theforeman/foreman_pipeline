@@ -9,18 +9,11 @@
   <header class="details-header">
     <h2 class="fl" translate>Jenkins Instance {{ jenkinsInstance.name }}</h2>
     <div class="fr">
-      <div bst-modal="deleteJenkinsInstance(jenkinsInstance)" 
+      <div bst-modal="deleteJenkinsInstance(jenkinsInstance)"
            model="jenkinsInstance"
            modal-header='Remove JenkinsInstance "{{ jenkinsInstance.name }}"?'
            modal-body='Are you sure you want to remove Jenkins Instance "{{ jenkinsInstance.name }}"?'>
       </div>
-
-      <button class="btn btn-default" ng-click="checkJenkins()" ng-disabled="working">
-        <i class="fa fa-wrench" ng-hide="working"></i>
-        <i class="fa fa-spinner fa-spin" ng-show="working"></i>
-        <span translate>Jenkins reachable?</span>
-      </button>
-
       <button class="btn btn-default" ng-click="openModal()" ng-hide="denied('destroy_jenkins_instance', jenkinsInstance)">
         <i class="fa fa-trash-o"></i>
         {{ 'Remove Jenkins Instance' | translate }}
@@ -32,7 +25,7 @@
       </button>
     </div>
   </header>
-  
+
   <nav>
     <ul class="nav nav-tabs">
       <li ng-class="{active: stateIncludes('jenkins-instances.details.info')}">
@@ -46,7 +39,7 @@
           <span translate>Jenkins Users</span>
         </a>
       </li>
-      
+
     </ul>
   </nav>
   <section class="nutupane-sub-section" ui-view></section>
