@@ -10,9 +10,9 @@
   <h4>
     <span translate>Current Compute Resource: </span>
     <a ng-click="transitionToResource(job.resource)" ng-show="job.compute_resource.name">
-      <span ng-bind="job.compute_resource.name"></span>
+      <span class="no-capitalize" ng-bind="job.compute_resource.name"></span>
     </a>
-      <span ng-show="!job.compute_resource.name" translate>none</span>
+      <span class="no-capitalize" ng-show="!job.compute_resource.name" translate>none</span>
   </h4>
 
   <br/>
@@ -25,8 +25,8 @@
 
     <p class="alert alert-info"
        ng-hide="table.working"
-       translate> No Compute Resources to show.          
-    </p>        
+       translate> No Compute Resources to show.
+    </p>
   </div>
 
   <section ng-show="table.rows.length > 0">
@@ -46,14 +46,14 @@
           <i class="fa fa-pencil" ng-hide="table.working"></i>
           <i class="fa fa-spinner fa-spin" ng-show="table.working"></i>
           {{ 'Set Compute Resource' | translate }}
-        </button>      
+        </button>
       </div>
     </div>
 
     <div bst-table="table" class="nutupane">
       <div bst-container-scroll bst-infinite-scroll="table.nextPage()">
-                
-        <table 
+
+        <table
                ng-class="{'table-mask': table.working}"
                class="table table-striped table-full">
 
@@ -67,7 +67,7 @@
 
           <tbody>
             <tr bst-table-row ng-repeat="resource in table.rows | filter:resourceFilter" row-choice="resource">
-              
+
               <td bst-table-cell>
                 <a ng-click="transitionToResource(resource)">
                   {{ resource.name }}
@@ -76,9 +76,9 @@
               <td bst-table-cell>{{ resource.provider }}</td>
               <td bst-table-cell>{{ resource.url }}</td>
             </tr>
-            
+
           </tbody>
-          
+
         </table>
       </div>
     </div>

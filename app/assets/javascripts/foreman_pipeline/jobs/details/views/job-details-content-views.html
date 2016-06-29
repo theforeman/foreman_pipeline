@@ -15,10 +15,10 @@
 
   <section ng-show="cvTable.rows.length > 0">
     <div class="details-header row">
-      
+
       <div class="col-sm-3">
         <input type="text"
-                class="form-control"  
+                class="form-control"
                 placeholder="{{ 'Filter' | translate }}"
                 ng-model="cvFilter" />
       </div>
@@ -27,10 +27,10 @@
 
         <button class="btn btn-default"
                 ng-hide="denied('edit_jobs')"
-                ng-disabled="!cvTable.chosenRow || cvTable.working" 
+                ng-disabled="!cvTable.chosenRow || cvTable.working"
                 ng-click="setContentView()">
-          <i class="fa fa-pencil" ng-hide="cvTable.working"></i>      
-          <i class="fa fa-spinner fa-spin" ng-show="cvTable.working"></i>      
+          <i class="fa fa-pencil" ng-hide="cvTable.working"></i>
+          <i class="fa fa-spinner fa-spin" ng-show="cvTable.working"></i>
           {{ 'Set Content View' | translate }}
         </button>
 
@@ -38,7 +38,7 @@
     </div>
 
     <div bst-table="cvTable" class="nutupane">
-      <div bst-container-scroll bst-infinite-scroll="cvTable.nextPage()">       
+      <div bst-container-scroll bst-infinite-scroll="cvTable.nextPage()">
 
         <table ng-class="{'table-mask': cvTable.working}" class="table table-full table-striped">
           <thead>
@@ -51,7 +51,7 @@
 
           <tbody>
             <tr bst-table-row ng-repeat="contentView in cvTable.rows | filter:cvFilter" row-choice="contentView">
-              
+
               <td bst-table-cell>
                 <a ui-sref="content-views.details.info({ contentViewId: contentView.id })">
                   {{ contentView.name }}
@@ -71,7 +71,7 @@
   <div ng-show="cvTable.rows.length === 0">
     <div class="loading-mask loading-mask-panel" ng-show="cvTable.working">
       <i class="fa fa-spinner fa-spin"></i>
-        {{ "Loading..." | translate }}          
+        {{ "Loading..." | translate }}
     </div>
 
     <p class="alert alert-info"
