@@ -11,3 +11,7 @@
  *= require_self
  *= require_tree .
  */
+
+.details > h4 span.no-capitalize {
+  text-transform: none;
+}
