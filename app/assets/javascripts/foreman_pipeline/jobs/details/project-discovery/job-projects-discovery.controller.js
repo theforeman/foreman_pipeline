@@ -14,6 +14,15 @@ angular.module('ForemanPipeline.jobs').controller('JobProjectsDiscoveryControlle
                 setDetails(task);
                 if (!task.pending) {
                     Task.unregisterSearch($scope.taskSearchId);
+                    if (task.result !== "success") {
+                        if (task.humanized && task.humanized.errors && task.humanized.errors.length > 0) {
+                            task.humanized.errors.forEach( function (err) {
+                                $scope.errorMessages.push(err);
+                            });
+                        } else {
+                            $scope.errorMessages.push("Unknown error occured when listing projects on Jenkins server");
+                        }
+                    }
                 }
             }
 
@@ -30,7 +39,7 @@ angular.module('ForemanPipeline.jobs').controller('JobProjectsDiscoveryControlle
                 projects = _.map(project_names, function (item) {
                     return {'name': item}
                 });
-                
+
                 sorted = _.sortBy(projects, function (item) {
                     return item.name;
                 });
