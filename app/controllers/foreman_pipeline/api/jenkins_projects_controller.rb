@@ -16,7 +16,7 @@ module ForemanPipeline
     private
 
     def find_jenkins_project
-      @jenkins_project = JenkinsProject.find_by_id(params[:id])
+      @jenkins_project = JenkinsProject.includes([:jenkins_project_params]).find_by_id(params[:id])
       fail ::Katello::HttpErrors::NotFound, "Could not find Jenkins Project with id: #{params[:id]}" if @jenkins_project.nil?
       @jenkins_project
     end

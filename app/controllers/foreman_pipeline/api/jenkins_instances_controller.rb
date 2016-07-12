@@ -24,7 +24,10 @@ module ForemanPipeline
     param :organization_id, :number, :desc => N_("organization identifier"), :required => true
     param :name, String, :desc => N_("Name of the jenkins instance")
     def index
-      respond_for_index(:collection => scoped_search(index_relation.uniq, params[:sort_by], params[:sort_order]))
+      respond_for_index(:collection => scoped_search(index_relation.uniq,
+                                                     params[:sort_by],
+                                                     params[:sort_order],
+                                                     :includes => jenkins_instance_includes))
     end
 
     def index_relation
@@ -109,9 +112,13 @@ module ForemanPipeline
     protected
 
     def find_jenkins_instance
-      @jenkins_instance = JenkinsInstance.find_by_id(params[:id])
+      @jenkins_instance = JenkinsInstance.includes(jenkins_instance_includes).find_by_id(params[:id])
       fail ::Katello::HttpErrors::NotFound, "Could not find Jenkins Instance with id: #{params[:id]}" if @jenkins_instance.nil?
       @jenkins_instance
+    end
+
+    def jenkins_instance_includes
+      [:jenkins_user]
     end
 
     def jenkins_instance_params

@@ -8,10 +8,10 @@ module ForemanPipeline
     before_filter :find_organization, :only => [:create, :index, :add_projects, :available_paths]
 
     before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view,
-                                       :set_hostgroup, :set_resource, :available_resources,
-                                       :set_jenkins, :set_environment, :run_job,
-                                       :add_projects, :remove_projects, :set_to_environments,
-                                       :available_paths]
+                                       :set_hostgroup, :set_resource,
+                                       :set_jenkins, :run_job, :set_environment,
+                                       :add_projects, :remove_projects, :set_to_environments]
+    before_filter(:only => [:available_resources, :available_paths]) { find_job [] }
     before_filter :job_filter, :only => [:run_job]
 
     def_param_group :job do
@@ -31,7 +31,7 @@ module ForemanPipeline
     param :organization_id, :number, :desc => N_("organization identifier"), :required => true
     param :name, String, :desc => N_("Name of the job")
     def index
-      respond_for_index(:collection => scoped_search(index_relation.uniq, params[:sort_by], params[:sort_order]))
+      respond_for_index(:collection => scoped_search(index_relation.uniq, params[:sort_by], params[:sort_order], :includes => job_includes))
     end
 
     def index_relation
@@ -233,8 +233,13 @@ module ForemanPipeline
 
     protected
 
-    def find_job
-      @job = Job.find_by_id(params[:id])
+    def job_includes
+      [:content_view, :hostgroup, :compute_resource, :jenkins_instance, :to_environments, :environment => [:successors],
+        :jenkins_projects => [:jenkins_project_params]]
+    end
+
+    def find_job(find_includes = job_includes)
+      @job = Job.includes(find_includes).where(:id => params[:id]).first
       fail ::Katello::HttpErrors::NotFound, "Could not find job with id #{params[:id]}" if @job.nil?
       @job
     end
