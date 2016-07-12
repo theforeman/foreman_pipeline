@@ -22,7 +22,7 @@ class DropJobJenkinsProject < ActiveRecord::Migration
     add_column :foreman_pipeline_jenkins_projects, :job_jenkins_project_id, :integer
     projects = execute("SELECT * FROM foreman_pipeline_jenkins_projects;")
     projects.each do |project|
-      ForemanPipeline::JobJenkinsProject.create(:job_id => project['job_id'], :jenkins_project_id => project['id'])
+      execute("INSERT INTO foreman_pipeline_job_jenkins_projects (job_id, jenkins_project_id, created_at, updated_at) VALUES (#{project['job_id']},#{project['id']},'#{Time.now}','#{Time.now}')")
     end
 
     remove_column :foreman_pipeline_jenkins_projects, :job_id
