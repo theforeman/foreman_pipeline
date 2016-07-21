@@ -4,7 +4,7 @@ module ForemanPipeline
 
     include Api::Rendering
 
-    before_filter :find_job
+    before_action :find_job
 
     api :GET, "/organizations/:organization_id/jenkins_requests/list"
     param :organization_id, :number, :desc => N_("Organization identifier"), :required => true

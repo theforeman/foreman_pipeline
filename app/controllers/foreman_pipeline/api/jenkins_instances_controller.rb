@@ -5,14 +5,14 @@ module ForemanPipeline
     include Api::Rendering
     include Concerns::ApiControllerExtensions
 
-    before_filter :find_jenkins_instance, :only => [:show, :update, :destroy, :check_jenkins, :set_jenkins_user]
-    before_filter :find_organization, :only => [:index, :create]
+    before_action :find_jenkins_instance, :only => [:show, :update, :destroy, :check_jenkins, :set_jenkins_user]
+    before_action :find_organization, :only => [:index, :create]
 
     def_param_group :jenkins_instance do
       param :name, String, :desc => N_("Jenkins instance's name")
       param :url, String, :desc => N_("Jenkins instance's url")
-      param :cert_path, String, :desc => ("Path to the private certificate for passwordless access to jenkins server")
-      param :jenkins_home, String, :desc => ("Location of $JENKINS_HOME")
+      param :cert_path, String, :desc => N_("Path to the private certificate for passwordless access to jenkins server")
+      param :jenkins_home, String, :desc => N_("Location of $JENKINS_HOME")
     end
 
     def_param_group :jenkins_instance_id do
@@ -52,16 +52,12 @@ module ForemanPipeline
         @jenkins_instance.save!
 
         if task.output.fetch(:status) == 1
-          raise ActiveRecord::Rollback
           rollback = true
+          raise ActiveRecord::Rollback
         end
       end
-
-      if rollback
-        fail ::Katello::HttpErrors::Conflict, "Could not access Jenkins server, are you sure you set up certificates?"
-      else
-        respond_for_show(:resource => @jenkins_instance)
-      end
+      fail ::Katello::HttpErrors::Conflict, "Could not access Jenkins server, are you sure you set up certificates?" if rollback
+      respond_for_show(:resource => @jenkins_instance)
     end
 
     api :PUT, "/organizations/:organization_id/jenkins_instances/:id", N_("Update jenkins instance")
@@ -87,7 +83,7 @@ module ForemanPipeline
       respond_for_show(:resource => @jenkins_instance)
     end
 
-    api :GET,  "/organizations/:organization_id/jenkins_instances/:id/check_jenkins", N_("Check jenkins instance reachability")
+    api :GET, "/organizations/:organization_id/jenkins_instances/:id/check_jenkins", N_("Check jenkins instance reachability")
     param_group :jenkins_instance_id
     def check_jenkins
       task = sync_task(::Actions::ForemanPipeline::Jenkins::GetVersion,
@@ -97,7 +93,7 @@ module ForemanPipeline
       respond_for_show
     end
 
-    api :PUT,  "/organizations/:organization_id/jenkins_instances/:id", N_("Set jenkins user")
+    api :PUT, "/organizations/:organization_id/jenkins_instances/:id", N_("Set jenkins user")
     param_group :jenkins_instance_id
     param :jenkins_user_id, :number, :desc => N_("Jenkins user identifier to be set")
     def set_jenkins_user

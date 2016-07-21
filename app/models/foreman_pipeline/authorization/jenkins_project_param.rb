@@ -3,6 +3,6 @@ module ForemanPipeline
     extend ActiveSupport::Concern
 
     include Authorization::BaseModel
-    
+
   end
 end

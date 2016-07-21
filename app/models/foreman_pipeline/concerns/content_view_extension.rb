@@ -1,4 +1,4 @@
-  module ForemanPipeline
+module ForemanPipeline
   module Concerns
     module ContentViewExtension
       extend ActiveSupport::Concern

@@ -15,7 +15,7 @@ module ForemanPipeline
 
     has_many :jenkins_projects, :class_name => 'ForemanPipeline::JenkinsProject'
 
-    has_many :content_view_repositories, :class_name=> 'Katello::ContentViewRepository',
+    has_many :content_view_repositories, :class_name => 'Katello::ContentViewRepository',
      :primary_key => :content_view_id, :foreign_key => :content_view_id
     has_many :repositories, :through => :content_view_repositories
 
@@ -58,7 +58,7 @@ module ForemanPipeline
       jenkins_instance.create_client(jenkins_instance.jenkins_user.name, jenkins_instance.jenkins_user.token)
     end
 
-    #Is any to_env set? (Do we want to promote to any env?)
+    # Is any to_env set? (Do we want to promote to any env?)
     def should_be_promoted?
       !to_environments.empty?
     end
@@ -67,16 +67,16 @@ module ForemanPipeline
     def not_yet_promoted?
       # no to_envs means we do not want to promote, no need to check further here
       return true if to_environments.empty?
-      #we want to promote, but are any of to_envs safe to promote to?
+      # we want to promote, but are any of to_envs safe to promote to?
       can_be_promoted?
     end
 
-    #If we want to promote, is it safe (or could we get a cycle)?
+    # If we want to promote, is it safe (or could we get a cycle)?
     def promotion_safe?
       should_be_promoted? ? can_be_promoted? : false
     end
 
-    #we have some to_envs set (== we want to promote), but cv version may already be in those envs
+    # we have some to_envs set (== we want to promote), but cv version may already be in those envs
     def envs_for_promotion
       to_environments.reject { |env| target_cv_version.environments.include?(env) }
     end

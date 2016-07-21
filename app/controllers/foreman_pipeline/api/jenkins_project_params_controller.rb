@@ -4,13 +4,13 @@ module ForemanPipeline
 
     include Api::Rendering
 
-    before_filter :find_jenkins_project_param, :only => [:update]
+    before_action :find_jenkins_project_param, :only => [:update]
 
     api :PUT, "/organizations/:organization_id/jenkins_project_params/:id", N_("Update jenkins project param")
     param :organization_id, :number, :desc => N_("Organization identifier"), :required => true
     param :id, :number, :desc => N_("Jenkins project parameter identifier")
     param :name, String, :desc => N_("Parameter's name")
-    param :type, ["boolean", "string", "text"], :desc => N_("Parameter's type")
+    param :type, %w(boolean string text), :desc => N_("Parameter's type")
     param :value, String, :desc => N_("Parameter's value")
     param :description, String, :desc => N_("Parameter's description")
     def update

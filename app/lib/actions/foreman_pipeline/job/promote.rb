@@ -9,7 +9,7 @@ module Actions
         end
 
         def run
-          unless job.environment.successors.empty? #when we are not at the end of lifecycle path
+          unless job.environment.successors.empty? # when we are not at the end of lifecycle path
             fail "Content View promotion disabled" unless job.should_be_promoted?
             fail "Content view already promoted to the next environment(s), skipping promotion(s)" unless job.promotion_safe?
             promote_environment

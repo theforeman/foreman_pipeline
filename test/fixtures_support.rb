@@ -7,7 +7,7 @@ module ForemanPipeline
       :jenkins_projects => ForemanPipeline::JenkinsProject,
       :pipeline_hostgroups => Hostgroup,
       :pipeline_compute_profiles => ComputeProfile,
-      :pipeline_compute_attributes => ComputeAttribute,
+      :pipeline_compute_attributes => ComputeAttribute
     }
 
     def self.set_fixture_classes(test_class)

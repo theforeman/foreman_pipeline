@@ -32,7 +32,7 @@ module Actions
                     puppet_ca_proxy:      hostgroup.puppet_ca_proxy,
                     organization_id:      input[:options][:org_id],
                     location:             location
-                  )
+          )
 
           organization_param
           keys_param
@@ -51,7 +51,7 @@ module Actions
         private
 
         def kt_org
-           ::Organization.find(input[:options][:org_id]).name
+          ::Organization.find(input[:options][:org_id]).name
         end
 
         def organization_param

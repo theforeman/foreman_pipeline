@@ -2,7 +2,7 @@ module ForemanPipeline
   class JobFilter
 
     def allow_run_for?(job)
-     allowed?(job) && job.target_cv_version_avail?
+      allowed?(job) && job.target_cv_version_avail?
     end
 
     def allowed?(job)

@@ -4,7 +4,7 @@ module ForemanPipeline
 
     include Api::Rendering
 
-    before_filter :find_jenkins_project, :only => [:show]
+    before_action :find_jenkins_project, :only => [:show]
 
     api :GET, "/organizations/:organization_id/jenkins_projects/:id", N_("Get jenkins project by identifier")
     param :organization_id, :number, :desc => N_("Organization identifier")

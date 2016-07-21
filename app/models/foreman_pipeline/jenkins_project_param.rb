@@ -10,7 +10,7 @@ module ForemanPipeline
     belongs_to :jenkins_project, :class_name => "ForemanPipeline::JenkinsProject"
     attr_accessible :name, :type, :description, :value, :organization, :jenkins_project
 
-    TYPES = ["string", "boolean", "text"]
+    TYPES = %w(string boolean text)
     validates :type, :inclusion => { :in => TYPES }
 
     def format_bool

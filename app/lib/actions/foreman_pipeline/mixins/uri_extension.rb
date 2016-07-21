@@ -6,7 +6,7 @@ module Actions
         require 'uri'
 
         def jenkins_hostname(job)
-          URI(job.jenkins_instance.url).host  
+          URI(job.jenkins_instance.url).host
         end
       end
     end
