@@ -7,8 +7,6 @@ module ForemanPipeline
     belongs_to :organization
     validate :org_membership
 
-    attr_accessible :job_id, :environment_id, :organization_id
-
     private
 
     def org_membership

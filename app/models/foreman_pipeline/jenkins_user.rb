@@ -11,8 +11,6 @@ module ForemanPipeline
     validates :name, :presence => true
     validates :token, :presence => true
 
-    attr_accessible :name, :token, :organization_id
-
     scoped_search :on => :name, :complete_value => true
   end
 end

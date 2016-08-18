@@ -8,8 +8,6 @@ module ForemanPipeline
     include Katello::Glue
     include ForemanPipeline::Authorization::JenkinsInstance
 
-    attr_accessible :name, :url, :organization_id, :pubkey, :jenkins_home, :cert_path, :jenkins_user_id
-
     belongs_to :organization
     has_many :jobs, :class_name => "ForemanPipeline::Job", :dependent => :nullify
     belongs_to :jenkins_user, :class_name => "ForemanPipeline::JenkinsUser"

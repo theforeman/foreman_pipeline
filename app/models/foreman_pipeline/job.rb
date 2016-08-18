@@ -27,10 +27,6 @@ module ForemanPipeline
 
     validate :no_composite_view, :env_succession, :compute_resource_on_hg, :compute_profile_on_hg, :hg_with_puppet_env
 
-    attr_accessible :name, :content_view_id, :hostgroup_id, :organization_id, :compute_resource_id, :jenkins_instance_id,
-      :environment_id, :manual_trigger, :levelup_trigger, :sync_trigger, :content_view, :hostgroup, :organization, :compute_resource,
-      :jenkins_instance, :environment, :to_environments
-
     scoped_search :on => :name, :complete_value => true
     scoped_search :on => :organization_id, :complete_value => true
     scoped_search :on => :manual_trigger, :complete_value => true

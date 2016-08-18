@@ -7,7 +7,6 @@ module ForemanPipeline
 
     belongs_to :organization
 
-    attr_accessible :name, :organization_id, :job_id
     validates :name, :presence => true, :uniqueness => true
 
     belongs_to :job, :class_name => 'ForemanPipeline::Job', :inverse_of => :jenkins_projects
