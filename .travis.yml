@@ -7,7 +7,7 @@ env:
   - RUBY=2.1
   - RUBY=2.2
 before_install:
-  - sudo docker pull oprazak/centos7:ruby_test2
+  - sudo docker pull oprazak/centos7:ruby_test3
   - sudo docker pull postgres
 install:
  - ./shell/travis_install.sh

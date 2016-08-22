@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 cd ..
 docker run --name postgresql -d postgres
-docker run -d --link postgresql:postgresql --name cos -v $(pwd)/projects:/projects oprazak/centos7:ruby_test2 tail -f /dev/null
+docker run -d --link postgresql:postgresql --name cos -v $(pwd)/projects:/projects oprazak/centos7:ruby_test3 tail -f /dev/null
 
 docker exec cos su - user -c "rvm install ${RUBY}"
 docker exec cos su - user -c "gem install bundler"
