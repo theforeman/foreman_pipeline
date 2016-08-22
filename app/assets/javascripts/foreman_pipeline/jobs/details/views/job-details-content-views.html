@@ -29,8 +29,12 @@
                 ng-hide="denied('edit_jobs')"
                 ng-disabled="!cvTable.chosenRow || cvTable.working"
                 ng-click="setContentView()">
-          <i class="fa fa-pencil" ng-hide="cvTable.working"></i>
-          <i class="fa fa-spinner fa-spin" ng-show="cvTable.working"></i>
+          <span ng-hide="cvTable.working">
+            <i class="fa fa-pencil" ></i>
+          </span>
+          <span ng-show="cvTable.working">
+            <i class="fa fa-spinner fa-spin"></i>
+          </span>
           {{ 'Set Content View' | translate }}
         </button>
 

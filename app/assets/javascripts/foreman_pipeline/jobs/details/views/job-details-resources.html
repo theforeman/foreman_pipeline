@@ -43,8 +43,12 @@
                 ng-hide="edit_jobs"
                 ng-disabled="!table.chosenRow || table.working"
                 ng-click="setResource()">
-          <i class="fa fa-pencil" ng-hide="table.working"></i>
-          <i class="fa fa-spinner fa-spin" ng-show="table.working"></i>
+          <span ng-hide="table.working">
+            <i class="fa fa-pencil"></i>
+          </span>
+          <span ng-show="table.working">
+            <i class="fa fa-spinner fa-spin"></i>
+          </span>
           {{ 'Set Compute Resource' | translate }}
         </button>
       </div>

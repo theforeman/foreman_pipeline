@@ -1,4 +1,4 @@
-angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserController', 
+angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserController',
     ['$scope', '$q', 'translate', 'JenkinsUser', 'JenkinsInstance',
         function ($scope, $q, translate, JenkinsUser, JenkinsInstance) {
 
@@ -14,7 +14,7 @@ angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserContro
 
             success = function (response) {
                 $scope.working = false;
-                $scope.transitionBack();                
+                $scope.transitionBack();
             };
 
             error = function (response) {
@@ -22,12 +22,12 @@ angular.module('ForemanPipeline.jenkins-users').controller('NewJenkinsUserContro
                 angular.forEach(response.data.errors, function (errors, field) {
                     try {
                         $scope.jenkinsUsereForm[field].$setValidity('server', false);
-                        $scope.jenkinsUserForm[field].$error.messages = errors;    
-                    } 
+                        $scope.jenkinsUserForm[field].$error.messages = errors;
+                    }
                     catch (err) {
                         $scope.errorMessages.push(errors);
                     }
-                    
+
                 });
             };
 

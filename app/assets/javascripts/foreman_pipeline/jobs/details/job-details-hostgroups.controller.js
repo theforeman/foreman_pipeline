@@ -1,5 +1,5 @@
 angular.module('ForemanPipeline.jobs').controller('JobDetailsHostgroupsController',
-    ['$scope', '$q', '$location', 'translate', 'Job', 'Hostgroup', 'Nutupane', 
+    ['$scope', '$q', '$location', 'translate', 'Job', 'Hostgroup', 'Nutupane',
         function ($scope, $q, $location, translate, Job, Hostgroup, Nutupane) {
 
             $scope.successMessages = [];
@@ -8,7 +8,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsHostgroupsControlle
             params = {
                 'search': $location.search().search || "",
                 'sort_by': 'name',
-                'order': 'ASC' 
+                'order': 'ASC'
             }
 
             $scope.job = $scope.job || Job.get({id: $scope.$stateParams.jobId}, function () {
@@ -53,7 +53,5 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsHostgroupsControlle
                     Job.setHostgroup({id: $scope.job.id}, data, success, error);
                     return deferred.promise;
             };
-
-            
         }
-    ]);
+]);

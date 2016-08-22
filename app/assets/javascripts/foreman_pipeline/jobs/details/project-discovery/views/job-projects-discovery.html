@@ -2,7 +2,7 @@
 
 <div class="details details-full">
   <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
-  
+
   <div class="row">
     <div class="col-sm-5">
       <a href="" ui-sref="jobs.details.jenkins-projects.list({jobId: job.id})">
@@ -19,9 +19,9 @@
 
   <div class="details-header row">
     <form ng-submit="discover()" role="form" class="col-sm-6" ng-show="permitted('edit_jobs', job)">
-      <div class="input-group" >    
-                
-        <input type="text" 
+      <div class="input-group" >
+
+        <input type="text"
              class="form-control input-lg"
              placeholder="{{ 'Search by name...' | translate }}"
              ng-model="discovery.pattern"
@@ -31,10 +31,14 @@
           <button translate
                   class="btn btn-primary btn-lg"
                   ng-disabled="discovery.pending || discovery.pattern === '' ">
-            <i class="fa fa-search" ng-show="!discovery.pending"></i>
-            <i class="fa fa-spinner fa-spin" ng-show="discovery.pending"></i>
+            <span ng-show="!discovery.pending">
+              <i class="fa fa-search"></i>
+            </span>
+            <span ng-show="discovery.pending">
+              <i class="fa fa-spinner fa-spin"></i>
+            </span>
             Search
-          </button>       
+          </button>
         </span>
       </div>
     </form>
@@ -59,11 +63,15 @@
                 ng-disabled="projectsTable.numSelected === 0 || discovery.pending || projectsTable.working"
                 ng-show="isState('jobs.details.jenkins-projects.discovery') && permitted('edit_jobs', job)"
                 ng-click="addProjects(job)">
-          <i class="fa fa-plus" ng-hide="projectsTable.working"></i>
-          <i class="fa fa-spinner fa-spin" ng-show="projectsTable.working"></i>
+          <span ng-hide="projectsTable.working">
+            <i class="fa fa-plus"></i>
+          </span>
+          <span ng-show="projectsTable.working">
+            <i class="fa fa-spinner fa-spin"></i>
+          </span>
           <span translate>Add Projects</span>
-        </button>       
-      </div>   
+        </button>
+      </div>
     </div>
   </div>
 
@@ -78,7 +86,7 @@
         </thead>
 
         <tbody>
-          <tr bst-table-row 
+          <tr bst-table-row
               row-select="project"
               ng-repeat="project in projectsTable.rows | filter:projectsTable.filterTerm">
             <td bst-table-cell>{{ project.name }}</td>

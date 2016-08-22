@@ -1,5 +1,5 @@
 angular.module('ForemanPipeline.jobs').controller('JobDetailsContentViewsController',
-    ['$scope', '$q', '$location','translate', 'Job', 'ContentView', 'Nutupane', 
+    ['$scope', '$q', '$location','translate', 'Job', 'ContentView', 'Nutupane',
         function ($scope, $q, $location, translate, Job, ContentView, Nutupane) {
 
             $scope.successMessages = [];
@@ -37,7 +37,7 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsContentViewsControl
                         cvNutupane.refresh();
                         $scope.job.content_view = $scope.chosen;
                         $scope.cvTable.chosenRow = null;
-                    };                 
+                    };
 
                     error = function (response) {
                         deferred.reject(response);
@@ -50,6 +50,6 @@ angular.module('ForemanPipeline.jobs').controller('JobDetailsContentViewsControl
                     $scope.cvTable.working = true;
                     Job.setContentView({id: $scope.job.id}, data, success, error);
                     return deferred.promise;
-            };          
+            };
         }
     ]);

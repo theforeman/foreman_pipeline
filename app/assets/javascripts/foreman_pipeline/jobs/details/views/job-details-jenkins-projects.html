@@ -23,8 +23,12 @@
               ng-disabled="projectsTable.numSelected === 0 || projectsTable.working"
               ng-show="isState('jobs.details.jenkins-projects.list') && permitted('edit_jobs', job) && projectsTable.rows.length > 0"
               ng-click="removeProjects()">
-        <i class="fa fa-minus" ng-hide="projectsTable.working"></i>
-        <i class="fa fa-spinner fa-spin" ng-show="projectsTable.working"></i>
+      <span ng-hide="projectsTable.working">
+        <i class="fa fa-minus"></i>
+      </span>
+      <span ng-show="projectsTable.working">
+        <i class="fa fa-spinner fa-spin"></i>
+      </span>
         <span translate>Remove Projects</span>
       </button>
 
@@ -43,7 +47,6 @@
 
   <table bst-table="projectsTable"
          class="table table-striped"
-         ng-show="projectsTable.rows.length > 0 && !projectsTable.working"
          ng-class="{'table-mask': projectsTable.working}">
     <thead>
       <tr bst-table-head row-select="jenkinsProject">
@@ -51,7 +54,7 @@
       </tr>
     </thead>
 
-    <tbody>
+    <tbody ng-show="projectsTable.rows.length > 0 && !projectsTable.working">
       <tr bst-table-row ng-repeat="jenkinsProject in projectsTable.rows | filter:jenkinsFilter" row-select="jenkinsProject">
         <td bst-table-cell>
           <a href="" ui-sref="jobs.details.jenkins-projects.parameters({ projectId: jenkinsProject.id })">
@@ -60,8 +63,6 @@
         </td>
       </tr>
     </tbody>
-
   </table>
 
 </section>
-

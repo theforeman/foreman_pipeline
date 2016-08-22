@@ -2,25 +2,25 @@
 
 <div class="details details-full">
   <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
-        
+
   <h4>
     <span translate>Current Jenkins User: </span>
       <a ui-sref="jenkins-instances.details.users.info({
         jenkinsInstanceId: jenkinsInstance.id, jenkinsUserId: jenkinsInstance.jenkins_user.id})">
         <span class="no-capitalize" ng-show="jenkinsInstance.jenkins_user.name" ng-bind="jenkinsInstance.jenkins_user.name">
         </span>
-      </a>      
+      </a>
     <span class="no-capitalize" ng-show="!jenkinsInstance.jenkins_user.name" translate>none</span>
   </h4>
 
-  <br/> 
+  <br/>
 
   <section>
     <div class="details-header row">
-      
+
       <div class="col-sm-3" ng-show="jUserTable.rows.length > 0">
         <input type="text"
-                class="form-control"  
+                class="form-control"
                 placeholder="{{ 'Filter' | translate }}"
                 ng-model="userFilter" />
       </div>
@@ -29,12 +29,15 @@
 
         <span ng-show="jUserTable.rows.length > 0">
         <button class="btn btn-default"
-                
                 ng-hide="denied('edit_jobs')"
-                ng-disabled="!jUserTable.chosenRow || jUserTable.working" 
+                ng-disabled="!jUserTable.chosenRow || jUserTable.working"
                 ng-click="setJenkinsUser()">
-          <i class="fa fa-pencil" ng-hide="jUserTable.working"></i>      
-          <i class="fa fa-spinner fa-spin" ng-show="jUserTable.working"></i>      
+          <span ng-hide="jUserTable.working">
+            <i class="fa fa-pencil"></i>
+          </span>
+          <span ng-show="jUserTable.working">
+            <i class="fa fa-spinner fa-spin"></i>
+          </span>
           {{ 'Set Jenkins User' | translate }}
         </button>
         </span>
@@ -43,7 +46,7 @@
                 ng-hide="denied('edit_jobs')"
                 ui-sref="jenkins-instances.details.users.new(
                           {jenkinsInstanceId: jenkinsInstance.id})">
-          <i class="fa fa-file"></i>      
+          <i class="fa fa-file"></i>
           {{ 'New Jenkins User' | translate }}
         </button>
       </div>
@@ -51,7 +54,7 @@
 
     <div bst-table="jUserTable" class="nutupane" ng-show="jUserTable.rows.length > 0">
       <div bst-container-scroll bst-infinite-scroll="jUserTable.nextPage()">
-  
+
         <table ng-class="{'table-mask': jUserTable.working}"
                class="table table-full table-striped">
 
@@ -64,7 +67,7 @@
 
           <tbody>
             <tr bst-table-row ng-repeat="jenkinsUser in jUserTable.rows | filter:userFilter" row-choice="jenkinsUser">
-              
+
               <td bst-table-cell>
                 <a ui-sref="jenkins-instances.details.users.info({ jenkinsUserId: jenkinsUser.id, jenkinsInstanceId: jenkinsInstance.id })">
                   {{ jenkinsUser.name }}
@@ -75,7 +78,7 @@
                  <button class="btn btn-default"
                          ng-hide="denied('edit_jenkins_instance')"
                          ng-click="openModal()">
-                  <i class="fa fa-trash-o"></i>      
+                  <i class="fa fa-trash-o"></i>
                   {{ 'Delete' | translate }}
                 </button>
                 <div bst-modal="deleteJenkinsUser(jenkinsUser)">
@@ -95,7 +98,7 @@
   <div ng-show="jUserTable.rows.length === 0">
     <div class="loading-mask loading-mask-panel" ng-show="jUserTable.working">
       <i class="fa fa-spinner fa-spin"></i>
-        {{ "Loading..." | translate }}          
+        {{ "Loading..." | translate }}
     </div>
 
     <p class="alert alert-info"

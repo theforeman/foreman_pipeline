@@ -9,13 +9,13 @@
     </div>
 </div>
 <h4 translate>Lifecycle Environment selection: select target environment</h4>
-<section class="nutupane-sub-section"> 
-  
+<section class="nutupane-sub-section">
+
   <div bst-alerts success-messages="successMessages" error-messages="errorMessages"></div>
 
   <div class="loading-mask loading-mask-panel" ng-show="loading">
     <i class="fa fa-spinner fa-spin"></i>
-      {{ "Loading..." | translate }}          
+      {{ "Loading..." | translate }}
   </div>
 
 
@@ -31,13 +31,17 @@
             ng-hide="denied('edit_jobs')"
             ng-disabled="working"
             ng-click="setToEnvironments()">
-      <i class="fa fa-pencil" ng-hide="working"></i>      
-      <i class="fa fa-spinner fa-spin" ng-show="working"></i>           
+      <span ng-hide="working">
+        <i class="fa fa-pencil"></i>
+      </span>
+      <span ng-show="working">
+        <i class="fa fa-spinner fa-spin"></i>
+      </span>
       <span translate>Set To Environments</span>
     </button>
   </section>
-  
-  
+
+
   <div ng-show="availableEnvironments.length === 0" >
     <p class="alert alert-info"
        ng-hide="loading"

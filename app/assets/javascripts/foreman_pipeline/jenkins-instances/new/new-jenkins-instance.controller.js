@@ -1,5 +1,5 @@
 angular.module('ForemanPipeline.jenkins-instances').controller('NewJenkinsInstanceController',
-    ['$scope', 'translate', 'JenkinsInstance', 
+    ['$scope', 'translate', 'JenkinsInstance',
     function ($scope, translate, JenkinsInstance) {
 
         $scope.successMessages = [];
@@ -21,20 +21,17 @@ angular.module('ForemanPipeline.jenkins-instances').controller('NewJenkinsInstan
             angular.forEach(response.data.errors, function (errors, field) {
                 try {
                     $scope.jenkinsInstanceForm[field].$setValidity('server', false);
-                    $scope.jenkinsInstanceForm[field].$error.messages = errors;    
-                } 
+                    $scope.jenkinsInstanceForm[field].$error.messages = errors;
+                }
                 catch (err) {
                     $scope.errorMessages.push(errors);
                 }
-                
+
             });
         };
 
         $scope.createJenkinsInstance = function (jenkinsInstance) {
             jenkinsInstance.$save(success, error);
         };
-
-
-
     }]
 );

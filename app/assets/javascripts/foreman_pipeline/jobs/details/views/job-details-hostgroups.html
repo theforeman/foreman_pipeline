@@ -40,8 +40,12 @@
                   ng-hide="edit_jobs"
                   ng-disabled="!hostgroupsTable.chosenRow || hostgroupsTable.working"
                   ng-click="setHostgroup()">
-            <i class="fa fa-pencil" ng-hide="hostgroupsTable.working"></i>
-            <i class="fa fa-spinner fa-spin" ng-show="hostgroupsTable.working"></i>
+            <span ng-hide="hostgroupsTable.working">
+              <i class="fa fa-pencil"></i>
+            </span>
+            <span ng-show="hostgroupsTable.working">
+              <i class="fa fa-spinner fa-spin"></i>
+            </span>
             {{ 'Set Hostgroup' | translate }}
           </button>
       </div>
