@@ -5,14 +5,14 @@ module ForemanPipeline
     include Api::Rendering
     include Concerns::ApiControllerExtensions
 
-    before_filter :find_organization, :only => [:create, :index, :add_projects, :available_paths]
+    before_action :find_organization, :only => [:create, :index, :add_projects, :available_paths]
 
-    before_filter :find_job, :only => [:update, :show, :destroy, :set_content_view,
+    before_action :find_job, :only => [:update, :show, :destroy, :set_content_view,
                                        :set_hostgroup, :set_resource, :available_resources,
                                        :set_jenkins, :set_environment, :run_job,
                                        :add_projects, :remove_projects, :set_to_environments,
                                        :available_paths]
-    before_filter :job_filter, :only => [:run_job]
+    before_action :job_filter, :only => [:run_job]
 
     def_param_group :job do
       param :name, String, :desc => N_("Name of the job"), :required => true
@@ -132,16 +132,15 @@ module ForemanPipeline
     def set_to_environments
       fail Katello::HttpErrors::Conflict, "Job's environment must be assigned before setting 'to environments'." if @job.environment.nil?
       fail Katello::HttpErrors::Conflict, "Job's environment does not have any successors" if @job.environment.successors.empty?
+
       is_ok = params[:to_environment_ids].map do |new_id|
         @job.environment.successors.map(&:id).include? new_id.to_i
       end.all?
-      if is_ok
-        @job.to_environment_ids = params[:to_environment_ids]
-        @job.save!
-        respond_for_show
-      else
-        fail Katello::HttpErrors::Conflict, "Only environments that are direct successors of Job's Environment may be set as 'to environments'."
-      end
+
+      fail Katello::HttpErrors::Conflict, "Only environments that are direct successors of Job's Environment may be set as 'to environments'." unless is_ok
+      @job.to_environment_ids = params[:to_environment_ids]
+      @job.save!
+      respond_for_show
     end
 
     api :GET, "/organizations/:organization_id/jobs/:id/available_paths", N_("List environment paths available for a job")
@@ -182,16 +181,10 @@ module ForemanPipeline
     api :GET, "/organizations/:organization_id/jobs/:id/run_job", N_("Start job execution")
     param_group :job_id
     def run_job
-      if @job.manual_trigger
-        if @filter.allow_run_for? @job
-          task = async_task(::Actions::ForemanPipeline::Job::RunJobManually, @job)
-          render :nothing => true
-        else
-          fail ::Katello::HttpErrors::Forbidden, "Job cannot be allowed to run, check your configuration"
-        end
-      else
-        fail ::Katello::HttpErrors::Forbidden, "Running manually not allowed for Job: #{@job.name}. Try setting it's :manual_trigger property."
-      end
+      fail ::Katello::HttpErrors::Forbidden, "Running manually not allowed for Job: #{@job.name}. Try setting it's :manual_trigger property." unless @job.manual_trigger
+      fail ::Katello::HttpErrors::Forbidden, "Job cannot be allowed to run, check your configuration" unless @filter.allow_run_for @job
+      task = async_task(::Actions::ForemanPipeline::Job::RunJobManually, @job)
+      render :nothing => true
     end
 
     api :PUT, "/organizations/:organization_id/jobs/:id/add_projects", N_("Add jenkins projects to the job")
@@ -209,9 +202,9 @@ module ForemanPipeline
           task = sync_task(::Actions::ForemanPipeline::Jenkins::GetBuildParams, :job_id => @job.id, :name => project.name)
 
           unless task.output[:build_params]
-            raise ActiveRecord::Rollback
             rollback[:occured] = true
             rollback[:project_name] = project.name
+            raise ActiveRecord::Rollback
           end
           task.output[:build_params].each do |param|
             JenkinsProjectParam.create(:name => param[:name],
@@ -223,11 +216,8 @@ module ForemanPipeline
           end
         end
       end
-      if rollback[:occured]
-        fail ::Katello::HttpErrors::NotFound, "Could not retrieve build params for Jenkins project: #{rollback[:project_name]}"
-      else
-        respond_for_show
-      end
+      fail ::Katello::HttpErrors::NotFound, "Could not retrieve build params for Jenkins project: #{rollback[:project_name]}" if rollback[:occured]
+      respond_for_show
     end
 
     api :PUT, "/organizations/:organization_id/jobs/:id/remove_projects", N_("Remove jenkins projects from the job")

@@ -5,8 +5,8 @@ module ForemanPipeline
     include Api::Rendering
     include Concerns::ApiControllerExtensions
 
-    before_filter :find_organization, :only => [:create, :index]
-    before_filter :find_jenkins_user, :only => [:show, :destroy, :update]
+    before_action :find_organization, :only => [:create, :index]
+    before_action :find_jenkins_user, :only => [:show, :destroy, :update]
 
     def_param_group :jenkins_user_id do
       param :organization_id, :number, :desc => N_("organization identifier"), :required => true

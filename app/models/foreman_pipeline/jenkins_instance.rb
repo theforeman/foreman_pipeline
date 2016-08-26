@@ -21,7 +21,7 @@ module ForemanPipeline
     validates :organization, :presence => true
     validates :jenkins_home, :format => { :with => FILEPATH_REGEX }
 
-    scoped_search :on => :name , :complete_value => true
+    scoped_search :on => :name, :complete_value => true
 
     # TODO: loose coupling
     def create_client(username = nil, password = nil)

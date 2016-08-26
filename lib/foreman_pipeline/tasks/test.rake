@@ -13,6 +13,22 @@ namespace :test do
   end
 end
 
+namespace :foreman_pipeline do
+  task :rubocop do
+    begin
+      require 'rubocop/rake_task'
+      RuboCop::RakeTask.new(:rubocop_foreman_pipeline) do |task|
+        task.patterns = ["#{ForemanPipeline::Engine.root}/app/**/*.rb",
+        "#{ForemanPipeline::Engine.root}/lib/**/*.rb",
+        "#{ForemanPipeline::Engine.root}/test/**/*.rb"]
+      end
+    rescue
+      puts 'Rubocop not loaded.'
+    end
+    Rake::Task['rubocop_foreman_pipeline'].invoke
+  end
+end
+
 Rake::Task[:test].enhance do
   Rake::Task['test:foreman_pipeline'].invoke
 end

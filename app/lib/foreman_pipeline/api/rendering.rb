@@ -10,9 +10,9 @@ module ForemanPipeline
                :status => status,
                :locals => { :object_name => options[:object_name],
                             :root_name => options[:root_name] },
-               :layout => "katello/api/v2/layouts/#{options[:layout]}" 
+               :layout => "katello/api/v2/layouts/#{options[:layout]}"
       end
-      
+
     end
   end
 end

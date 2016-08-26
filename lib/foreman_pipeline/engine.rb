@@ -43,7 +43,7 @@ module ForemanPipeline
     end
 
     initializer 'foreman_pipeline.assets.precompile', :after => 'foreman_pipeline.configure_assets' do |app|
-       app.config.assets.precompile += SETTINGS[:foreman_pipeline][:assets][:precompile]
+      app.config.assets.precompile += SETTINGS[:foreman_pipeline][:assets][:precompile]
     end
 
     initializer "foreman_pipeline.apipie" do

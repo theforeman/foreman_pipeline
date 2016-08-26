@@ -1,7 +1,7 @@
 require 'foreman_pipeline_test_helper'
 
 class ForemanPipeline::Api::JobsControllerTest < ActionController::TestCase
-   include ::Support::ForemanTasks::Task
+  include ::Support::ForemanTasks::Task
 
   setup do
     stub_tasks!

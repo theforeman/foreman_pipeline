@@ -9,7 +9,7 @@ module ForemanPipeline
     belongs_to :organization
     belongs_to :jenkins_project, :class_name => "ForemanPipeline::JenkinsProject"
 
-    TYPES = ["string", "boolean", "text"]
+    TYPES = %w(string boolean text)
     validates :type, :inclusion => { :in => TYPES }
 
     def format_bool
