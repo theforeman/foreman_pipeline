@@ -57,7 +57,7 @@ angular.module('ForemanPipeline.jenkins-instances').controller('JenkinsInstanceD
                             errorMessage = [key, errorMessage].join(' ');
                         }
                         $scope.errorMessages.push(translate("Could not reach Jenkins server: ") + errorMessage);
-                        $scope.broadcast('errorMessages', $scope.errorMessages);
+                        $scope.$broadcast('errorMessages', $scope.errorMessages);
                     });
                 $scope.working = false;
             })
