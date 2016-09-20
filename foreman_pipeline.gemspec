@@ -17,7 +17,5 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "jenkins_api_client", "~> 1.4"
-  s.add_dependency "bastion", "~> 3.0"
-  #TODO: find a way to install this in a test env on jenkins for bastion
-  # s.add_dependency "less-rails", "~> 2.5.0"
+  s.add_dependency "bastion", "< 4.0", ">= 3.3.4"
 end
