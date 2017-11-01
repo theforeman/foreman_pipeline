@@ -1,8 +1,8 @@
 require "test_helper"
 
-FactoryGirl.definition_file_paths << File.join(Katello::Engine.root, 'test', 'factories')
-FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
-FactoryGirl.reload
+FactoryBot.definition_file_paths << File.join(Katello::Engine.root, 'test', 'factories')
+FactoryBot.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
+FactoryBot.reload
 
 require "#{Katello::Engine.root}/test/support/fixtures_support"
 require "fixtures_support"

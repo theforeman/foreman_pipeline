@@ -4,12 +4,12 @@ class JobTest < ActiveSupport::TestCase
 
   def setup
     @organization = get_organization
-    @compute_resource = FactoryGirl.create(:compute_resource, :libvirt)
-    @hostgroup = FactoryGirl.create(:hostgroup)
-    @content_view = FactoryGirl.create(:katello_content_view)
-    @jenkins_user = FactoryGirl.create(:jenkins_user, :organization => get_organization)
-    @jenkins_instance = FactoryGirl.create(:jenkins_instance, :jenkins_user => @jenkins_user, :organization => get_organization)
-    @environment = FactoryGirl.create(:katello_environment, :library)
+    @compute_resource = FactoryBot.create(:compute_resource, :libvirt)
+    @hostgroup = FactoryBot.create(:hostgroup)
+    @content_view = FactoryBot.create(:katello_content_view)
+    @jenkins_user = FactoryBot.create(:jenkins_user, :organization => get_organization)
+    @jenkins_instance = FactoryBot.create(:jenkins_instance, :jenkins_user => @jenkins_user, :organization => get_organization)
+    @environment = FactoryBot.create(:katello_environment, :library)
   end
 
   test "should find target cv" do
