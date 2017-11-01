@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :pipeline_organization, :class => Organization do
     sequence(:name) { |n| "pipeline_organization#{n}"}
   end
